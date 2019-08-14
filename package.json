@@ -1,0 +1,20 @@
+{
+  "name": "virtual-backlog",
+  "version": "1.0.0",
+  "description": "A full-stack MERN React app for users to store and display their entire videogame collections on animated 3D bookshelves.",
+  "main": "server.js",
+  "scripts": {
+    "test": "start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwkeena/virtual-backlog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwkeena/virtual-backlog/issues"
+  },
+  "homepage": "https://github.com/jwkeena/virtual-backlog#readme"
+}
