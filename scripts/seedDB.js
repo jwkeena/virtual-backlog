@@ -5,7 +5,8 @@ const db = require("../models");
 
 mongoose.connect(
     process.env.MONGODB_URI ||
-    "mongodb://localhost/virtualbacklog"
+    "mongodb://localhost/virtualbacklog",
+    { useNewUrlParser: true }
 );
 
 const gameSeed = [{
@@ -21,7 +22,9 @@ const gameSeed = [{
         rating: 9.5,
         price: 40,
         year_released: 2018,
-        date: new Date(Date.now())
+        date: new Date(Date.now()),
+        user: "Justin",
+        note: "testing"
     },
     {
         title: "BioShock Infinite",
@@ -35,7 +38,9 @@ const gameSeed = [{
         rating: 10,
         price: 10,
         year_released: 2013,
-        date: new Date(Date.now())
+        date: new Date(Date.now()),
+        user: "Justin",
+        note: "testing"
     },
     {
         title: "Metroid: Zero Mission",
@@ -49,12 +54,14 @@ const gameSeed = [{
         rating: 9.5,
         price: 25,
         year_released: 2004,
-        date: new Date(Date.now())
+        date: new Date(Date.now()),
+        user: "Justin",
+        note: "testing"
     }
 ]
 
 db.Game
-    .remove({})
+    .deleteMany({})
     .then(() => db.Game.collection.insertMany(gameSeed))
     .then(data => {
         console.log(data.result.n + " records inserted!");
