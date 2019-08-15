@@ -13,7 +13,19 @@ const gameSchema = new Schema({
   owned: Boolean,
   rating: Number,
   price: Number,
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  // `note` is an object that stores a Note id
+  // The ref property links the ObjectId to the Note model
+  // This allows us to populate the Article with an associated Note
+  note: {
+    type: Schema.Types.ObjectId,
+    ref: "Note"
+  },
+  // Same concept, but for an associated user
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 const Game = mongoose.model("Game", gameSchema);

@@ -6,8 +6,7 @@ class Games extends Component {
 
     // State
 
-    // componentDidMount
-    // Check if already logged in; if so, redirect to library or home page?
+    // componentDidMount: check if already logged in; if so, redirect to library or home page?
 
     render () {
         return (
