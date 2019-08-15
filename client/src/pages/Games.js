@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
+import Game from "../components/Game"
 
 class Games extends Component {
 
@@ -17,6 +18,7 @@ class Games extends Component {
                         <h1>Games Bookshelf Page</h1>
                     </Jumbotron>
                 </Col>
+                {/* <Game title={"Super Mario Odyssey"}/> */}
             </Row>
         </Container>
         )
