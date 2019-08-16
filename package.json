@@ -21,12 +21,14 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "clean-react-props": "^0.3.3",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "jquery": "^3.4.1",
     "jquery.ripples": "^0.6.2",
     "mongoose": "^5.6.9",
     "react-router-dom": "^5.0.1",
-    "react-water-wave": "^1.0.4"
+    "react-water-wave": "^1.0.4",
+    "typescript": "^3.5.3"
   }
 }
