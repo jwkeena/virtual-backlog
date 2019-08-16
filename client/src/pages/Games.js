@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Col, Row, Container } from "../components/Grid";
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import Jumbotron from "../components/Jumbotron";
-import Game from "../components/Game"
+import Game from "../components/Game";
 
 class Games extends Component {
 
@@ -11,16 +11,15 @@ class Games extends Component {
 
     render () {
         return (
-        <Container fluid>
-            <Row>
-                <Col size='sm-12'>
+        <MDBContainer fluid>
+            <MDBRow>
+                <MDBCol size='sm-12'>
                     <Jumbotron>
                         <h1>Games Bookshelf Page</h1>
                     </Jumbotron>
-                </Col>
-                {/* <Game title={"Super Mario Odyssey"}/> */}
-            </Row>
-        </Container>
+                </MDBCol>
+            </MDBRow>
+        </MDBContainer>
         )
     }
 };

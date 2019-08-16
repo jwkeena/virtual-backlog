@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Jumbotron from "../components/Jumbotron";
-import LoginForm from "../components/LoginForm"
+import RegisterForm from "../components/RegisterForm";
 
-class Login extends Component {
+class Register extends Component {
 
     // State
 
@@ -20,12 +20,13 @@ class Login extends Component {
                     </Jumbotron>
                 </MDBCol>
             </MDBRow>
+
             <MDBRow>
-                <LoginForm/>
+                <RegisterForm/>
             </MDBRow>
         </MDBContainer>
         )
     }
 };
 
-export default Login;
+export default Register;

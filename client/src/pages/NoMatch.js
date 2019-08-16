@@ -1,12 +1,12 @@
 import React from "react";
-import { Col, Row, Container } from "../components/Grid";
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import Jumbotron from "../components/Jumbotron";
 
 function NoMatch() {
   return (
-    <Container fluid>
-      <Row>
-        <Col size="md-12">
+    <MDBContainer fluid>
+      <MDBRow>
+        <MDBCol size="md-12">
           <Jumbotron>
             <h1>404 Page Not Found</h1>
             <h1>
@@ -15,9 +15,9 @@ function NoMatch() {
               </span>
             </h1>
           </Jumbotron>
-        </Col>
-      </Row>
-    </Container>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 }
 
