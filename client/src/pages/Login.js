@@ -14,6 +14,7 @@ class Login extends Component {
     render () {
         return (
         <MDBContainer fluid>
+
             <MDBRow>
                 <MDBCol size='sm-12'>
                     <Jumbotron>
@@ -21,13 +22,16 @@ class Login extends Component {
                     </Jumbotron>
                 </MDBCol>
             </MDBRow>
+
             <MDBRow>
                 <LoginForm/>
             </MDBRow>
+
             <br/>
             <Link className="text-center" to={"/register/"}>
             <p>Don't have an account?</p>
             </Link>
+            
         </MDBContainer>
         )
     }

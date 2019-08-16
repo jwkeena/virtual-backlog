@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Jumbotron from "../components/Jumbotron";
-import Game from "../components/Game";
 
 class Games extends Component {
 

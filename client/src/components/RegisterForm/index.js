@@ -1,26 +1,89 @@
-import React from "react";
+import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import API from "../../utils/API";
+class RegisterForm extends Component {
+  
+  // Setting the component's initial state
+  state = {
+    username: "",
+    email: "",
+    emailConfirm: "",
+    password: "",
+    passwordConfirm: ""
+  };
 
-const RegisterForm = () => {
-  return (
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    // Preventing the default behavior of the form submit (which is to refresh the page)
+    event.preventDefault();
+    // if (!this.state.username) {
+    //   alert("Enter a username before registering!");
+    // } else if (!this.state.email) {
+    //   alert("Enter an email before registering.");
+    // } else if (this.state.email !== this.state.emailConfirm) {
+    //   alert("Confirm email before registering.");
+    // } else if (this.state.email !== this.state.emailConfirm) {
+    //   alert("Emails do not match.");
+    // } else if (!this.state.password) {
+    //   alert ("Pick a password before registering!");
+    // } else if (this.state.password.length < 6) {
+    //   alert("Password must be at least six characters.");
+    // } else if (this.state.password !== this.state.passwordConfirm) {
+    //   alert("Passwords do not match.");
+    // } 
+
+    this.registerUser();
+  };
+
+  registerUser = () => {
+
+    const newUser = { 
+      username: this.state.username,
+      email: this.state.email,
+      secret: this.state.password
+    };
+
+    API.registerUser(newUser)
+     .then(res => alert("Profile successfully added!"))
+     .catch(err => console.log(err));
+  }
+
+  render() {
+    return (
     <MDBContainer>
       <MDBRow className="justify-content-center">
         <MDBCol md="6">
           <form>
             <p className="h4 text-center mb-4">Sign up</p>
             <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
-              Your name
+              Username
             </label>
             <input
+              value={this.state.username}
+              name="username"
+              onChange={this.handleInputChange}
               type="text"
               id="defaultFormRegisterNameEx"
               className="form-control"
             />
             <br />
             <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
-              Your email
+              Email
             </label>
             <input
+              name="email"
+              value={this.state.email}
+              onChange={this.handleInputChange}
               type="email"
               id="defaultFormRegisterEmailEx"
               className="form-control"
@@ -30,9 +93,12 @@ const RegisterForm = () => {
               htmlFor="defaultFormRegisterConfirmEx"
               className="grey-text"
             >
-              Confirm your email
+              Confirm email
             </label>
             <input
+              name="emailConfirm"
+              value={this.state.emailConfirm}
+              onChange={this.handleInputChange}
               type="email"
               id="defaultFormRegisterConfirmEx"
               className="form-control"
@@ -42,15 +108,33 @@ const RegisterForm = () => {
               htmlFor="defaultFormRegisterPasswordEx"
               className="grey-text"
             >
-              Your password
+              Set password
             </label>
             <input
+              name="password"
+              value={this.state.password}
+              onChange={this.handleInputChange}
               type="password"
               id="defaultFormRegisterPasswordEx"
               className="form-control"
             />
+            <br/>
+            <label
+              htmlFor="defaultFormRegisterPasswordEx2"
+              className="grey-text"
+            >
+              Confirm password
+            </label>
+            <input
+              name="passwordConfirm"
+              value={this.state.passwordConfirm}
+              onChange={this.handleInputChange}
+              type="password"
+              id="defaultFormRegisterPasswordEx2"
+              className="form-control"
+            />
             <div className="text-center mt-4">
-              <MDBBtn color="unique" type="submit">
+              <MDBBtn onClick={this.handleFormSubmit} color="unique" type="submit">
                 Register
               </MDBBtn>
             </div>
@@ -58,7 +142,8 @@ const RegisterForm = () => {
         </MDBCol>
       </MDBRow>
     </MDBContainer>
-  );
+    );
+  }
 };
 
 export default RegisterForm;
