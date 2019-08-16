@@ -1,5 +1,6 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { Link } from "react-router-dom"
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Jumbotron from "../components/Jumbotron";
 
 function NoMatch() {
@@ -17,6 +18,9 @@ function NoMatch() {
           </Jumbotron>
         </MDBCol>
       </MDBRow>
+      <Link className="text-center" to={"/"}>
+        <p>Back to home</p>
+      </Link>
     </MDBContainer>
   );
 }
