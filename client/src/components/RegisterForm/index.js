@@ -54,7 +54,23 @@ class RegisterForm extends Component {
     };
 
     API.registerUser(newUser)
-     .then(res => alert("Profile successfully added!"))
+     .then(function(res) {
+      if (res.data.message) {
+        
+        console.log(res.data.message);
+
+        if (res.data.message.match(/email/g)) {
+          alert("There is already an account associated with that email.")
+        } 
+        
+        if (res.data.message.match(/username/g)) {
+          alert("That username is taken.")
+        }
+
+      } else {
+        alert("Registration successful!")
+      }
+     })
      .catch(err => console.log(err));
   }
 
