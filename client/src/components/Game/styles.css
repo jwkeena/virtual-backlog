@@ -377,3 +377,76 @@
 	margin: 10px;
 	float: left;
 }
+
+.bk-left .XONE{
+	background-color: lawngreen;
+}
+.bk-left .X360{
+	background-color: lawngreen;
+}
+.bk-left .XBOX{
+	background-color: lawngreen;
+}
+.bk-left .PS1{
+	background-color: grey;
+}
+.bk-left .PS1 h2{
+	color: black;
+} 
+.bk-left .PS4{
+	background-color: blue;
+}
+.bk-left .PS3{
+	background-color: black;
+}
+.bk-left .PS2{
+	background-color: black;
+}
+.bk-left .PC{
+	background-color: slategray;
+}
+.bk-left .NES h2{
+	color: red;
+}
+.bk-left .SNES h2{
+	color: red;
+}
+.bk-left .N64{
+	background-color: red;
+}
+.bk-left .GCN{
+	background-color: #8873bc;
+}
+.bk-left .Wii{
+	background-color: white;
+}
+.bk-left .Wii h2{
+	color: black;
+}
+.bk-left .WiiU{
+	background-color: #2ba4c8;
+}
+.bk-left .NSW{
+	background-color: red;
+}
+.bk-left .GB{
+	background-color: darkgray;
+}
+.bk-left .GB h2{
+	color: #2ba4c8;
+}
+.bk-left .GBC{
+	background-color: darkgray;
+}
+.bk-left .GBC h2{
+	color: #2ba4c8;
+}
+.bk-left .GBA{
+	background-color: darkgray;
+}
+.bk-left .N3DS{
+	background-color: white;
+}
+.bk-left .N3DS h2{
+	color: black;
+}
