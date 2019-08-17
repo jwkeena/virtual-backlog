@@ -30,6 +30,7 @@ class Games extends Component {
     // componentDidMount: check if already logged in; if so, redirect to library or home page?
     componentDidMount(){
         this.loadGames()
+        console.log("Mounted")
     }
 
     // handleClick = id =>{
@@ -107,27 +108,27 @@ class Games extends Component {
                 <MDBCol size='sm-12'>
                     <Jumbotron>
                         <h1>Games Bookshelf Page</h1>
-                    </Jumbotron>
-                </MDBCol>
-                {this.state.gameList.map(gameCase => 
+                    {/* {this.state.gameList.map(gameCase =>  */}
                     <Game 
-                    title = {gameCase.title}
-                    system_type = {gameCase.system_type}
-                    developer = {gameCase.developer}
-                    box_art = {gameCase.box_art}
-                    description = {gameCase.description}
-                    is_beaten = {gameCase.is_beaten}
-                    favorite = {gameCase.favorite}
-                    now_playing = {gameCase.now_playing}
-                    owned = {gameCase.owned}
-                    rating = {gameCase.rating}
-                    price = {gameCase.price}
-                    year_released = {gameCase.year_released}
-                    date = {gameCase.data}
-                    note = {gameCase.note}
+                    title = {this.state.title}
+                    system_type = {this.state.system_type}
+                    developer = {this.state.developer}
+                    box_art = {this.state.box_art}
+                    description = {this.state.description}
+                    is_beaten = {this.state.is_beaten}
+                    favorite = {this.state.favorite}
+                    now_playing = {this.state.now_playing}
+                    owned = {this.state.owned}
+                    rating = {this.state.rating}
+                    price = {this.state.price}
+                    year_released = {this.state.year_released}
+                    date = {this.state.data}
+                    note = {this.state.note}
                     // id = {gameCase.title}
                     // handleClick = {this.handleClick}
-                    />)}
+                    />
+                    </Jumbotron>
+                </MDBCol>
             </MDBRow>
         </MDBContainer>
         )
