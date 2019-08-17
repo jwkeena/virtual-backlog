@@ -20,14 +20,23 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "@types/react-router-dom": "^4.3.4",
     "axios": "^0.19.0",
     "clean-react-props": "^0.3.3",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "jquery": "^3.4.1",
     "jquery.ripples": "^0.6.2",
+    "mdbreact": "^4.19.0",
     "mongoose": "^5.6.9",
+<<<<<<< HEAD
     "react-router-dom": "^5.0.1"
     
+=======
+    "mongoose-unique-validator": "^2.0.3",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
+    "typescript": "^3.5.3"
+>>>>>>> 90e8eec2dec6262128143551124c80d4dbf6a039
   }
 }

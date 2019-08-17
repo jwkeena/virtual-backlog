@@ -18,7 +18,7 @@ GameList.forEach(function(){
     let gameCase = this
     let parent = gameCase.parent()
     let page = gameCase.children('div.bk-page')
-    let contnet = page.children('div.bk-content')
+    let content = page.children('div.bk-content')
     current = 0;
     
     
@@ -36,10 +36,8 @@ GameList.forEach(function(){
         counter ++;	
     }
     
-})
 
-
-        handleThreeD = event => {
+    gameCase.on( 'click', function() {
 if (currentGame !== -1 && currentGame !== parent.index()){
     closeCurrent();
 }
@@ -63,7 +61,8 @@ else {
     content.removeClass( 'bk-content-current').eq( current ).addClass( 'bk-content-current' );
     
 }
-}
+})
+
 
 if (content.length > 1){
     var $navPrev = $( '<span class="bk-page-prev">&lt;</span>' ),
@@ -95,11 +94,12 @@ $navClose.on( 'click', function() {
             parent.css( 'z-index', parent.data( 'stackval' ) );
             currentGame = -1;
             
-        } );
+        });
     }
-});
+  });
 
-}
+ }
+})
 
 function closeCurrent(){
     console.log("Closing other books")
@@ -114,7 +114,8 @@ function closeCurrent(){
         parent.css( 'z-index', parent.attr( 'data-stackval' ) );
     } );
     
-}
+    }
+    
 
 }
 
@@ -122,7 +123,7 @@ function closeCurrent(){
 
 
 const Game = props => (
-    <li onClick={ this.handleThreeD } >
+    <li>
     <div className='bk-game game'> 
    
     <div className='bk-front'>

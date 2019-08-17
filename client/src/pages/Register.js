@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Jumbotron from "../components/Jumbotron";
-import LoginForm from "../components/LoginForm"
+import RegisterForm from "../components/RegisterForm";
 
-class Login extends Component {
+class Register extends Component {
 
     // State
 
@@ -14,7 +13,6 @@ class Login extends Component {
     render () {
         return (
         <MDBContainer fluid>
-
             <MDBRow>
                 <MDBCol size='sm-12'>
                     <Jumbotron>
@@ -24,17 +22,11 @@ class Login extends Component {
             </MDBRow>
 
             <MDBRow>
-                <LoginForm/>
+                <RegisterForm/>
             </MDBRow>
-
-            <br/>
-            <Link className="text-center" to={"/register/"}>
-            <p>Don't have an account?</p>
-            </Link>
-            
         </MDBContainer>
         )
     }
 };
 
-export default Login;
+export default Register;

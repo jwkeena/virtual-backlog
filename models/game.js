@@ -21,11 +21,6 @@ const gameSchema = new Schema({
   note: {
     type: Schema.Types.ObjectId,
     ref: "Note"
-  },
-  // Same concept, but for an associated user
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
   }
 });
 
