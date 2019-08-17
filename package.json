@@ -31,10 +31,6 @@
     "jquery.ripples": "^0.6.2",
     "mdbreact": "^4.19.0",
     "mongoose": "^5.6.9",
-<<<<<<< HEAD
-    "react-router-dom": "^5.0.1"
-    
-=======
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
@@ -42,6 +38,5 @@
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "typescript": "^3.5.3"
->>>>>>> 90e8eec2dec6262128143551124c80d4dbf6a039
   }
 }
