@@ -3,8 +3,7 @@ const db = require("../models");
 // Defining methods for the usersController
 module.exports = {
   create: function(req, res) {
-    console.log("attempting to add to database", req.body);
-    console.log(req.user);
+    console.log("attempting to add to database");
     db.User
       .create(req.body)
       .catch(err => {
@@ -13,5 +12,6 @@ module.exports = {
       })
       .then(dbModel => res.json(dbModel))
     
-  }
+  },
+
 };
