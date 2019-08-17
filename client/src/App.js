@@ -4,7 +4,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Games from "./pages/Games";
 import NoMatch from "./pages/NoMatch";
-import {Game,Init} from "./components/Game"
+import Game from "./components/Game"
 // import Painting from "./components/Painting"
 
 
