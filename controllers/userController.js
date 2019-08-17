@@ -4,6 +4,7 @@ const db = require("../models");
 module.exports = {
   create: function(req, res) {
     console.log("attempting to add to database", req.body);
+    console.log(req.user);
     db.User
       .create(req.body)
       .catch(err => {

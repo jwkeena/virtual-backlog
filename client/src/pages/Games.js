@@ -4,8 +4,6 @@ import Jumbotron from "../components/Jumbotron";
 
 class Games extends Component {
 
-    // State
-
     // componentDidMount: check if already logged in; if so, redirect to library or home page?
 
     render () {
