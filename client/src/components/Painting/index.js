@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React from 'react';
+import WaterWave from 'react-water-wave';
 // import { render } from 'react-dom';
-
-
 import './index.css';
-import WaterWave from '../../index';
+// import WaterWave from '../../index';
 
 const image = './bobomb.jpg';
 

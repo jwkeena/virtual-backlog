@@ -1,9 +1,6 @@
-@font-face {
-  font-family: 'Lobster';
-  src: url('./assets/Lobster-Regular.ttf') format('truetype');
-}
 
-#demo {
+
+/* #demo {
   position: absolute;
   top: 0;
   left: 0;
@@ -11,7 +8,7 @@
   height: 100vh;
   margin: 0;
   overflow: hidden;
-}
+} */
 
 .container {
   position: absolute;
