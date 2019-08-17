@@ -1,6 +1,9 @@
 import React from 'react';
 import './styles.css'
 
+
+
+
 function Init(){    
     var transEndEventNames = {
         'WebkitTransition' : 'webkitTransitionEnd',
@@ -167,4 +170,4 @@ const Game = props => (
     </li>
 );
 
-export{Game,init}
+export default Game
