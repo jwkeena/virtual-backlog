@@ -50,15 +50,16 @@ class RegisterForm extends Component {
     const newUser = { 
       username: this.state.username,
       email: this.state.email,
-      secret: this.state.password
+      password: this.state.password
     };
 
     API.registerUser(newUser)
      .then(function(res) {
+
+      // Check for duplicate usernames and emails in database
       if (res.data.message) {
         
         console.log(res.data.message);
-
         if (res.data.message.match(/email/g)) {
           alert("There is already an account associated with that email.")
         } 
