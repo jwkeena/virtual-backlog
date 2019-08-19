@@ -23,33 +23,32 @@ class LoginForm extends Component {
     });
   };
 
-  handleFormSubmit(event) {
-    event.preventDefault()
-    console.log('handleSubmit')
+  handleFormSubmit = event => {
+    event.preventDefault();
+    console.log(this.props)
+    console.log('handleSubmit', this.state.username, this.state.password);
 
     axios
-        .post('/users/login', {
+        .post('/api/users/login', {
             username: this.state.username,
             password: this.state.password
         })
         .then(response => {
-            console.log('login response: ')
-            console.log(response)
+            console.log('login response: ', response)
             if (response.status === 200) {
-                // update App.js state
-                this.props.updateUser({
-                    loggedIn: true,
-                    username: response.data.username
-                })
+              console.log("Successful login")  
+              // update App.js state
+                this.props.updateUser(this.state.username)
                 // update the state to redirect to game library
                 this.setState({
                     redirectTo: '/games'
                 })
             }
         }).catch(error => {
-            console.log('login error: ')
-            console.log(error);
-            
+            if (error) {
+              console.log('login error: ', error);
+              alert("Incorrect username or password.");
+            }  
         })
   }
 
@@ -89,7 +88,7 @@ class LoginForm extends Component {
                   />
                 </div>
                 <div className="text-center">
-                  <MDBBtn onSubmit={this.handleFormSubmit}>Login</MDBBtn>
+                  <MDBBtn onClick={this.handleFormSubmit}>Login</MDBBtn>
                 </div>
               </form>
             </MDBCol>

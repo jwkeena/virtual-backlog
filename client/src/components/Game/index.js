@@ -50,4 +50,4 @@ import './styles.css'
 //     </li>
 // );
 
-export default Game
+// export default Game

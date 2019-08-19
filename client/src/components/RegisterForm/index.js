@@ -24,23 +24,23 @@ class RegisterForm extends Component {
   };
 
   handleFormSubmit = event => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
-    // if (!this.state.username) {
-    //   alert("Enter a username before registering!");
-    // } else if (!this.state.email) {
-    //   alert("Enter an email before registering.");
-    // } else if (this.state.email !== this.state.emailConfirm) {
-    //   alert("Confirm email before registering.");
-    // } else if (this.state.email !== this.state.emailConfirm) {
-    //   alert("Emails do not match.");
-    // } else if (!this.state.password) {
-    //   alert ("Pick a password before registering!");
-    // } else if (this.state.password.length < 6) {
-    //   alert("Password must be at least six characters.");
-    // } else if (this.state.password !== this.state.passwordConfirm) {
-    //   alert("Passwords do not match.");
-    // } 
+    
+    if (!this.state.username) {
+      alert("Enter a username before registering!");
+    } else if (!this.state.email) {
+      alert("Enter an email before registering.");
+    } else if (this.state.email !== this.state.emailConfirm) {
+      alert("Confirm email before registering.");
+    } else if (this.state.email !== this.state.emailConfirm) {
+      alert("Emails do not match.");
+    } else if (!this.state.password) {
+      alert ("Pick a password before registering!");
+    } else if (this.state.password.length < 6) {
+      alert("Password must be at least six characters.");
+    } else if (this.state.password !== this.state.passwordConfirm) {
+      alert("Passwords do not match.");
+    } 
 
     this.registerUser();
   };

@@ -11,6 +11,10 @@ class Login extends Component {
     // componentDidMount
     // Check if already logged in; if so, redirect to library or home page?
 
+    componentDidMount() {
+        console.log(this.props)
+    }
+
     render () {
         return (
         <MDBContainer fluid>
@@ -24,7 +28,7 @@ class Login extends Component {
             </MDBRow>
 
             <MDBRow>
-                <LoginForm/>
+                <LoginForm updateUser={this.props.updateUser}></LoginForm>
             </MDBRow>
 
             <br/>
