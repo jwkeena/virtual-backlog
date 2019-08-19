@@ -12,6 +12,14 @@ class LoginForm extends Component {
     redirectTo: null
   };
 
+  componentDidMount () {
+    if (localStorage.getItem("recentlyRegisteredUser")) {
+      this.setState({
+        username: localStorage.getItem("recentlyRegisteredUser")
+      });
+    }
+  }
+
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;

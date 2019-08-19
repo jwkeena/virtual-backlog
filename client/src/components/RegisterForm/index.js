@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import API from "../../utils/API";
+import { Redirect } from 'react-router-dom';
 class RegisterForm extends Component {
   
   // Setting the component's initial state
@@ -9,7 +10,8 @@ class RegisterForm extends Component {
     email: "",
     emailConfirm: "",
     password: "",
-    passwordConfirm: ""
+    passwordConfirm: "",
+    redirectTo: null
   };
 
   handleInputChange = event => {
@@ -28,18 +30,25 @@ class RegisterForm extends Component {
     
     if (!this.state.username) {
       alert("Enter a username before registering!");
+      return;
     } else if (!this.state.email) {
       alert("Enter an email before registering.");
+      return;
     } else if (this.state.email !== this.state.emailConfirm) {
       alert("Confirm email before registering.");
+      return;
     } else if (this.state.email !== this.state.emailConfirm) {
       alert("Emails do not match.");
+      return;
     } else if (!this.state.password) {
       alert ("Pick a password before registering!");
+      return;
     } else if (this.state.password.length < 6) {
       alert("Password must be at least six characters.");
+      return;
     } else if (this.state.password !== this.state.passwordConfirm) {
       alert("Passwords do not match.");
+      return;
     } 
 
     this.registerUser();
@@ -54,28 +63,34 @@ class RegisterForm extends Component {
     };
 
     API.registerUser(newUser)
-     .then(function(res) {
+     .then( res => {
 
       // Check for duplicate usernames and emails in database
       if (res.data.message) {
         
         console.log(res.data.message);
         if (res.data.message.match(/email/g)) {
-          alert("There is already an account associated with that email.")
+          alert("There is already an account associated with that email.");
         } 
         
         if (res.data.message.match(/username/g)) {
-          alert("That username is taken.")
+          alert("That username is taken.");
         }
 
       } else {
-        alert("Registration successful!")
+        localStorage.setItem("recentlyRegisteredUser", this.state.username)
+        this.setState({
+          redirectTo: '/'
+        })
       }
      })
      .catch(err => console.log(err));
   }
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={{ pathname: this.state.redirectTo }} />
+    } else {
     return (
     <MDBContainer>
       <MDBRow className="justify-content-center">
@@ -159,7 +174,8 @@ class RegisterForm extends Component {
         </MDBCol>
       </MDBRow>
     </MDBContainer>
-    );
+      );
+    }
   }
 };
 

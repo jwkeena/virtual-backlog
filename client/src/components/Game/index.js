@@ -1,9 +1,7 @@
 import React from 'react';
 import './styles.css'
 
-
 // // return { init : init };
-
 
 const Game = props => (
     <li>
@@ -50,4 +48,4 @@ const Game = props => (
     </li>
 );
 
-// export default Game
+export default Game

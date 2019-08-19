@@ -4,7 +4,6 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Games from "./pages/Games";
 import NoMatch from "./pages/NoMatch";
-import Game from "./components/Game"
 // import Painting from "./components/Painting"
 
 
@@ -12,11 +11,17 @@ class App extends Component {
   
   state = {
     loggedIn: false,
-    username: ""
+    username: "",
   }
 
   componentDidMount() {
-    //check if there's a user in localstorage
+    // Check if there's a logged in user in localstorage
+    if (localStorage.getItem("username")) {
+      this.setState({
+        username: localStorage.getItem("username"),
+        loggedIn: true
+      });
+    }
   }
 
   updateUser = newUsername => {
