@@ -58,7 +58,7 @@ class App extends Component {
 
             {/* This is the route after logging out, to get the jumobotron back and the navbar to disappear */}
             {(this.state.loggedIn === false) &&  
-            <Route exact path="/games" render={() => <Login updateUser={this.updateUser}/>} /> 
+            <Route exact path="/games" render={() => <Login loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} /> 
             }
 
             <Route exact path="/register" component={Register} />

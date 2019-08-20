@@ -11,6 +11,7 @@ class Login extends Component {
     state = {
         username: "",
         password: "",
+        loggedIn: this.props.loggedIn,
         redirectTo: null
     };
 
@@ -72,10 +73,10 @@ class Login extends Component {
     }
 
     render () {
-            if (this.state.loggedIn === true) {
-                return <Redirect to={{ pathname: this.state.redirectTo }} />
-              } else {
-                return (
+            if (this.state.redirectTo !== null) {
+              return <Redirect to={{ pathname: this.state.redirectTo }} />
+            } else {
+              return (
             <div>
                 <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>
                   <MDBContainer>

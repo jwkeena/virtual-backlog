@@ -81,6 +81,7 @@ class Register extends Component {
             }
 
         } else {
+            alert("Registration successful!");
             localStorage.removeItem("username"); // So that the following item will be rendered in the form
             localStorage.setItem("mostRecentUser", this.state.username)
             this.setState({
