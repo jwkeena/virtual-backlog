@@ -4,7 +4,6 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Jumbotron from '../components/Jumbotron';
-import FixedNavbar from "../components/FixedNavbar";
 
 class Login extends Component {
 
@@ -109,7 +108,7 @@ class Login extends Component {
                             />
                           </div>
                           <div className="text-center">
-                            <MDBBtn onClick={this.handleFormSubmit}>Login</MDBBtn>
+                            <MDBBtn type="submit" color="unique" onClick={this.handleFormSubmit}>Login</MDBBtn>
                           </div>
                         </form>
                       </MDBCol>
