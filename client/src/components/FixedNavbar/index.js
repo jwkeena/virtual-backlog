@@ -12,7 +12,8 @@ class FixedNavbar extends Component {
 state = {
   loggedIn: this.props.loggedIn,
   redirectTo: null,
-  search: "text"
+  search: "text",
+  gameToSearch: ""
 }
 
 logout = event => {
@@ -37,6 +38,12 @@ updateSearchOption = (newOption) => {
     search: newOption
   }, () => {
     console.log("Navbar, ", this.state.search)
+  })
+}
+
+updateTextSearch = (newGame) => {
+  this.setState({
+    gameToSearch: newGame
   })
 }
 
@@ -79,7 +86,7 @@ render() {
 
         <Nav className="ml-auto">
           <SearchOptions searchOption={this.state.search} updateSearchOption={this.updateSearchOption}/>
-          <SearchModal searchOption={this.state.search} />
+          <SearchModal searchOption={this.state.search} updateTextSearch={this.updateTextSearch} gameToSearch={this.state.gameToSearch}/>
         </Nav>
 
       </Navbar>

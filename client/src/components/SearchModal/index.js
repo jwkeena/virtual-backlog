@@ -8,7 +8,8 @@ class SearchModal extends Component {
     super(props);
     this.state = {
       modal: false,
-      backdrop: true
+      backdrop: true,
+      newGame: ""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -20,16 +21,27 @@ class SearchModal extends Component {
     }));
   }
 
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState({
+    [name]: value
+    }, this.props.updateTextSearch(value));
+  };
+
   render() {
     if (this.props.searchOption === "text") {
       return (
         <div>
           <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" placeholder="game title" className="mr-sm-2" />
-              <Button onClick={this.toggle} variant="outline-light">go</Button>  
+              <FormControl type="text" onChange={this.handleInputChange} value={this.state.newGame} name="newGame" placeholder="type game title" className="mr-sm-2" />
+              <Button type="submit" onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
-            <ModalHeader toggle={this.toggle}>Search by title</ModalHeader>
+            <ModalHeader toggle={this.toggle}>Searching for "{this.props.gameToSearch}"</ModalHeader>
             <ModalBody>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </ModalBody>
@@ -46,7 +58,7 @@ class SearchModal extends Component {
       return (
         <div>
           <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" placeholder="game title" className="mr-sm-2" />
+              <FormControl type="text" onChange={this.handleInputChange} value={this.state.newGame} placeholder="scan barcode" className="mr-sm-2" />
               <Button onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
