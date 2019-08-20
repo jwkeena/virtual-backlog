@@ -1,4 +1,7 @@
+require("dotenv").config()
+
 const db = require("../models");
+const key = process.env.GIANT_BOMB_API;
 
 // Defining methods for the gamesController
 module.exports = {

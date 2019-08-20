@@ -5,13 +5,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import API from '../../utils/API';
 import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
-import BarcodeScanner from '../BarcodeScanner';
+import SearchOptions from '../SearchOptions';
 
 class FixedNavbar extends Component {
   
 state = {
   loggedIn: this.props.loggedIn,
-  redirectTo: null
+  redirectTo: null,
+  search: "text"
 }
 
 logout = event => {
@@ -28,6 +29,14 @@ logout = event => {
     }
   }).catch(error => {
       console.log("logout error ", error)
+  })
+}
+
+updateSearchOption = (newOption) => {
+  this.setState({
+    search: newOption
+  }, () => {
+    console.log("Navbar, ", this.state.search)
   })
 }
 
@@ -69,8 +78,8 @@ render() {
         <Navbar.Brand className="mx-auto">{this.props.username}'s virtual backlog</Navbar.Brand>
 
         <Nav className="ml-auto">
-          <BarcodeScanner/>
-          <SearchModal/>
+          <SearchOptions searchOption={this.state.search} updateSearchOption={this.updateSearchOption}/>
+          <SearchModal searchOption={this.state.search} />
         </Nav>
 
       </Navbar>
