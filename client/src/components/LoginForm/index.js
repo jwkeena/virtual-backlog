@@ -18,6 +18,12 @@ class LoginForm extends Component {
         username: localStorage.getItem("recentlyRegisteredUser")
       });
     }
+
+    if (localStorage.getItem("username")) {
+      this.setState({
+        username: localStorage.getItem("username")
+      });
+    }
   }
 
   handleInputChange = event => {
@@ -44,13 +50,15 @@ class LoginForm extends Component {
         .then(response => {
             console.log('login response: ', response)
             if (response.status === 200) {
-              console.log("Successful login")  
+              console.log("Successful login");
+              // Update localstorage
+              localStorage.setItem("username", this.state.username);
               // update App.js state
-                this.props.updateUser(this.state.username)
-                // update the state to redirect to game library
-                this.setState({
-                    redirectTo: '/games'
-                })
+              this.props.updateUser(this.state.username)
+              // update the state to redirect to game library
+              this.setState({
+                  redirectTo: '/games'
+              })
             }
         }).catch(error => {
             if (error) {

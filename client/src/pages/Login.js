@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import Jumbotron from "../components/Jumbotron";
-import LoginForm from "../components/LoginForm"
+import LoginForm from "../components/LoginForm";
 
 class Login extends Component {
 
@@ -11,21 +10,9 @@ class Login extends Component {
     // componentDidMount
     // Check if already logged in; if so, redirect to library or home page?
 
-    componentDidMount() {
-        console.log(this.props)
-    }
-
     render () {
         return (
         <MDBContainer fluid>
-
-            <MDBRow>
-                <MDBCol size='sm-12'>
-                    <Jumbotron>
-                        <h1>Virtual Backlog</h1>
-                    </Jumbotron>
-                </MDBCol>
-            </MDBRow>
 
             <MDBRow>
                 <LoginForm updateUser={this.props.updateUser}></LoginForm>

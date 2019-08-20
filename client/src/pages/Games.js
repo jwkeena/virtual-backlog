@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import Jumbotron from "../components/Jumbotron";
-import Game from "../components/Game"
-import API from "../utils/API"
+import Game from "../components/Game";
+import API from "../utils/API";
 
 class Games extends Component {
 
@@ -99,17 +98,14 @@ class Games extends Component {
             }))
     }
 
-
-
     render () {
         return (
         <MDBContainer fluid>
+            <h1>Games Bookshelf</h1>
             <MDBRow>
                 <MDBCol size='sm-12'>
-                    <Jumbotron>
-                        <h1>Games Bookshelf Page</h1>
                     {/* {this.state.gameList.map(gameCase =>  */}
-                    <Game 
+                    {/* <Game 
                     title = {this.state.title}
                     system_type = {this.state.system_type}
                     developer = {this.state.developer}
@@ -124,10 +120,9 @@ class Games extends Component {
                     year_released = {this.state.year_released}
                     date = {this.state.data}
                     note = {this.state.note}
-                    // id = {gameCase.title}
-                    // handleClick = {this.handleClick}
-                    />
-                    </Jumbotron>
+                    id = {gameCase.title}
+                    handleClick = {this.handleClick}
+                    /> */}
                 </MDBCol>
             </MDBRow>
         </MDBContainer>

@@ -4,6 +4,9 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Games from "./pages/Games";
 import NoMatch from "./pages/NoMatch";
+import FixedNavbar from "./components/FixedNavbar";
+import Jumbotron from './components/Jumbotron';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import Painting from "./components/Painting"
 
 
@@ -16,11 +19,15 @@ class App extends Component {
 
   componentDidMount() {
     // Check if there's a logged in user in localstorage
-    if (localStorage.getItem("username")) {
+    if (localStorage.getItem("username") !== null) {
       this.setState({
         username: localStorage.getItem("username"),
         loggedIn: true
       });
+    } else if (localStorage.getItem("recentlyRegisteredUser")) {
+      this.setState({
+
+      })
     }
   }
 
@@ -40,8 +47,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-     
         <div>
+          {(this.state.loggedIn === true) ? <div><FixedNavbar username={this.state.username}/><br/></div> : <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>}
           <Switch>
             <Route exact path="/" render={() => <Login updateUser={this.updateUser}/>} />
             <Route exact path="/register" component={Register} />
@@ -50,6 +57,7 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
+
     );
   }
   
