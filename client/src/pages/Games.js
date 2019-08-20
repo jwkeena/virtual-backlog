@@ -99,13 +99,14 @@ class Games extends Component {
     }
 
     render () {
-
-        
         return (
         <MDBContainer fluid>
         <FixedNavbar loggedIn={this.props.loggedIn} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
-            <h1>Games Bookshelf</h1>
+            <br/>
             <MDBRow>
+
+                <MDBCol className="d-flex justify-content-center"><h1>Games Bookshelf</h1></MDBCol>
+
                 <MDBCol size='sm-12'>
                     {/* {this.state.gameList.map(gameCase =>  */}
                     {/* <Game 

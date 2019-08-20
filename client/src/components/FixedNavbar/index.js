@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Navbar from 'react-bootstrap/Navbar';
+import Dropdown from 'react-bootstrap/Dropdown';
 import API from '../../utils/API';
 import { Redirect } from 'react-router-dom';
 
@@ -39,20 +40,38 @@ render() {
         <Redirect to={{ pathname: this.state.redirectTo }}/>
       </div>
     )
-  }
-        
-  else {
+  } else {
   return (
-    <Navbar bg="dark" variant="dark" style={{ minWidth: 700 }}>
-    <Navbar.Brand>{this.props.username}'s virtual backlog</Navbar.Brand>
-    <Nav className="mr-auto">
-      <Nav.Link onClick={this.logout}>logout</Nav.Link>
-    </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search by title" className="mr-sm-2" />
-      <Button variant="outline-light">Add game</Button>
-    </Form>
-  </Navbar>
+      <Navbar bg="dark" variant="dark" style={{ minWidth: 700 }}>
+      
+        <Nav className="mr-auto">
+            <Dropdown>
+              <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
+                sort
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-2">title</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">system</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">rating</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">beaten</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">physical</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">digital</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">developer</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          <Nav.Link>scan</Nav.Link>
+          <Nav.Link>recommend</Nav.Link>
+          <Nav.Link onClick={this.logout}>logout</Nav.Link>
+        </Nav>
+
+        <Navbar.Brand className="mx-auto">{this.props.username}'s virtual backlog</Navbar.Brand>
+
+        <Form className="ml-auto" inline>
+          <FormControl type="text" placeholder="Search by title" className="mr-sm-2" />
+          <Button variant="outline-light">Add game</Button>
+        </Form>
+
+      </Navbar>
       );
     }
   }
