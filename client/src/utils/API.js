@@ -3,7 +3,12 @@ import axios from "axios";
 export default {
   // Registers new user
   registerUser: function(newUser) {
-      return axios.post("/api/users", newUser)
+    return axios.post("/api/users", newUser);
+  },
+
+  logout: function(username) {
+    console.log("reaching utils api", username)
+    return axios.post("/api/users/logout", username);
   },
 
   // Gets all games from database

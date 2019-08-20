@@ -24,11 +24,7 @@ class App extends Component {
         username: localStorage.getItem("username"),
         loggedIn: true
       });
-    } else if (localStorage.getItem("recentlyRegisteredUser")) {
-      this.setState({
-
-      })
-    }
+    } 
   }
 
   updateUser = newUsername => {
@@ -37,23 +33,31 @@ class App extends Component {
       loggedIn: true
     });
   }
-
-  logOut = () => {
-    this.setState({
-      loggedIn: false
-    });
-  }
-
+  
   render() {
     return (
       <Router>
         <div>
-          {(this.state.loggedIn === true) ? <div><FixedNavbar username={this.state.username}/><br/></div> : <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>}
+
+          {(this.state.loggedIn === true) ? <div><FixedNavbar logout={this.props} loggedIn={this.state.loggedIn} username={this.state.username}/><br/></div> : <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>}
+          
           <Switch>
+            
             <Route exact path="/" render={() => <Login updateUser={this.updateUser}/>} />
+
             <Route exact path="/register" component={Register} />
-            <Route exact path="/games" component={Games} />
+            
+            {(this.state.loggedIn === true) &&  
+            <Route exact path="/games" component={Games} /> 
+            }
+
+            {/* this is the demo route */}
+            {/* {(this.state.loggedIn === false) &&  
+            <Route exact path="/games" render={() => <Login updateUser={this.updateUser}/>} /> 
+            } */}
+
             <Route component={NoMatch} />
+            
           </Switch>
         </div>
       </Router>
