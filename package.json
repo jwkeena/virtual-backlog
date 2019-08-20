@@ -20,6 +20,9 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.21",
+    "@fortawesome/free-solid-svg-icons": "^5.10.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "@types/react-router-dom": "^4.3.4",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
@@ -39,6 +42,7 @@
     "react-bootstrap": "^1.0.0-beta.11",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
+    "reactstrap": "^8.0.1",
     "typescript": "^3.5.3"
   }
 }

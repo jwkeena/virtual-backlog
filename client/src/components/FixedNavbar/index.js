@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import API from '../../utils/API';
+import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
+import BarcodeScanner from '../BarcodeScanner';
 
 class FixedNavbar extends Component {
   
@@ -63,17 +62,16 @@ render() {
                 <Dropdown.Item href="#/action-3">year released</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          <Nav.Link>scan</Nav.Link>
           <Nav.Link>recommended</Nav.Link>
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
 
         <Navbar.Brand className="mx-auto">{this.props.username}'s virtual backlog</Navbar.Brand>
 
-        <Form className="ml-auto" inline>
-          <FormControl type="text" placeholder="Search by title" className="mr-sm-2" />
-          <Button variant="outline-light">Add game</Button>
-        </Form>
+        <Nav className="ml-auto">
+          <BarcodeScanner/>
+          <SearchModal/>
+        </Nav>
 
       </Navbar>
       );
