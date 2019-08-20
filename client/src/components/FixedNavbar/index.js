@@ -54,13 +54,17 @@ render() {
                 <Dropdown.Item href="#/action-1">system</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">rating</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">beaten</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">physical</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">digital</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">physical (a-z)</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">physical (price)</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">favorite</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">developer</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">now playing</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">year released</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           <Nav.Link>scan</Nav.Link>
-          <Nav.Link>recommend</Nav.Link>
+          <Nav.Link>recommended</Nav.Link>
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
 
