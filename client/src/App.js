@@ -48,7 +48,7 @@ class App extends Component {
         <div>
           
           <Switch>
-            
+            {/* This is the route hit the first time the app is served */}
             <Route exact path="/" render={() => <Login loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
 
             {/* This is the main games page route, only accessible after logging in */}
@@ -56,7 +56,7 @@ class App extends Component {
             <Route exact path="/games" render={() => <Games loggedIn={this.state.loggedIn} logoutBoolean={this.logoutBoolean} username={this.state.username}/>} /> 
             }
 
-            {/* this is the route after logging out */}
+            {/* This is the route after logging out, to get the jumobotron back and the navbar to disappear */}
             {(this.state.loggedIn === false) &&  
             <Route exact path="/games" render={() => <Login updateUser={this.updateUser}/>} /> 
             }

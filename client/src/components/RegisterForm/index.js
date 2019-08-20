@@ -79,7 +79,7 @@ class RegisterForm extends Component {
 
       } else {
         localStorage.removeItem("username"); // So that the following item will be rendered in the form
-        localStorage.setItem("recentlyRegisteredUser", this.state.username)
+        localStorage.setItem("mostRecentUser", this.state.username)
         this.setState({
           redirectTo: '/'
         })
