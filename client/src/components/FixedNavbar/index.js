@@ -10,6 +10,7 @@ import { Redirect } from 'react-router-dom';
 class FixedNavbar extends Component {
   
 state = {
+  loggedIn: this.props.loggedIn,
   redirectTo: null
 }
 
@@ -20,8 +21,8 @@ logout = event => {
     console.log(response.data)
     if (response.status === 200) {
       localStorage.removeItem("username")
+      this.props.logoutBoolean();
       this.setState({
-        loggedIn: false,
         redirectTo: "/"
       })
     }
@@ -31,9 +32,16 @@ logout = event => {
 }
 
 render() {
+
   if (this.state.redirectTo) {
-    return <Redirect to={{ pathname: this.state.redirectTo }} />
-  } else {
+    return (
+      <div>
+        <Redirect to={{ pathname: this.state.redirectTo }}/>
+      </div>
+    )
+  }
+        
+  else {
   return (
     <Navbar bg="dark" variant="dark" style={{ minWidth: 700 }}>
     <Navbar.Brand>{this.props.username}'s virtual backlog</Navbar.Brand>

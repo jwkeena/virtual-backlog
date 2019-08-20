@@ -4,8 +4,6 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Games from "./pages/Games";
 import NoMatch from "./pages/NoMatch";
-import FixedNavbar from "./components/FixedNavbar";
-import Jumbotron from './components/Jumbotron';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Painting from "./components/Painting"
 
@@ -19,12 +17,16 @@ class App extends Component {
 
   componentDidMount() {
     // Check if there's a logged in user in localstorage
-    if (localStorage.getItem("username") !== null) {
+    if (localStorage.getItem("username")) {
       this.setState({
         username: localStorage.getItem("username"),
         loggedIn: true
       });
-    } 
+    } else {
+      this.setState({
+        loggedIn: false
+      })
+    }
   }
 
   updateUser = newUsername => {
@@ -33,29 +35,34 @@ class App extends Component {
       loggedIn: true
     });
   }
+
+  logoutBoolean = () => {
+    this.setState({
+      loggedIn: false
+    })
+  }
   
   render() {
     return (
       <Router>
         <div>
-
-          {(this.state.loggedIn === true) ? <div><FixedNavbar logout={this.props} loggedIn={this.state.loggedIn} username={this.state.username}/><br/></div> : <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>}
           
           <Switch>
             
-            <Route exact path="/" render={() => <Login updateUser={this.updateUser}/>} />
+            <Route exact path="/" render={() => <Login loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
+
+            {/* This is the main games page route, only accessible after logging in */}
+            {(this.state.loggedIn === true) &&  
+            <Route exact path="/games" render={() => <Games loggedIn={this.state.loggedIn} logoutBoolean={this.logoutBoolean} username={this.state.username}/>} /> 
+            }
+
+            {/* this is the route after logging out */}
+            {(this.state.loggedIn === false) &&  
+            <Route exact path="/games" render={() => <Login updateUser={this.updateUser}/>} /> 
+            }
 
             <Route exact path="/register" component={Register} />
             
-            {(this.state.loggedIn === true) &&  
-            <Route exact path="/games" component={Games} /> 
-            }
-
-            {/* this is the demo route */}
-            {/* {(this.state.loggedIn === false) &&  
-            <Route exact path="/games" render={() => <Login updateUser={this.updateUser}/>} /> 
-            } */}
-
             <Route component={NoMatch} />
             
           </Switch>

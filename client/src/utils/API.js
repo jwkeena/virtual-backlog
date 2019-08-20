@@ -7,7 +7,6 @@ export default {
   },
 
   logout: function(username) {
-    console.log("reaching utils api", username)
     return axios.post("/api/users/logout", username);
   },
 

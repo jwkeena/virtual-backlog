@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import FixedNavbar from "../components/FixedNavbar";
 import Game from "../components/Game";
 import API from "../utils/API";
 
@@ -24,9 +25,8 @@ class Games extends Component {
         gamesCount: 13,
         currentGame: -1,
         counter: 0,
-
     }
-    // componentDidMount: check if already logged in; if so, redirect to library or home page?
+
     componentDidMount(){
         this.loadGames()
         console.log("Mounted")
@@ -99,8 +99,11 @@ class Games extends Component {
     }
 
     render () {
+
+        
         return (
         <MDBContainer fluid>
+        <FixedNavbar loggedIn={this.props.loggedIn} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
             <h1>Games Bookshelf</h1>
             <MDBRow>
                 <MDBCol size='sm-12'>
