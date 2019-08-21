@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import SearchResults from '../SearchResults';
+import PlatformPills from '../PlatformPills';
 import { Table } from 'reactstrap';
 import FormControl from 'react-bootstrap/FormControl';
-import Button from "react-bootstrap/Button";
+import { Button } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 
@@ -12,8 +13,10 @@ class SearchModal extends Component {
     this.state = {
       modal: false,
       backdrop: true,
-      newGame: "",
-      searchResults: null
+      gameToSearch: "",
+      searchResults: null,
+      gameToShelve: "",
+      possiblePlatforms: []
     };
     this.chooseGame = this.chooseGame.bind();
     this.toggle = this.toggle.bind(this);
@@ -24,7 +27,7 @@ class SearchModal extends Component {
       modal: !prevState.modal
     }), () => {
       if (this.state.modal === true) {
-        this.searchGame(this.state.newGame);
+        this.searchGame(this.state.gameToSearch);
       }
     });
   }
@@ -52,8 +55,24 @@ class SearchModal extends Component {
   }
 
   chooseGame = (gameIndex) => {
-    console.log(gameIndex);
-    console.log(this.state.searchResults[gameIndex])
+    // const gameToSearch = {title, system_type, developer, box_art, description, is_beaten, favorite, now_playing, owned, cib, rating, price, year_released}
+    const newList = [];
+
+    console.log(this.state.searchResults[gameIndex].platforms) 
+
+
+    if (this.state.searchResults[gameIndex].platforms !== null) {
+      for (let i = 0; i < this.state.searchResults[gameIndex].platforms.length; i++) {
+        newList.push(this.state.searchResults[gameIndex].platforms[i].abbreviation); // Change to .name for full system name
+      }
+      this.setState({
+          possiblePlatforms: newList
+        })
+    } else {
+      this.setState({
+        possiblePlatforms: ["NONE"]
+      })
+    }
   }
 
   shelve = (game) => {
@@ -65,23 +84,33 @@ class SearchModal extends Component {
       return (
         <div>
           <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" onChange={this.handleInputChange} value={this.state.newGame} name="newGame" placeholder="type game title" className="mr-sm-2" />
+              <FormControl type="text" onChange={this.handleInputChange} value={this.state.gameToSearch} name="gameToSearch" placeholder="type game title" className="mr-sm-2" />
               <Button type="submit" onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
             <ModalHeader toggle={this.toggle}>Searching for "{this.props.gameToSearch}"</ModalHeader>
             <ModalBody>
               <Table hover>
-          
                     {(this.state.searchResults) && 
                       <SearchResults>{this.state.searchResults}{this.chooseGame}</SearchResults>
                     }
-
               </Table>
+              <hr/>
+              <span>Choose a platform: </span>
+              <div>
+                  {(this.state.possiblePlatforms.length > 0) && 
+                    <PlatformPills>{this.state.possiblePlatforms}</PlatformPills>
+                  }
+              </div>
+              <hr/>
+
+                        {/* Media type:
+                        <label class="radio-inline"><input type="radio" name="optradio" checked value="true"/>Physical</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" value="false"/>Digital</label>
+                        <hr/> */}
             </ModalBody>
             <ModalFooter>
-
-              <Button color="primary" size="lg" onClick={this.shelve}>Shelve</Button>{' '}
+              <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>
             </ModalFooter>
           </Modal>
         </div>
@@ -92,7 +121,7 @@ class SearchModal extends Component {
       return (
         <div>
           <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" onChange={this.handleInputChange} value={this.state.newGame} placeholder="scan barcode" className="mr-sm-2" />
+              <FormControl type="text" onChange={this.handleInputChange} value={this.state.gameToSearch} placeholder="scan barcode" className="mr-sm-2" />
               <Button onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>

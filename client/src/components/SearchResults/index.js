@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import {Button} from "reactstrap";
+import React, { Fragment } from 'react';
+import { Button } from "reactstrap";
 
 const styles = {
     boxArt: {
@@ -7,11 +7,13 @@ const styles = {
     },
     gameTitle: {
       width: "50%"
+    },
+    wideButton: {
+      width: "100%"
     }
   }
 
 function SearchResults({children}) {
-    console.log(children)
     const chooseGame = children[1]
     return(
         <tbody>
@@ -38,8 +40,8 @@ function SearchResults({children}) {
                 </td>
                 <td 
                   key={item.date_last_updated}>
-                    <Button onClick={ () => {chooseGame(i)}}
-                      color="primary" 
+                    <Button onClick={() => {chooseGame(i)}}
+                      color="secondary" style={styles.wideButton}
                       >
                         select
                     </Button>
