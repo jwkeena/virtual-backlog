@@ -1,16 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Table } from 'reactstrap';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from "react-bootstrap/Button";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 
+const styles = {
+  boxArt: {
+    height: "100px"
+  },
+  gameTitle: {
+    width: "75%"
+  }
+}
 class SearchModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
       backdrop: true,
-      newGame: ""
+      newGame: "",
+      searchResults: null
     };
 
     this.toggle = this.toggle.bind(this);
@@ -42,7 +52,9 @@ class SearchModal extends Component {
     console.log("searchQuery", searchQuery);
     API.searchGame(searchQuery)
       .then(res=> {
-        console.log(res.data)
+        this.setState({
+          searchResults: res.data
+        })
       })
       .catch(err => console.log(err));
   }
@@ -62,11 +74,28 @@ class SearchModal extends Component {
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
             <ModalHeader toggle={this.toggle}>Searching for "{this.props.gameToSearch}"</ModalHeader>
             <ModalBody>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <Table hover>
+          
+                    {(this.state.searchResults) && 
+                      <tbody>
+                        {this.state.searchResults.map((item, i) => {
+                          return (
+                            <Fragment>
+                              <tr key={i}>
+                                <th scope="row">{i + 1}</th>
+                                <td><img style={styles.boxArt} src={item.image.medium_url}/></td>
+                                <td style={styles.gameTitle}>{item.name}</td>
+                              </tr>
+                            </Fragment>
+                          )
+                        })}
+                      </tbody>
+                    }
+              </Table>
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.shelve}>Shelve</Button>{' '}
               <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              <Button color="primary" onClick={this.shelve}>Shelve</Button>{' '}
             </ModalFooter>
           </Modal>
         </div>
@@ -83,11 +112,11 @@ class SearchModal extends Component {
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
             <ModalHeader toggle={this.toggle}>Scan barcode</ModalHeader>
             <ModalBody>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              CAMERA HERE
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
               <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              <Button color="primary" onClick={this.toggle}>Search</Button>{' '}
             </ModalFooter>
           </Modal>
         </div>

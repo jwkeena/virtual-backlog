@@ -11,6 +11,7 @@ const gameSchema = new Schema({
   favorite: Boolean,
   now_playing: Boolean, 
   owned: Boolean,
+  cib: Boolean,
   rating: Number,
   price: Number,
   year_released: Number,
