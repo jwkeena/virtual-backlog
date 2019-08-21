@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default {
+  searchGame: function(searchQuery) {
+    return axios.get("/api/search/" + searchQuery)
+  },
+  
   // Registers new user
   registerUser: function(newUser) {
     return axios.post("/api/users", newUser);
