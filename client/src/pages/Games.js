@@ -95,12 +95,10 @@ class Games extends Component {
         }
 
     render () {
-
-        
         return (
         <MDBContainer fluid>
         <FixedNavbar loggedIn={this.props.loggedIn} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
-            <h1>Games Bookshelf</h1>
+            <br/>
             <MDBRow>
                 <MDBCol size='sm-12' className = 'bk-list'>
                     {this.state.gameSeed.map(games => 
