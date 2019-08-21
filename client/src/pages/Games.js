@@ -3,100 +3,96 @@ import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import FixedNavbar from "../components/FixedNavbar";
 import Game from "../components/Game";
 import API from "../utils/API";
+import gameSeed from "../components/GamesTest/gameListTest";
+import '../components/Game/styles.css'
+// import Modernizr from '../utils/modernizr.custom'
+
+
+
+// var transEndEventNames = {
+//     'WebkitTransition' : 'webkitTransitionEnd',
+//     'MozTransition' : 'transitionend',
+//     'OTransition' : 'oTransitionEnd',
+//     'msTransition' : 'MSTransitionEnd',
+//     'transition' : 'transitionend'
+// }
+// var transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ]
+// gameList = $( '#bk-list > li > div.bk-game' ), gamesCount = 13, currentgame = -1, counter = 0; 
 
 class Games extends Component {
 
     state = { 
-        gameList : "",
-        title: String,
-        system_type: String,
-        developer: String,
-        box_art:String,
-        description:String,
-        is_beaten:Boolean,
-        favorite:Boolean,
-        now_playing:Boolean,
-        owned:Boolean,
-        rating:Number,
-        price:Number,
-        year_released:Number,
-        date:Date,
-        note:Object,
+        gameSeed: gameSeed,
         gamesCount: 13,
         currentGame: -1,
         counter: 0,
+        open: false
     }
+
+    
+
 
     componentDidMount(){
         this.loadGames()
         console.log("Mounted")
     }
 
-    // handleClick = id =>{
+    handleClick = id =>{
+
+        // const currentClass = this.state.open;
+        // this.setState({ open: !currentState});
 
 
-    //     if (this.state.currentGame !== -1){
-    //     closeCurrent()
-    //     }
+        if (this.state.currentGame !== -1){
+        // closeCurrent()
+        }
 
-    //     if(this.hasClass('bk-open')){
-    //         this.removeClass('bk-open');
-    //     }
-    //     else if(this.hasClass('bk-outside' && 'bk-viewinside')){
-    //         this.addClass('bk-open')
-    //     }
+        if(this.hasClass('bk-open')){
+            this.removeClass('bk-open');
+        }
+        else if(this.hasClass('bk-outside' && 'bk-viewinside')){
+            this.addClass('bk-open')
+        }
 
-    //     else {
-    //         this.data( 'opened', true ).addClass( 'bk-outside' ).on( transEndEventName, function() {
-    //             $( this ).off( transEndEventName ).addClass( 'bk-viewinside' );  
-    //             this.css( 'z-index', this.state.gamesCount );
-    //             this.state.currentGame = this.index();
-    //             console.log("Current Game " + this.state.currentGame)
-    //         } );
-    //         current = 0;
-    //         $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
+        else {
+            this.data( 'opened', true ).addClass( 'bk-outside' ).on(function() {
+                this.addClass( 'bk-viewinside' );  
+                this.css( 'z-index', this.state.gamesCount );
+                this.state.currentGame = this.index();
+                console.log("Current Game " + this.state.currentGame)
+            } );
+            this.state.currentGame = 0;
+        }
+        //     // $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
             
-    //     }
+        // }
 
-    // }
+    }
 
-    // handleThreeD = () =>{
-    //     if (this.state.counter ===13){
-    //         this.state.counter = 0
-    //     }
+    handleThreeD = () =>{
+        if (this.state.counter ===13){
+            this.state.counter = 0
+        }
 
-    //     if (this.state.counter < this.state.gamesCount/2){
-    //         this.css('z-index', this.state.counter).attr( 'data-stackval', this.state.counter )
-    //         this.state.counter ++;
-    //     }
-    //     else {
-    //         this.css( 'z-index', this.state.gamesCount - 1 - this.state.counter ).attr( 'data-stackval', this.state.gamesCount - 1 - this.state.counter );
-	// 		counter ++;	
-    //     }
-    // }
+        if (this.state.counter < this.state.gamesCount/2){
+            this.css('z-index', this.state.counter).attr( 'data-stackval', this.state.counter )
+            this.state.counter ++;
+        }
+        else {
+            this.css( 'z-index', this.state.gamesCount - 1 - this.state.counter ).attr( 'data-stackval', this.state.gamesCount - 1 - this.state.counter );
+			this.state.counter ++;	
+        }
+    }
 
 
     loadGames = () =>{
-        API.getGames()
-        .then(res=>
-            this.setState({
-                gameList: res.data,
-                title: res.data.title,
-                system_type: res.data.system_type,
-                developer: res.data.developer,
-                box_art:res.data.box_art,
-                description:res.data.description,
-                is_beaten:res.data.is_beaten,
-                favorite:res.data.favorite,
-                now_playing:res.data.now_playing,
-                owned:res.data.owned,
-                rating:res.data.rating,
-                price:res.data.price,
-                year_released:res.data.year_released,
-                date:res.data.date,
-                note:res.data.note
-            }))
-    }
+        // console.log(gameSeed)
+        
+        // // API.getGames()
+        // .then( 
+            // res=> console.log(res.data)
+           
+        }
 
     render () {
 
@@ -106,26 +102,27 @@ class Games extends Component {
         <FixedNavbar loggedIn={this.props.loggedIn} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
             <h1>Games Bookshelf</h1>
             <MDBRow>
-                <MDBCol size='sm-12'>
-                    {/* {this.state.gameList.map(gameCase =>  */}
-                    {/* <Game 
-                    title = {this.state.title}
-                    system_type = {this.state.system_type}
-                    developer = {this.state.developer}
-                    box_art = {this.state.box_art}
-                    description = {this.state.description}
-                    is_beaten = {this.state.is_beaten}
-                    favorite = {this.state.favorite}
-                    now_playing = {this.state.now_playing}
-                    owned = {this.state.owned}
-                    rating = {this.state.rating}
-                    price = {this.state.price}
-                    year_released = {this.state.year_released}
-                    date = {this.state.data}
-                    note = {this.state.note}
-                    id = {gameCase.title}
+                <MDBCol size='sm-12' className = 'bk-list'>
+                    {this.state.gameSeed.map(games => 
+                     <Game 
+                    title = {games.title}
+                    system_type = {games.system_type}
+                    developer = {games.developer}
+                    box_art = {games.box_art}
+                    description = {games.description}
+                    is_beaten = {games.is_beaten}
+                    favorite = {games.favorite}
+                    now_playing = {games.now_playing}
+                    owned = {games.owned}
+                    rating = {games.rating}
+                    price = {games.price}
+                    year_released = {games.year_released}
+                    date = {games.data}
+                    note = {games.note}
+                    id = {games.id}
+                    // key = {this.state.counter++}
                     handleClick = {this.handleClick}
-                    /> */}
+                    /> )}
                 </MDBCol>
             </MDBRow>
         </MDBContainer>

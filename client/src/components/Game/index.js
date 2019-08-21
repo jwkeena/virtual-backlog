@@ -1,15 +1,15 @@
 import React from 'react';
-import './styles.css'
+// import './styles.css'
 
 // // return { init : init };
 
-const Game = props => (
-    <li>
+ function Game(props) {
+   return ( <li>
     <div className='bk-game game'> 
    
     <div className='bk-front'>
         <div className='bk-cover-back'></div>
-        <div className='bk-cover' background_image={props.box_art}>
+        <div className='bk-cover' src={props.box_art}>
             <h2><span>  {props.title}  </span> <span> {props.system_type} </span></h2>   
         </div>
     </div>
@@ -35,7 +35,7 @@ const Game = props => (
 
     <div className='bk-right'></div>
 
-    <div className='bk-left' className={props.system_type}>
+    <div className='bk-left'>
         <h2><span>{props.title}</span><span>{props.system_type}</span></h2>
     </div>
 
@@ -46,6 +46,7 @@ const Game = props => (
    
     </div>
     </li>
-);
+   )
+};
 
 export default Game

@@ -72,6 +72,7 @@ db.Game
         process.exit(1);
     });
 
+    
 // Template for more seed data
 // { 
 // title: "",
