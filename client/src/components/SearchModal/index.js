@@ -1,18 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import SearchResults from '../SearchResults';
 import { Table } from 'reactstrap';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from "react-bootstrap/Button";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 
-const styles = {
-  boxArt: {
-    height: "100px"
-  },
-  gameTitle: {
-    width: "75%"
-  }
-}
 class SearchModal extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +15,7 @@ class SearchModal extends Component {
       newGame: "",
       searchResults: null
     };
-
+    this.chooseGame = this.chooseGame.bind();
     this.toggle = this.toggle.bind(this);
   }
 
@@ -34,7 +27,6 @@ class SearchModal extends Component {
         this.searchGame(this.state.newGame);
       }
     });
-
   }
 
   handleInputChange = event => {
@@ -59,6 +51,11 @@ class SearchModal extends Component {
       .catch(err => console.log(err));
   }
 
+  chooseGame = (gameIndex) => {
+    console.log(gameIndex);
+    console.log(this.state.searchResults[gameIndex])
+  }
+
   shelve = (game) => {
     console.log(game)
   }
@@ -77,25 +74,14 @@ class SearchModal extends Component {
               <Table hover>
           
                     {(this.state.searchResults) && 
-                      <tbody>
-                        {this.state.searchResults.map((item, i) => {
-                          return (
-                            <Fragment>
-                              <tr key={i}>
-                                <th scope="row">{i + 1}</th>
-                                <td><img style={styles.boxArt} src={item.image.medium_url}/></td>
-                                <td style={styles.gameTitle}>{item.name}</td>
-                              </tr>
-                            </Fragment>
-                          )
-                        })}
-                      </tbody>
+                      <SearchResults>{this.state.searchResults}{this.chooseGame}</SearchResults>
                     }
+
               </Table>
             </ModalBody>
             <ModalFooter>
-              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-              <Button color="primary" onClick={this.shelve}>Shelve</Button>{' '}
+
+              <Button color="primary" size="lg" onClick={this.shelve}>Shelve</Button>{' '}
             </ModalFooter>
           </Modal>
         </div>
