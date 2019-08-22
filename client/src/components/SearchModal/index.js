@@ -15,11 +15,17 @@ class SearchModal extends Component {
       backdrop: true,
       gameToSearch: "",
       searchResults: null,
-      gameToShelve: "",
-      possiblePlatforms: []
+      gameToShelve: {},
+      possiblePlatforms: [],
+      platformChosen: ""
     };
     this.chooseGame = this.chooseGame.bind();
+    this.choosePlatform = this.choosePlatform.bind();
     this.toggle = this.toggle.bind(this);
+  }
+
+  scrollToBottom = () => {
+    this.endOfSearchResults.scrollIntoView({ behavior: "smooth" });
   }
 
   toggle() {
@@ -59,7 +65,7 @@ class SearchModal extends Component {
     const newList = [];
 
     console.log(this.state.searchResults[gameIndex].platforms) 
-
+    this.scrollToBottom();
 
     if (this.state.searchResults[gameIndex].platforms !== null) {
       for (let i = 0; i < this.state.searchResults[gameIndex].platforms.length; i++) {
@@ -75,6 +81,13 @@ class SearchModal extends Component {
     }
   }
 
+  choosePlatform = (platform) => {
+    console.log("Platform chosen, ", platform)
+    this.setState({
+      platformChosen: platform
+    })
+  }
+
   shelve = (game) => {
     console.log(game)
   }
@@ -87,8 +100,11 @@ class SearchModal extends Component {
               <FormControl type="text" onChange={this.handleInputChange} value={this.state.gameToSearch} name="gameToSearch" placeholder="type game title" className="mr-sm-2" />
               <Button type="submit" onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
-          <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
-            <ModalHeader toggle={this.toggle}>Searching for "{this.props.gameToSearch}"</ModalHeader>
+          <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+            <ModalHeader toggle={this.toggle}>
+              Searching for "{this.props.gameToSearch}"
+         
+            </ModalHeader>
             <ModalBody>
               <Table hover>
                     {(this.state.searchResults) && 
@@ -99,15 +115,18 @@ class SearchModal extends Component {
               <span>Choose a platform: </span>
               <div>
                   {(this.state.possiblePlatforms.length > 0) && 
-                    <PlatformPills>{this.state.possiblePlatforms}</PlatformPills>
+                    <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform}></PlatformPills>
                   }
               </div>
-              <hr/>
+              <hr/>             
 
                         {/* Media type:
                         <label class="radio-inline"><input type="radio" name="optradio" checked value="true"/>Physical</label>
                         <label class="radio-inline"><input type="radio" name="optradio" value="false"/>Digital</label>
                         <hr/> */}
+          <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.endOfSearchResults = el; }}>
+          </div>
             </ModalBody>
             <ModalFooter>
               <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>

@@ -1,32 +1,44 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Badge from 'react-bootstrap/Badge';
 
 const styles = {
     buffer: {
+        fontSize: "15px",
         margin: "3px",
-        padding: "6px"
+        padding: "6px",
+        cursor: "pointer"
     }
 }
 
-function PlatformPills({children}) {
-    console.log(children)
-    if (children[0] === "NONE") {
-        return(
-            <div>
-               <Badge pill variant='danger' style={styles.buffer}>NONE</Badge>
-            </div>
-        )
-    } else {
-        return(
-            <div>
-            {children.map((platform, i) => {
+class PlatformPills extends Component {
+    render() {
+            if (this.props.possiblePlatforms === "NONE") {
                 return(
-                    <Badge pill variant='primary' key={i} style={styles.buffer}>{platform}</Badge>
+                    <div>
+                       <Badge pill variant='danger' style={styles.buffer}>NONE</Badge>
+                    </div>
                 )
-            })}
-            </div>
-        )
+            } else {
+                return(
+                    <div>
+                    {this.props.possiblePlatforms.map((platform, i) => {
+                        return(
+                            <Badge 
+                                pill 
+                                variant='primary' 
+                                onClick={() => {this.props.choosePlatform(platform)}}
+                                key={i} 
+                                value={platform}
+                                style={styles.buffer}>
+                                    {platform}
+                            </Badge>
+                        )
+                    })}
+                    </div>
+                )
+        }
     }
+    
 }
 
 export default PlatformPills;

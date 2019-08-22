@@ -10,6 +10,9 @@ const styles = {
     },
     wideButton: {
       width: "100%"
+    },
+    clickable: {
+        cursor: "pointer"
     }
   }
 
@@ -20,7 +23,7 @@ function SearchResults({children}) {
         {children[0].map((item, i) => {
           return (
             <Fragment key={item.site_detail_url}>
-              <tr key={item.id}>
+              <tr key={item.id} onClick={() => {chooseGame(i)}} style={styles.clickable}>
                 <th 
                   key={item.guid} 
                   scope="row">
@@ -40,11 +43,7 @@ function SearchResults({children}) {
                 </td>
                 <td 
                   key={item.date_last_updated}>
-                    <Button onClick={() => {chooseGame(i)}}
-                      color="secondary" style={styles.wideButton}
-                      >
-                        select
-                    </Button>
+                   
                 </td>
               </tr>
             </Fragment>
