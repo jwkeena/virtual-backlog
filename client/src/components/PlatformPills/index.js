@@ -25,7 +25,7 @@ class PlatformPills extends Component {
                         return(
                             <Badge 
                                 pill 
-                                variant='primary' 
+                                variant={(this.props.platformChosen === platform) ? 'primary' : 'danger'}
                                 onClick={() => {this.props.choosePlatform(platform)}}
                                 key={i} 
                                 value={platform}

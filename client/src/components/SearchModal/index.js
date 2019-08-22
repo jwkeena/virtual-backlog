@@ -115,7 +115,7 @@ class SearchModal extends Component {
               <span>Choose a platform: </span>
               <div>
                   {(this.state.possiblePlatforms.length > 0) && 
-                    <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform}></PlatformPills>
+                    <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}></PlatformPills>
                   }
               </div>
               <hr/>             
