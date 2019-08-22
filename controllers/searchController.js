@@ -8,7 +8,7 @@ module.exports = {
         
         console.log("Finding in Giant Bomb", req.params.id)
         axios
-            .get("https://www.giantbomb.com/api/search?api_key=" + key + "&format=json&query=" + req.params.id + "&resources=game&limit=5")
+            .get("https://www.giantbomb.com/api/search?api_key=" + key + "&format=json&query=" + req.params.id + "&resources=game&limit=50")
             .then(response => {
                 console.log(response.data.results);
                 res.json(response.data.results)

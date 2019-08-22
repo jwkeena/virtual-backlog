@@ -108,7 +108,7 @@ class SearchModal extends Component {
             <ModalBody>
               <Table hover>
                     {(this.state.searchResults) && 
-                      <SearchResults>{this.state.searchResults}{this.chooseGame}</SearchResults>
+                      <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
                     }
               </Table>
               <hr/>
