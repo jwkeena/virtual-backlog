@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarcode } from '@fortawesome/free-solid-svg-icons';
-import { faParagraph } from '@fortawesome/free-solid-svg-icons';
+import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 
 const styles = {
     increaseMargins: {
@@ -34,7 +34,7 @@ class SearchOptions extends Component {
                         }/>
 
                 <FontAwesomeIcon 
-                icon={faParagraph} 
+                icon={faKeyboard} 
                 inverse size="lg" 
                 style={
                     (this.props.searchOption === "text") 

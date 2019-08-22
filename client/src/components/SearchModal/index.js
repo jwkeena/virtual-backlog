@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MDBRow, MDBCol } from 'mdbreact';
 import SearchResults from '../SearchResults';
 import PlatformPills from '../PlatformPills';
 import { Table } from 'reactstrap';
@@ -6,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import { Button } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
+import { Field, Radio, Label, Checkbox, Input, Message } from '@zendeskgarden/react-forms';
 
 class SearchModal extends Component {
   constructor(props) {
@@ -112,18 +114,97 @@ class SearchModal extends Component {
                     }
               </Table>
               <hr/>
-              <span>Choose a platform: </span>
+
+              <form>
+
               <div>
+                  <h3>Platform (required): </h3>
                   {(this.state.possiblePlatforms.length > 0) && 
-                    <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}></PlatformPills>
+                    <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}>Choose a platform: </PlatformPills>
                   }
               </div>
-              <hr/>             
+              <hr/>   
 
-                        {/* Media type:
-                        <label class="radio-inline"><input type="radio" name="optradio" checked value="true"/>Physical</label>
-                        <label class="radio-inline"><input type="radio" name="optradio" value="false"/>Digital</label>
-                        <hr/> */}
+              <h3>Media type (required):</h3> 
+              <div role="group">
+                <MDBRow>
+                  <MDBCol md="2">
+                    <Field>
+                      <Radio name="options" value="physical">
+                        <Label>Physical</Label>
+                      </Radio>
+                    </Field>
+                  </MDBCol>  
+                  <MDBCol md="1">
+                    <Field>
+                      <Radio name="options" value="digital">
+                        <Label>Digital</Label>
+                      </Radio>
+                    </Field>
+                  </MDBCol>  
+                </MDBRow>
+              </div>
+              <hr/>
+              
+              <h3>Options</h3>
+                <MDBRow>
+                <MDBCol md="4">
+                  <Field>
+                    <Checkbox>
+                      <Label>All-time favorite</Label>
+                    </Checkbox>
+                  </Field>
+                </MDBCol>
+                <MDBCol md="4">
+                  <Field>
+                    <Checkbox>
+                      <Label>Backlog (to play)</Label>
+                    </Checkbox>
+                  </Field>
+                </MDBCol>
+                <MDBCol md="4">
+                  <Field>
+                    <Checkbox>
+                      <Label>Beaten</Label>
+                    </Checkbox>
+                  </Field>
+                </MDBCol>
+                </MDBRow>
+                <MDBRow>
+                <MDBCol md="4">
+                  <Field>
+                    <Checkbox>
+                      <Label>Complete in box</Label>
+                    </Checkbox>
+                  </Field>
+                </MDBCol>
+                <MDBCol md="4">
+                  <Field>
+                    <Checkbox>
+                      <Label>Now playing</Label>
+                    </Checkbox>
+                  </Field>
+                </MDBCol>
+                <MDBCol md="4">
+                  <Field>
+                    <Checkbox>
+                      <Label>Wishlist</Label>
+                    </Checkbox>
+                  </Field>
+                </MDBCol>
+              </MDBRow>
+              <hr/>
+
+              <h3>Notes</h3>
+              <Field>
+                <Label>Additional Notes</Label>
+                <Input />
+                <Message>Notes can be changed later.</Message>
+              </Field>
+            </form>
+
+
+
           <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.endOfSearchResults = el; }}>
           </div>

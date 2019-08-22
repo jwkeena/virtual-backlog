@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { Spinner } from 'reactstrap';
 
 const styles = {
     boxArt: {
       width: "125px"
     },
     gameTitle: {
-      width: "50%"
+      width: "20%"
+    },
+    gameDescription: {
+        width: "60%"
     },
     wideButton: {
       width: "100%"
@@ -58,8 +60,9 @@ class SearchResults extends Component {
                     {item.name}
                     </td>
                     <td 
-                    key={item.date_last_updated}>
-                    Deck?
+                    key={item.date_last_updated}
+                    style={styles.gameDescription}>
+                        {item.deck}
                     </td>
                 </tr>
                 </Fragment>

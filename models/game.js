@@ -10,11 +10,12 @@ const gameSchema = new Schema({
   is_beaten: Boolean,
   favorite: Boolean,
   now_playing: Boolean, 
-  owned: Boolean,
+  wishlist: Boolean,
+  backlog: Boolean,
   cib: Boolean,
-  rating: Number,
   price: Number,
   year_released: Number,
+  points: Number,
   date: { type: Date, default: Date.now },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
