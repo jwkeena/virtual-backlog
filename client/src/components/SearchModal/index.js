@@ -8,6 +8,22 @@ import { Button } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 import { Field, Radio, Label, Checkbox, Input, Message } from '@zendeskgarden/react-forms';
+import { Spinner } from 'reactstrap';
+
+const styles = {
+  container: {
+    position: "relative",
+    textAlign: "center",
+    color: "red"
+  },
+  middleOfDiv: {
+    position: "absolute",
+    bottom: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
+  }
+
+}
 
 class SearchModal extends Component {
   constructor(props) {
@@ -109,8 +125,8 @@ class SearchModal extends Component {
             </ModalHeader>
             <ModalBody>
               <Table hover>
-                    {(this.state.searchResults) && 
-                      <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
+                    {(this.state.searchResults) ? 
+                      <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults> : <div style={styles.container}> <Spinner style={styles.middle} type='grow' size='lg' color="primary" /></div>
                     }
               </Table>
               <hr/>

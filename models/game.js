@@ -16,6 +16,7 @@ const gameSchema = new Schema({
   price: Number,
   year_released: Number,
   points: Number,
+  similar: Array,
   date: { type: Date, default: Date.now },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
