@@ -197,7 +197,6 @@ class SearchModal extends Component {
 
               <h3>Notes</h3>
               <Field>
-                <Label>Additional Notes</Label>
                 <Input />
                 <Message>Notes can be changed later.</Message>
               </Field>
