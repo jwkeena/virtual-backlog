@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBRow, MDBCol } from 'mdbreact';
 import SearchResults from '../SearchResults';
 import PlatformPills from '../PlatformPills';
-import MediaOptions from "../MediaOptions";
+import RadioButtons from "../RadioButtons";
 import Checkbox from "../Checkbox";
 import { Table } from 'reactstrap';
 import FormControl from 'react-bootstrap/FormControl';
@@ -25,14 +25,6 @@ const styles = {
     transform: "translate(-50%, -50%)"
   }
 }
-
-const mediaTypeChoices = {
-  choices:
-  [
-    { text: 'Physical', value: '1' },
-    { text: 'Digital', value: '2' }
-  ]
-}
 class SearchModal extends Component {
   constructor(props) {
     super(props);
@@ -44,13 +36,17 @@ class SearchModal extends Component {
       possiblePlatforms: [],
       platformChosen: null,
       physicalOrDigital: null,
+      mediaTypeChoices: [
+        { label: "Physical", key: "physical-key", checked: false },
+        { label: "Digital", key: "digital-key", checked: false }
+      ],
       isChecked: [
-        {label: "All-time favorite", name: "favorite", key: "favorite-key", checked: false},
-        {label: "Backlog (to play)", name: "backlog", key: "backlog-key", checked: false},
-        {label: "Beaten", name: "beaten", key: "beaten-key", checked: false},
-        {label: "Complete in box", name: "cib", key: "cib-key", checked: false},
-        {label: "Now playing", name: "nowPlaying", key: "nowPlaying-key", checked: false},
-        {label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
+        { label: "All-time favorite", name: "favorite", key: "favorite-key", checked: false},
+        { label: "Backlog (to play)", name: "backlog", key: "backlog-key", checked: false},
+        { label: "Beaten", name: "beaten", key: "beaten-key", checked: false},
+        { label: "Complete in box", name: "cib", key: "cib-key", checked: false},
+        { label: "Now playing", name: "nowPlaying", key: "nowPlaying-key", checked: false},
+        { label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
       ],
       gameToShelve: {
         title: null,
@@ -113,7 +109,6 @@ class SearchModal extends Component {
   }
 
   chooseGame = (gameIndex) => {
-    // const gameToSearch = {title, system_type, developer, box_art, description, is_beaten, favorite, now_playing, owned, cib, rating, price, year_released}
     const newList = [];
 
     console.log(this.state.searchResults[gameIndex].platforms) 
@@ -140,8 +135,22 @@ class SearchModal extends Component {
     })
   }
 
-  chooseMediaType = (type) => {
-    console.log(type)
+  chooseMediaType = (index, checkValue) => {
+    let otherIndex;
+    if (index === 0) {
+      otherIndex = 1
+    } else {
+      otherIndex = 0
+    }
+    
+    const value = !checkValue
+    let copy = this.state.mediaTypeChoices;
+    copy[index].checked = value;
+    copy[otherIndex].checked = !value;
+
+    this.setState({
+      mediaTypeChoices: copy
+    })
   }
 
   chooseDatabaseOptions = (index, checkValue) => {
@@ -191,7 +200,7 @@ class SearchModal extends Component {
 
               <h3>Media type (required):</h3> 
               <MDBRow>
-                <MediaOptions chooseMediaType={this.chooseMediaType}physicalOrDigital={this.state.physicalOrDigital} model={mediaTypeChoices}/>
+                <RadioButtons chooseMediaType={this.chooseMediaType} mediaTypeChoices={this.state.mediaTypeChoices}/>
               </MDBRow>
               <hr/>
               
