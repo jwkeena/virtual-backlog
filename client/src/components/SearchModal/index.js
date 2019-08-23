@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBRow, MDBCol } from 'mdbreact';
+import { MDBRow } from 'mdbreact';
 import SearchResults from '../SearchResults';
 import PlatformPills from '../PlatformPills';
 import RadioButtons from "../RadioButtons";
@@ -9,7 +9,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import { Button } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
-import { Field, Input, Message } from '@zendeskgarden/react-forms';
+import { Field, Input, Message, Label } from '@zendeskgarden/react-forms';
 import { Spinner } from 'reactstrap';
 
 const styles = {
@@ -36,6 +36,7 @@ class SearchModal extends Component {
       possiblePlatforms: [],
       platformChosen: null,
       physicalOrDigital: null,
+      note: "",
       mediaTypeChoices: [
         { label: "Physical", key: "physical-key", checked: false },
         { label: "Digital", key: "digital-key", checked: false }
@@ -86,7 +87,7 @@ class SearchModal extends Component {
     });
   }
 
-  handleInputChange = event => {
+  textSearchInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
@@ -162,6 +163,16 @@ class SearchModal extends Component {
     })
   }
 
+  writeNote = (event) => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+
+    // Updating the input's state
+    this.setState({
+      note: value
+    }, () => console.log(this.state.note));
+  }
+
   shelve = (game) => {
     console.log(game)
   }
@@ -171,7 +182,7 @@ class SearchModal extends Component {
       return (
         <div>
           <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" onChange={this.handleInputChange} value={this.state.gameToSearch} name="gameToSearch" placeholder="type game title" className="mr-sm-2" />
+              <FormControl type="text" onChange={this.textSearchInputChange} value={this.state.gameToSearch} name="gameToSearch" placeholder="type game title" className="mr-sm-2" />
               <Button type="submit" onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
           <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
@@ -212,8 +223,8 @@ class SearchModal extends Component {
 
               <h3>Notes</h3>
               <Field>
-                <Input />
-                <Message>Notes can be changed later.</Message>
+                <Input note={this.state.note} onChange={this.writeNote}/>
+                <Message>Notes and options can be changed later.</Message>
               </Field>
             </form>
 
@@ -233,7 +244,7 @@ class SearchModal extends Component {
       return (
         <div>
           <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" onChange={this.handleInputChange} value={this.state.gameToSearch} placeholder="scan barcode" className="mr-sm-2" />
+              <FormControl type="text" onChange={this.textSearchInputChange} value={this.state.gameToSearch} placeholder="scan barcode" className="mr-sm-2" />
               <Button onClick={this.toggle} variant="outline-light">go</Button>  
           </Form>
           <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
