@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import FixedNavbar from "../components/FixedNavbar";
 import Game from "../components/Game";
-import API from "../utils/API";
+// import API from "../utils/API";
 import gameSeed from "../components/GamesTest/gameListTest";
 import '../components/Game/styles.css'
 // import Modernizr from '../utils/modernizr.custom'
@@ -26,63 +26,82 @@ class Games extends Component {
         gamesCount: 13,
         currentGame: -1,
         counter: 0,
-        open: false
+        gameOpen: 0,
+        clicked: [],
+        checked: false
+        
     }
 
-    
+   
 
 
     componentDidMount(){
         this.loadGames()
         console.log("Mounted")
     }
+    
+    // checkClicked = ids => {
+    //     let matchFound = false;
+    //     this.state.clicked.map(function(id){
+    //         if (ids === id) {
+    //             matchFound = true;
+    //         }
+    //     })
+    //     return matchFound;
+    // }
+    
 
-    handleClick = id =>{
+    handleClick = i =>{
+        console.log(`id: ${i}`)
+        this.setState({clicked:[...this.state.clicked,i]})
+        
+        console.log(this.state.clicked)
 
-        // const currentClass = this.state.open;
-        // this.setState({ open: !currentState});
-
-
-        if (this.state.currentGame !== -1){
-        // closeCurrent()
+        if (this.state.gameOpen === 0){
+            this.setState({gameOpen: 1})
+        setTimeout(() => {
+        this.setState({gameOpen : 2})
+        }, 1000)
+        // this.setState.currentGame = 0;
         }
 
-        if(this.hasClass('bk-open')){
-            this.removeClass('bk-open');
-        }
-        else if(this.hasClass('bk-outside' && 'bk-viewinside')){
-            this.addClass('bk-open')
+        else if (this.state.gameOpen === 2){
+            this.setState({gameOpen: 3})
         }
 
-        else {
-            this.data( 'opened', true ).addClass( 'bk-outside' ).on(function() {
-                this.addClass( 'bk-viewinside' );  
-                this.css( 'z-index', this.state.gamesCount );
-                this.state.currentGame = this.index();
-                console.log("Current Game " + this.state.currentGame)
-            } );
-            this.state.currentGame = 0;
+
+        else if (this.state.gameOpen === 3){
+            this.setState({gameOpen: 2})
+            setTimeout(() => {
+            this.setState({gameOpen : 1})
+            }, 1000)
+            setTimeout(() => {
+            this.setState({gameOpen : 0})
+            }, 1000)
+            
         }
+    
+    
         //     // $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
             
         // }
 
     }
 
-    handleThreeD = () =>{
-        if (this.state.counter ===13){
-            this.state.counter = 0
-        }
+    // handleThreeD = () =>{
+    //     if (this.state.counter ===13){
+    //         this.state.counter = 0
+    //     }
 
-        if (this.state.counter < this.state.gamesCount/2){
-            this.css('z-index', this.state.counter).attr( 'data-stackval', this.state.counter )
-            this.state.counter ++;
-        }
-        else {
-            this.css( 'z-index', this.state.gamesCount - 1 - this.state.counter ).attr( 'data-stackval', this.state.gamesCount - 1 - this.state.counter );
-			this.state.counter ++;	
-        }
-    }
+    //     if (this.state.counter < this.state.gamesCount/2){
+    //         this.css('z-index', this.state.counter).attr( 'data-stackval', this.state.counter )
+    //         this.state.counter ++;
+    //     }
+    //     else {
+    //         this.css( 'z-index', this.state.gamesCount - 1 - this.state.counter ).attr( 'data-stackval', this.state.gamesCount - 1 - this.state.counter );
+	// 		this.state.counter ++;	
+    //     }
+    // }
 
 
     loadGames = () =>{
@@ -95,14 +114,15 @@ class Games extends Component {
         }
 
     render () {
-        return (
+      return (
         <MDBContainer fluid>
         <FixedNavbar loggedIn={this.props.loggedIn} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
             <br/>
             <MDBRow>
                 <MDBCol size='sm-12' className = 'bk-list'>
-                    {this.state.gameSeed.map(games => 
+                    {this.state.gameSeed.map((games,i) => 
                      <Game 
+                    gameOpen = {this.state.gameOpen} 
                     title = {games.title}
                     system_type = {games.system_type}
                     developer = {games.developer}
@@ -118,8 +138,9 @@ class Games extends Component {
                     date = {games.data}
                     note = {games.note}
                     id = {games.id}
-                    // key = {this.state.counter++}
-                    handleClick = {this.handleClick}
+                    key = {games.id}
+                    i = {this.state.clicked}
+                    handleClick = { () => this.handleClick(i)}
                     /> )}
                 </MDBCol>
             </MDBRow>
