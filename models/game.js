@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const gameSchema = new Schema({
   title: { type: String, required: true },
   system_type: { type: String, required: true },
+  physical: {type: Boolean, required: true },
   developer: String,
   box_art: String,
   description: String,

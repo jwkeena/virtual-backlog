@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { MDBRow, MDBCol } from 'mdbreact';
 import SearchResults from '../SearchResults';
 import PlatformPills from '../PlatformPills';
+import MediaOptions from "../MediaOptions";
+import Checkbox from "../Checkbox";
 import { Table } from 'reactstrap';
 import FormControl from 'react-bootstrap/FormControl';
 import { Button } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
-import { Field, Radio, Label, Checkbox, Input, Message } from '@zendeskgarden/react-forms';
+import { Field, Input, Message } from '@zendeskgarden/react-forms';
 import { Spinner } from 'reactstrap';
 
 const styles = {
@@ -22,9 +24,15 @@ const styles = {
     left: "50%",
     transform: "translate(-50%, -50%)"
   }
-
 }
 
+const mediaTypeChoices = {
+  choices:
+  [
+    { text: 'Physical', value: '1' },
+    { text: 'Digital', value: '2' }
+  ]
+}
 class SearchModal extends Component {
   constructor(props) {
     super(props);
@@ -33,9 +41,35 @@ class SearchModal extends Component {
       backdrop: true,
       gameToSearch: "",
       searchResults: null,
-      gameToShelve: {},
       possiblePlatforms: [],
-      platformChosen: ""
+      platformChosen: null,
+      physicalOrDigital: null,
+      isChecked: [
+        {label: "All-time favorite", name: "favorite", key: "favorite-key", checked: false},
+        {label: "Backlog (to play)", name: "backlog", key: "backlog-key", checked: false},
+        {label: "Beaten", name: "beaten", key: "beaten-key", checked: false},
+        {label: "Complete in box", name: "cib", key: "cib-key", checked: false},
+        {label: "Now playing", name: "nowPlaying", key: "nowPlaying-key", checked: false},
+        {label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
+      ],
+      gameToShelve: {
+        title: null,
+        system_type: null,
+        physical: null,
+        developer: null,
+        box_art: null,
+        description: null,
+        is_beaten: null,
+        favorite: null,
+        now_playing: null, 
+        wishlist: null,
+        backlog: null,
+        cib: null,
+        price: null,
+        year_released: null,
+        points: null,
+        similar: null,
+      },
     };
     this.chooseGame = this.chooseGame.bind();
     this.choosePlatform = this.choosePlatform.bind();
@@ -106,6 +140,19 @@ class SearchModal extends Component {
     })
   }
 
+  chooseMediaType = (type) => {
+    console.log(type)
+  }
+
+  chooseDatabaseOptions = (index, checkValue) => {
+    const value = !checkValue
+    let copy = this.state.isChecked;
+    copy[index].checked = value;
+    this.setState({
+      isChecked: copy
+    })
+  }
+
   shelve = (game) => {
     console.log(game)
   }
@@ -121,18 +168,19 @@ class SearchModal extends Component {
           <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
             <ModalHeader toggle={this.toggle}>
               Searching for "{this.props.gameToSearch}"
-         
             </ModalHeader>
             <ModalBody>
-              <Table hover>
-                    {(this.state.searchResults) ? 
-                      <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults> : <div style={styles.container}> <Spinner style={styles.middle} type='grow' size='lg' color="primary" /></div>
+                    {(this.state.searchResults) 
+                      ? 
+                        <Table hover>
+                          <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
+                        </Table>
+                      : 
+                        <div style={styles.container}> <Spinner style={styles.middle} size='lg' color="primary" /></div>
                     }
-              </Table>
               <hr/>
 
               <form>
-
               <div>
                   <h3>Platform (required): </h3>
                   {(this.state.possiblePlatforms.length > 0) && 
@@ -142,73 +190,15 @@ class SearchModal extends Component {
               <hr/>   
 
               <h3>Media type (required):</h3> 
-              <div role="group">
-                <MDBRow>
-                  <MDBCol md="2">
-                    <Field>
-                      <Radio name="options" value="physical">
-                        <Label>Physical</Label>
-                      </Radio>
-                    </Field>
-                  </MDBCol>  
-                  <MDBCol md="1">
-                    <Field>
-                      <Radio name="options" value="digital">
-                        <Label>Digital</Label>
-                      </Radio>
-                    </Field>
-                  </MDBCol>  
-                </MDBRow>
-              </div>
+              <MDBRow>
+                <MediaOptions chooseMediaType={this.chooseMediaType}physicalOrDigital={this.state.physicalOrDigital} model={mediaTypeChoices}/>
+              </MDBRow>
               <hr/>
               
               <h3>Options</h3>
                 <MDBRow>
-                <MDBCol md="4">
-                  <Field>
-                    <Checkbox>
-                      <Label>All-time favorite</Label>
-                    </Checkbox>
-                  </Field>
-                </MDBCol>
-                <MDBCol md="4">
-                  <Field>
-                    <Checkbox>
-                      <Label>Backlog (to play)</Label>
-                    </Checkbox>
-                  </Field>
-                </MDBCol>
-                <MDBCol md="4">
-                  <Field>
-                    <Checkbox>
-                      <Label>Beaten</Label>
-                    </Checkbox>
-                  </Field>
-                </MDBCol>
+                  <Checkbox chooseDatabaseOptions={this.chooseDatabaseOptions} isChecked={this.state.isChecked}/>
                 </MDBRow>
-                <MDBRow>
-                <MDBCol md="4">
-                  <Field>
-                    <Checkbox>
-                      <Label>Complete in box</Label>
-                    </Checkbox>
-                  </Field>
-                </MDBCol>
-                <MDBCol md="4">
-                  <Field>
-                    <Checkbox>
-                      <Label>Now playing</Label>
-                    </Checkbox>
-                  </Field>
-                </MDBCol>
-                <MDBCol md="4">
-                  <Field>
-                    <Checkbox>
-                      <Label>Wishlist</Label>
-                    </Checkbox>
-                  </Field>
-                </MDBCol>
-              </MDBRow>
               <hr/>
 
               <h3>Notes</h3>
@@ -217,8 +207,6 @@ class SearchModal extends Component {
                 <Message>Notes can be changed later.</Message>
               </Field>
             </form>
-
-
 
           <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.endOfSearchResults = el; }}>
