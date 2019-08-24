@@ -2,12 +2,22 @@ const db = require("../models");
 
 // Defining methods for the gamesController
 module.exports = {
+  
   findAll: function(req, res) {
-    db.Game
-      .find(req.query)
-      .sort({ date: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.User
+      .findOne({username: req.params.id}, // Pass in username from request, then find user's unique id
+        function(err, dbUser) { 
+          if (err) {
+            console.log(err);
+          } else {
+            const id = dbUser._id;
+            db.Game
+              .find({owner: id}) // Using the id, find all games with that owner
+              .then(collection => res.json(collection)) // Return all games to client side
+              .catch(err => 
+                console.log(err));
+          }; 
+        })
   },
   create: function(req, res) {
     const newGame = req.body

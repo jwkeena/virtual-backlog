@@ -83,7 +83,7 @@ render() {
 
         <Nav className="ml-auto">
           <SearchOptions searchOption={this.state.search} updateSearchOption={this.updateSearchOption}/>
-          <SearchModal searchOption={this.state.search} updateTextSearch={this.updateTextSearch} gameToSearch={this.state.gameToSearch}/>
+          <SearchModal loadGames={this.props.loadGames} searchOption={this.state.search} updateTextSearch={this.updateTextSearch} gameToSearch={this.state.gameToSearch}/>
         </Nav>
 
       </Navbar>

@@ -1,9 +1,12 @@
 const router = require("express").Router();
 const gamesController = require("../../controllers/gamesController");
 
+// Matches with "/api/games", where id is the username
+router.route("/:id")
+  .get(gamesController.findAll)
+
 // Matches with "/api/games"
 router.route("/")
-  .get(gamesController.findAll)
   .post(gamesController.create);
 
 // Matches with "/api/games/:id"

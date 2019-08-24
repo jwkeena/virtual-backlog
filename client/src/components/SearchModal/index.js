@@ -160,8 +160,12 @@ class SearchModal extends Component {
   }
 
   shelve = () => {
+    if (this.state.platformChosen === null) {
+      return alert ("Choose a platform before submitting.");
+    } else if (this.state.mediaTypeChoices[0].checked === false && this.state.mediaTypeChoices[1].checked === false) {
+      return alert ("Select a media type before submitting.")
+    }
     const saved = this.state.gameChosenFromSearch;
-    console.log(localStorage.getItem("username"))
     const newGame = {
       username: localStorage.getItem("username"),
       title: saved.name,
@@ -181,8 +185,9 @@ class SearchModal extends Component {
       points: 0,
     }
     API.addGame(newGame)
-      .then(res=> {
+      .then((res) => {
         console.log(res.data);
+        this.props.loadGames();
         this.resetSearchState();
       })
       .catch(err => console.log(err));

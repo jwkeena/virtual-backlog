@@ -6,11 +6,21 @@ export default {
     return axios.get("/api/search/" + searchQuery)
   },
   
+  // Gets all games from database
+  getGames: function(username) {
+    return axios.get("/api/games/" + username);
+  },
+
   // Saves a game to the database
   addGame: function(newGame) {
     return axios.post("/api/games", newGame);
   },
   
+  // Deletes the game with the given id
+  deleteGame: function(id) {
+    return axios.delete("/api/games/" + id);
+  },
+
   // Registers new user
   registerUser: function(newUser) {
     return axios.post("/api/users", newUser);
@@ -19,14 +29,4 @@ export default {
   logout: function(username) {
     return axios.post("/api/users/logout", username);
   },
-
-  // Gets all games from database
-  getGames: function() {
-    return axios.get("/api/games");
-  },
-
-  // Deletes the game with the given id
-  deleteGame: function(id) {
-    return axios.delete("/api/games/" + id);
-  }
 };
