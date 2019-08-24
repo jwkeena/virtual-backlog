@@ -69,6 +69,8 @@ class SearchModal extends Component {
       }), () => {
         if (this.state.modal === true) {
           this.searchGame(this.state.gameToSearch);
+        } else {
+          this.resetSearchState();
         }
       });
     }
@@ -115,7 +117,6 @@ class SearchModal extends Component {
   }
 
   choosePlatform = (platform) => {
-    console.log("Platform chosen, ", platform)
     this.setState({
       platformChosen: platform
     })
@@ -155,7 +156,7 @@ class SearchModal extends Component {
     // Updating the input's state
     this.setState({
       note: value
-    }, () => console.log(this.state.note));
+    });
   }
 
   shelve = () => {
@@ -180,10 +181,35 @@ class SearchModal extends Component {
       points: 0,
     }
     API.addGame(newGame)
-    .then(res=> {
-      console.log(res.data)
+      .then(res=> {
+        console.log(res.data);
+        this.resetSearchState();
+      })
+      .catch(err => console.log(err));
+  }
+
+  resetSearchState = () => {
+    this.setState({
+      modal: false,
+      gameToSearch: "",
+      searchResults: null,
+      gameChosenFromSearch: null,
+      possiblePlatforms: [],
+      platformChosen: null,
+      note: "",
+      mediaTypeChoices: [
+        { label: "Physical", key: "physical-key", checked: false },
+        { label: "Digital", key: "digital-key", checked: false }
+      ],
+      isChecked: [
+        { label: "All-time favorite", name: "favorite", key: "favorite-key", checked: false},
+        { label: "Backlog (to play)", name: "backlog", key: "backlog-key", checked: false},
+        { label: "Beaten", name: "beaten", key: "beaten-key", checked: false},
+        { label: "Complete in box", name: "cib", key: "cib-key", checked: false},
+        { label: "Now playing", name: "nowPlaying", key: "nowPlaying-key", checked: false},
+        { label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
+      ]
     })
-    .catch(err => console.log(err));
   }
 
   render() {
