@@ -25,13 +25,15 @@ class Games extends Component {
         gameSeed: gameSeed,
         gamesCount: 13,
         currentGame: -1,
-        counter: 0,
+        zCounter: 0,
         gameOpen: 0,
         clicked: [],
-        checked: false
+        checked: false,
+        zIndex : 0
         
     }
 
+    
    
 
 
@@ -40,44 +42,45 @@ class Games extends Component {
         console.log("Mounted")
     }
     
-    // checkClicked = ids => {
-    //     let matchFound = false;
-    //     this.state.clicked.map(function(id){
-    //         if (ids === id) {
-    //             matchFound = true;
-    //         }
-    //     })
-    //     return matchFound;
-    // }
-    
 
     handleClick = i =>{
-        console.log(`id: ${i}`)
-        this.setState({clicked:[...this.state.clicked,i]})
+        let clickedArray = this.state.clicked.slice(0)
+        console.log("clickedArray" + clickedArray)
         
-        console.log(this.state.clicked)
-
+        
         if (this.state.gameOpen === 0){
-            this.setState({gameOpen: 1})
-        setTimeout(() => {
-        this.setState({gameOpen : 2})
+        this.setState({zIndex: 1})
+        clickedArray[i] = !clickedArray[i]
+        this.setState({clicked:clickedArray})
+            this.setState({gameOpen:1})
+            setTimeout(() => {
+                this.setState({gameOpen:2})
+                
+
         }, 1000)
+
         // this.setState.currentGame = 0;
         }
 
         else if (this.state.gameOpen === 2){
-            this.setState({gameOpen: 3})
+            this.setState({gameOpen:3})
+
+
         }
 
 
         else if (this.state.gameOpen === 3){
-            this.setState({gameOpen: 2})
+            this.setState({gameOpen:2})
+
             setTimeout(() => {
-            this.setState({gameOpen : 1})
+            this.setState({gameOpen:1})
+
             }, 1000)
             setTimeout(() => {
-            this.setState({gameOpen : 0})
+            this.setState({gameOpen:0})
+            this.setState({clicked:[]})
             }, 1000)
+            this.setState({zIndex: 0})
             
         }
     
@@ -88,20 +91,12 @@ class Games extends Component {
 
     }
 
-    // handleThreeD = () =>{
-    //     if (this.state.counter ===13){
-    //         this.state.counter = 0
-    //     }
 
-    //     if (this.state.counter < this.state.gamesCount/2){
-    //         this.css('z-index', this.state.counter).attr( 'data-stackval', this.state.counter )
-    //         this.state.counter ++;
-    //     }
-    //     else {
-    //         this.css( 'z-index', this.state.gamesCount - 1 - this.state.counter ).attr( 'data-stackval', this.state.gamesCount - 1 - this.state.counter );
-	// 		this.state.counter ++;	
-    //     }
-    // }
+        
+            
+        
+       
+        
 
 
     loadGames = () =>{
@@ -114,6 +109,9 @@ class Games extends Component {
         }
 
     render () {
+        let gamesCount = 12
+       let zCounter = this.state.zCounter
+       let negativeC = 7
       return (
         <MDBContainer fluid>
         <FixedNavbar loggedIn={this.props.loggedIn} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
@@ -139,14 +137,18 @@ class Games extends Component {
                     note = {games.note}
                     id = {games.id}
                     key = {games.id}
-                    i = {this.state.clicked}
+                    zIndex = {this.state.zIndex}
+                    clicked = {this.state.clicked[i]}
+                    zCounter = {zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --}
                     handleClick = { () => this.handleClick(i)}
-                    /> )}
+                    />)}
+                    
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
         )
     }
+    
 };
 
 export default Games;

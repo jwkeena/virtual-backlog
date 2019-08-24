@@ -4,8 +4,8 @@ import React from 'react';
 // // return { init : init };
 
  function Game(props) {
-   return ( <li className={props.id} onClick = {props.handleClick}>
-    <div className={(props.gameOpen === 1 && props.i ? 'bk-game game'+props.id+' bk-outside'  : props.gameOpen === 2 && props.i  ? 'bk-game game'+props.id+' bk-outside bk-viewinside' : props.gameOpen === 3 && props.i ? 'bk-game game'+props.id+' bk-outside bk-viewinside bk-open' : 'bk-game game'+ props.id)}> 
+   return ( <li className={(props.zIndex === 1  && props.clicked ? 'z-index'+props.zCounter + 1 : 'z-index'+props.zCounter)} onClick = {props.handleClick}>
+    <div className={(props.gameOpen === 1 && props.clicked ? 'bk-game game'+props.id+' bk-outside'  : props.gameOpen === 2 && props.clicked  ? 'bk-game game'+props.id+' bk-outside bk-viewinside' : props.gameOpen === 3 && props.clicked ? 'bk-game game'+props.id+' bk-outside bk-viewinside bk-open' :'bk-game game'+ props.id)}> 
    
     <div className='bk-front'>
         <div className='bk-cover-back'></div>
