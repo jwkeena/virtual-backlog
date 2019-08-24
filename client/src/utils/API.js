@@ -1,8 +1,14 @@
 import axios from "axios";
 
 export default {
-  searchGame: function(searchQuery) {
+  // Finds games in the Giant Bomb database
+  search: function(searchQuery) {
     return axios.get("/api/search/" + searchQuery)
+  },
+  
+  // Saves a game to the database
+  addGame: function(newGame) {
+    return axios.post("/api/games", newGame);
   },
   
   // Registers new user
@@ -22,10 +28,5 @@ export default {
   // Deletes the game with the given id
   deleteGame: function(id) {
     return axios.delete("/api/games/" + id);
-  },
-
-  // Saves a game to the database
-  saveGame: function(gameData) {
-    return axios.post("/api/games", gameData);
   }
 };

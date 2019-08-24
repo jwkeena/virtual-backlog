@@ -9,7 +9,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import { Button } from "reactstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
-import { Field, Input, Message, Label } from '@zendeskgarden/react-forms';
+import { Field, Input, Message } from '@zendeskgarden/react-forms';
 import { Spinner } from 'reactstrap';
 
 const styles = {
@@ -33,9 +33,9 @@ class SearchModal extends Component {
       backdrop: true,
       gameToSearch: "",
       searchResults: null,
+      gameChosenFromSearch: null,
       possiblePlatforms: [],
       platformChosen: null,
-      physicalOrDigital: null,
       note: "",
       mediaTypeChoices: [
         { label: "Physical", key: "physical-key", checked: false },
@@ -49,24 +49,6 @@ class SearchModal extends Component {
         { label: "Now playing", name: "nowPlaying", key: "nowPlaying-key", checked: false},
         { label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
       ],
-      gameToShelve: {
-        title: null,
-        system_type: null,
-        physical: null,
-        developer: null,
-        box_art: null,
-        description: null,
-        is_beaten: null,
-        favorite: null,
-        now_playing: null, 
-        wishlist: null,
-        backlog: null,
-        cib: null,
-        price: null,
-        year_released: null,
-        points: null,
-        similar: null,
-      },
     };
     this.chooseGame = this.chooseGame.bind();
     this.choosePlatform = this.choosePlatform.bind();
@@ -78,13 +60,18 @@ class SearchModal extends Component {
   }
 
   toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }), () => {
-      if (this.state.modal === true) {
-        this.searchGame(this.state.gameToSearch);
-      }
-    });
+    const query = this.state.gameToSearch.trim()
+    if (query === "" && this.state.modal === false) {
+      alert("Enter a game to search.")
+    } else {
+      this.setState(prevState => ({
+        modal: !prevState.modal
+      }), () => {
+        if (this.state.modal === true) {
+          this.searchGame(this.state.gameToSearch);
+        }
+      });
+    }
   }
 
   textSearchInputChange = event => {
@@ -100,7 +87,7 @@ class SearchModal extends Component {
 
   searchGame = (searchQuery) => {
     console.log("searchQuery", searchQuery);
-    API.searchGame(searchQuery)
+    API.search(searchQuery)
       .then(res=> {
         this.setState({
           searchResults: res.data
@@ -110,18 +97,16 @@ class SearchModal extends Component {
   }
 
   chooseGame = (gameIndex) => {
-    const newList = [];
-
-    console.log(this.state.searchResults[gameIndex].platforms) 
     this.scrollToBottom();
-
+    let newList = [];
     if (this.state.searchResults[gameIndex].platforms !== null) {
       for (let i = 0; i < this.state.searchResults[gameIndex].platforms.length; i++) {
         newList.push(this.state.searchResults[gameIndex].platforms[i].abbreviation); // Change to .name for full system name
       }
       this.setState({
-          possiblePlatforms: newList
-        })
+          possiblePlatforms: newList,
+          gameChosenFromSearch: this.state.searchResults[gameIndex]
+        }, () => console.log(this.state.gameChosenFromSearch))
     } else {
       this.setState({
         possiblePlatforms: ["NONE"]
@@ -173,8 +158,32 @@ class SearchModal extends Component {
     }, () => console.log(this.state.note));
   }
 
-  shelve = (game) => {
-    console.log(game)
+  shelve = () => {
+    const saved = this.state.gameChosenFromSearch;
+    console.log(localStorage.getItem("username"))
+    const newGame = {
+      username: localStorage.getItem("username"),
+      title: saved.name,
+      system_type: this.state.platformChosen,
+      physical: this.state.mediaTypeChoices[0].checked,
+      box_art: saved.image.medium_url,
+      description: saved.deck,
+      note: this.state.note,
+      guid: saved.guid,
+      year_released: saved.expected_release_year,
+      favorite: this.state.isChecked[0].checked,
+      backlog: this.state.isChecked[1].checked,
+      is_beaten: this.state.isChecked[2].checked,
+      cib: this.state.isChecked[3].checked,
+      now_playing: this.state.isChecked[4].checked, 
+      wishlist: this.state.isChecked[5].checked,
+      points: 0,
+    }
+    API.addGame(newGame)
+    .then(res=> {
+      console.log(res.data)
+    })
+    .catch(err => console.log(err));
   }
 
   render() {
@@ -202,14 +211,14 @@ class SearchModal extends Component {
 
               <form>
               <div>
-                  <h3>Platform (required): </h3>
+                  <h3>Platform</h3>
                   {(this.state.possiblePlatforms.length > 0) && 
                     <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}>Choose a platform: </PlatformPills>
                   }
               </div>
               <hr/>   
 
-              <h3>Media type (required):</h3> 
+              <h3>Media type</h3> 
               <MDBRow>
                 <RadioButtons chooseMediaType={this.chooseMediaType} mediaTypeChoices={this.state.mediaTypeChoices}/>
               </MDBRow>
@@ -239,7 +248,6 @@ class SearchModal extends Component {
         </div>
       );
     }
-
     if (this.props.searchOption === "barcode") {
       return (
         <div>

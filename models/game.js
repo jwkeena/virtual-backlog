@@ -2,30 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
+  owner: { type: Schema.ObjectId, ref: 'User', required: true },
   title: { type: String, required: true },
   system_type: { type: String, required: true },
   physical: {type: Boolean, required: true },
-  developer: String,
   box_art: String,
   description: String,
-  is_beaten: Boolean,
+  note: String,
+  guid: String,
+  year_released: Number,
   favorite: Boolean,
+  backlog: Boolean,
+  is_beaten: Boolean,
+  cib: Boolean,
   now_playing: Boolean, 
   wishlist: Boolean,
-  backlog: Boolean,
-  cib: Boolean,
-  price: Number,
-  year_released: Number,
   points: Number,
-  similar: Array,
-  date: { type: Date, default: Date.now },
-  // `note` is an object that stores a Note id
-  // The ref property links the ObjectId to the Note model
-  // This allows us to populate the Article with an associated Note
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Note"
-  }
+  date: { type: Date, default: Date.now }
 });
 
 const Game = mongoose.model("Game", gameSchema);

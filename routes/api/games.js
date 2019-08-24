@@ -7,8 +7,7 @@ router.route("/")
   .post(gamesController.create);
 
 // Matches with "/api/games/:id"
-router
-  .route("/:id")
+router.route("/:id")
   .get(gamesController.findById)
   .put(gamesController.update)
   .delete(gamesController.remove);

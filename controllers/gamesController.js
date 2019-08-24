@@ -9,15 +9,26 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  create: function(req, res) {
+    const newGame = req.body
+    db.User.findOne({username: req.body.username}, // First, get the user's unique id as stored in mongoDB
+      function(err, dbUser) { 
+        if (err) {
+          console.log(err);
+        } else {
+          const id = dbUser._id; // Then add an owner property to the newGame object so it can be properly associated with the user later, in .populate
+          newGame.owner = id;
+          db.Game
+            .create(req.body)
+            .then(dbGame => res.json(dbGame))
+            .catch(err => 
+              console.log(err));
+        }; 
+      })
+  },
   findById: function(req, res) {
     db.Game
       .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  create: function(req, res) {
-    db.Game
-      .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
