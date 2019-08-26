@@ -82,13 +82,6 @@ class Games extends Component {
 
     }
 
-
-        
-            
-        
-       
-        
-
     loadGames () {
         const username = localStorage.getItem("username");
         API.getGames(username)
@@ -102,13 +95,15 @@ class Games extends Component {
     }
 
     render () {
-        let gamesCount = 12
-       let zCounter = this.state.zCounter
-       let negativeC = 7
+      let gamesCount = 12
+      let zCounter = this.state.zCounter
+      let negativeC = 7
       return (
         <MDBContainer fluid>
-        <FixedNavbar loggedIn={this.props.loggedIn} loadGames={ this.loadGames} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
-            <br/>
+        <FixedNavbar loggedIn={this.props.loggedIn} loadGames={this.loadGames} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
+        
+        <br/>
+        
             {(this.state.gamesLoaded) && 
             
             <MDBRow>
@@ -129,8 +124,7 @@ class Games extends Component {
                     year_released = {games.year_released}
                     date = {games.data}
                     note = {games.note}
-                    id = {games.id}
-                    key = {games.id}
+                    id = {games._id}
                     zIndex = {this.state.zIndex}
                     clicked = {this.state.clicked[i]}
                     zCounter = {zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --}

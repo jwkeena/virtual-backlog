@@ -35,6 +35,10 @@ logout = event => {
 updateSearchOption = (newOption) => {
   this.setState({
     search: newOption
+  }, () => {
+    if (this.state.search === "barcode") {
+      window.open('https://jwkeena.github.io/vb-scanner-helper/', "_blank")
+    }
   })
 }
 
@@ -70,7 +74,6 @@ render() {
                 <Dropdown.Item href="#/action-2">physical (a-z)</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">physical (price)</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">favorite</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">developer</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">now playing</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">year released</Dropdown.Item>
               </Dropdown.Menu>

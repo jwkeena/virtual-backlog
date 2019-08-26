@@ -4,8 +4,8 @@ import React from 'react';
 // // return { init : init };
 
  function Game(props) {
-   return ( <li className={(props.zIndex === 1  && props.clicked ? 'z-index'+props.zCounter + 1 : 'z-index'+props.zCounter)} onClick = {props.handleClick}>
-    <div className={(props.gameOpen === 1 && props.clicked ? 'bk-game game'+props.id+' bk-outside'  : props.gameOpen === 2 && props.clicked  ? 'bk-game game'+props.id+' bk-outside bk-viewinside' : props.gameOpen === 3 && props.clicked ? 'bk-game game'+props.id+' bk-outside bk-viewinside bk-open' :'bk-game game'+ props.id)}> 
+   return ( <li key={props.id} className={(props.zIndex === 1  && props.clicked ? 'z-index'+props.zCounter + 1 : 'z-index'+props.zCounter)} onClick = {props.handleClick}>
+    <div className={(props.gameOpen === 1 && props.clicked ? 'bk-game game ' + props.id +' bk-outside'  : props.gameOpen === 2 && props.clicked  ? 'bk-game game '+props.id+' bk-outside bk-viewinside' : props.gameOpen === 3 && props.clicked ? 'bk-game game '+props.id+' bk-outside bk-viewinside bk-open' :'bk-game game'+ props.id)}> 
    
     <div className='bk-front'>
         <div className='bk-cover-back'></div>
@@ -21,10 +21,6 @@ import React from 'react';
         <div className='bk-content'>
             <p>{props.is_physical}</p>
             <p>{props.is_beaten}</p>
-            <p>{props.personal_rating}</p>
-        </div>
-        <div className='bk-content'>
-            <p>{props.developer}</p>
         </div>
     </div>
 

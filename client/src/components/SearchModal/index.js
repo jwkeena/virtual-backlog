@@ -31,6 +31,7 @@ class SearchModal extends Component {
     this.state = {
       modal: false,
       backdrop: true,
+      barcodeSearchResult: null,
       gameToSearch: "",
       searchResults: null,
       gameChosenFromSearch: null,
@@ -50,9 +51,31 @@ class SearchModal extends Component {
         { label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
       ],
     };
+    this.localStorageUpdated = this.localStorageUpdated.bind(this);
     this.chooseGame = this.chooseGame.bind();
     this.choosePlatform = this.choosePlatform.bind();
     this.toggle = this.toggle.bind(this);
+  }
+
+  componentDidMount() {
+    if (typeof window !== 'undefined') {
+        window.addEventListener('storage', this.localStorageUpdated)
+    }
+  }
+
+  componentWillUnmount(){
+      if (typeof window !== 'undefined') {
+          window.removeEventListener('storage', this.localStorageUpdated)
+      }
+  }
+
+  localStorageUpdated(){
+      this.setState({
+          barcodeSearchResult: localStorage.getItem('barcodeSearchResults'),
+          gameToSearch: localStorage.getItem('barcodeSearchResults')
+      }, () => {
+        this.toggle();
+      })
   }
 
   scrollToBottom = () => {
@@ -61,6 +84,7 @@ class SearchModal extends Component {
 
   toggle() {
     const query = this.state.gameToSearch.trim()
+        
     if (query === "" && this.state.modal === false) {
       alert("Enter a game to search.")
     } else {
@@ -218,87 +242,74 @@ class SearchModal extends Component {
   }
 
   render() {
-    if (this.props.searchOption === "text") {
-      return (
-        <div>
-          <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" onChange={this.textSearchInputChange} value={this.state.gameToSearch} name="gameToSearch" placeholder="type game title" className="mr-sm-2" />
-              <Button type="submit" onClick={this.toggle} variant="outline-light">go</Button>  
-          </Form>
-          <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
-            <ModalHeader toggle={this.toggle}>
-              Searching for "{this.props.gameToSearch}"
-            </ModalHeader>
-            <ModalBody>
-                    {(this.state.searchResults) 
-                      ? 
-                        <Table hover>
-                          <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
-                        </Table>
-                      : 
-                        <div style={styles.container}> <Spinner style={styles.middle} size='lg' color="primary" /></div>
-                    }
-              <hr/>
-
-              <form>
-              <div>
-                  <h3>Platform</h3>
-                  {(this.state.possiblePlatforms.length > 0) && 
-                    <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}>Choose a platform: </PlatformPills>
+    return (
+      <div>
+        <Form inline onSubmit={(e) => e.preventDefault()}>
+            <FormControl type="text" 
+              onChange={this.textSearchInputChange} 
+              value={(this.props.searchOption === "text") ? this.state.gameToSearch : this.state.barcodeSearchResult} 
+              name="gameToSearch" 
+              placeholder={(this.props.searchOption === "text") ? "type game title" : "scan barcode"} 
+              className="mr-sm-2" />
+            <Button 
+              type="submit" 
+              onClick={this.toggle} 
+              variant="outline-light">go
+            </Button>  
+        </Form>
+        <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+          <ModalHeader toggle={this.toggle}>
+            Searching for "{this.state.gameToSearch}"
+          </ModalHeader>
+          <ModalBody>
+                  {(this.state.searchResults) 
+                    ? 
+                      <Table hover>
+                        <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
+                      </Table>
+                    : 
+                      <div style={styles.container}> <Spinner style={styles.middle} size='lg' color="primary" /></div>
                   }
-              </div>
-              <hr/>   
+            <hr/>
 
-              <h3>Media type</h3> 
+            <form>
+            <div>
+                <h3>Platform</h3>
+                {(this.state.possiblePlatforms.length > 0) && 
+                  <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}>Choose a platform: </PlatformPills>
+                }
+            </div>
+            <hr/>   
+
+            <h3>Media type</h3> 
+            <MDBRow>
+              <RadioButtons chooseMediaType={this.chooseMediaType} mediaTypeChoices={this.state.mediaTypeChoices}/>
+            </MDBRow>
+            <hr/>
+            
+            <h3>Options</h3>
               <MDBRow>
-                <RadioButtons chooseMediaType={this.chooseMediaType} mediaTypeChoices={this.state.mediaTypeChoices}/>
+                <Checkbox chooseDatabaseOptions={this.chooseDatabaseOptions} isChecked={this.state.isChecked}/>
               </MDBRow>
-              <hr/>
-              
-              <h3>Options</h3>
-                <MDBRow>
-                  <Checkbox chooseDatabaseOptions={this.chooseDatabaseOptions} isChecked={this.state.isChecked}/>
-                </MDBRow>
-              <hr/>
+            <hr/>
 
-              <h3>Notes</h3>
-              <Field>
-                <Input note={this.state.note} onChange={this.writeNote}/>
-                <Message>Notes and options can be changed later.</Message>
-              </Field>
-            </form>
+            <h3>Notes</h3>
+            <Field>
+              <Input note={this.state.note} onChange={this.writeNote}/>
+              <Message>Notes and options can be changed later.</Message>
+            </Field>
+          </form>
 
-          <div style={{ float:"left", clear: "both" }}
-             ref={(el) => { this.endOfSearchResults = el; }}>
-          </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>
-            </ModalFooter>
-          </Modal>
+        <div style={{ float:"left", clear: "both" }}
+            ref={(el) => { this.endOfSearchResults = el; }}>
         </div>
-      );
-    }
-    if (this.props.searchOption === "barcode") {
-      return (
-        <div>
-          <Form inline onSubmit={(e) => e.preventDefault()}>
-              <FormControl type="text" onChange={this.textSearchInputChange} value={this.state.gameToSearch} placeholder="scan barcode" className="mr-sm-2" />
-              <Button onClick={this.toggle} variant="outline-light">go</Button>  
-          </Form>
-          <Modal size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
-            <ModalHeader toggle={this.toggle}>Scan barcode</ModalHeader>
-            <ModalBody>
-              CAMERA HERE
-            </ModalBody>
-            <ModalFooter>
-              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-              <Button color="primary" onClick={this.toggle}>Search</Button>{' '}
-            </ModalFooter>
-          </Modal>
-        </div>
-      );
-    }
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
   }
 }
 
