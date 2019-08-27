@@ -11,18 +11,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 import { Field, Input, Message } from '@zendeskgarden/react-forms';
 import { Spinner } from 'reactstrap';
-import createHost from 'cross-domain-storage/host';
+import createGuest from 'cross-domain-storage/guest';
 
-const storageHost = createHost([
-  {
-      origin: 'https://virtualbacklog.herokuapp.com/',
-      allowedMethods: ['get', 'set', 'remove']
-  },
-  {
-      origin: 'https://vb-scanner.herokuapp.com/',
-      allowedMethods: ['get', 'set', 'remove']
-  }
-]);
+const helperStorage = createGuest("https://vb-scanner.herokuapp.com/")
 
 const styles = {
   container: {
@@ -70,6 +61,13 @@ class SearchModal extends Component {
   }
 
   componentDidMount() {
+    helperStorage.get("barcodeSearchResult", function (error, value) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(value)
+      }
+    })
     if (typeof window !== 'undefined') {
         window.addEventListener('storage', this.localStorageUpdated)
     }
@@ -82,11 +80,17 @@ class SearchModal extends Component {
   }
 
   localStorageUpdated(){
-      this.setState({
-          barcodeSearchResult: localStorage.getItem('barcodeSearchResults'),
-          gameToSearch: localStorage.getItem('barcodeSearchResults')
-      }, () => {
-        this.toggle();
+      helperStorage.get("barcodeSearchResults", function (error, value) {
+        if (error) {
+          console.log(error)
+        } else {
+          this.setState({
+              barcodeSearchResult: value,
+              gameToSearch: value
+          }, () => {
+            this.toggle();
+          })
+        }
       })
   }
 
