@@ -37,7 +37,7 @@ updateSearchOption = (newOption) => {
     search: newOption
   }, () => {
     if (this.state.search === "barcode") {
-      window.open('https://jwkeena.github.io/vb-scanner-helper/', "_blank")
+      window.open('https://vb-scanner.herokuapp.com', "_blank")
     }
   })
 }
