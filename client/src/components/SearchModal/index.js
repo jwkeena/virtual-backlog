@@ -11,6 +11,18 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 import { Field, Input, Message } from '@zendeskgarden/react-forms';
 import { Spinner } from 'reactstrap';
+import createHost from 'cross-domain-storage/host';
+
+const storageHost = createHost([
+  {
+      origin: 'https://virtualbacklog.herokuapp.com/',
+      allowedMethods: ['get', 'set', 'remove']
+  },
+  {
+      origin: 'https://vb-scanner.herokuapp.com/',
+      allowedMethods: ['get', 'set', 'remove']
+  }
+]);
 
 const styles = {
   container: {
