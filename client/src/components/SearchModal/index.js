@@ -11,30 +11,23 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 import { Field, Input, Message } from '@zendeskgarden/react-forms';
 import { Spinner } from 'reactstrap';
-import createGuest from 'cross-domain-storage/guest';
-
-const helperStorage = createGuest("https://vb-scanner.herokuapp.com/")
 
 const styles = {
-  container: {
-    position: "relative",
-    textAlign: "center",
-    color: "red"
-  },
-  middleOfDiv: {
-    position: "absolute",
-    bottom: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)"
+  middle: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center"
   }
 }
 class SearchModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
+      textSearchModal: false,
       backdrop: true,
-      barcodeSearchResult: null,
+      barcodeSearchResult: "",
       gameToSearch: "",
       searchResults: null,
       gameChosenFromSearch: null,
@@ -54,44 +47,9 @@ class SearchModal extends Component {
         { label: "Wishlist", name: "wishlist", key: "wishlist-key", checked: false}
       ],
     };
-    this.localStorageUpdated = this.localStorageUpdated.bind(this);
     this.chooseGame = this.chooseGame.bind();
     this.choosePlatform = this.choosePlatform.bind();
     this.toggle = this.toggle.bind(this);
-  }
-
-  componentDidMount() {
-    helperStorage.get("barcodeSearchResult", function (error, value) {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log(value)
-      }
-    })
-    if (typeof window !== 'undefined') {
-        window.addEventListener('storage', this.localStorageUpdated)
-    }
-  }
-
-  componentWillUnmount(){
-      if (typeof window !== 'undefined') {
-          window.removeEventListener('storage', this.localStorageUpdated)
-      }
-  }
-
-  localStorageUpdated(){
-      helperStorage.get("barcodeSearchResults", function (error, value) {
-        if (error) {
-          console.log(error)
-        } else {
-          this.setState({
-              barcodeSearchResult: value,
-              gameToSearch: value
-          }, () => {
-            this.toggle();
-          })
-        }
-      })
   }
 
   scrollToBottom = () => {
@@ -101,13 +59,13 @@ class SearchModal extends Component {
   toggle() {
     const query = this.state.gameToSearch.trim()
         
-    if (query === "" && this.state.modal === false) {
+    if (query === "" && this.state.textSearchModal === false) {
       alert("Enter a game to search.")
     } else {
       this.setState(prevState => ({
-        modal: !prevState.modal
+        textSearchModal: !prevState.textSearchModal
       }), () => {
-        if (this.state.modal === true) {
+        if (this.state.textSearchModal === true) {
           this.searchGame(this.state.gameToSearch);
         } else {
           this.resetSearchState();
@@ -235,7 +193,8 @@ class SearchModal extends Component {
 
   resetSearchState = () => {
     this.setState({
-      modal: false,
+      textSearchModal: false,
+      barcodeScanModal: false,
       gameToSearch: "",
       searchResults: null,
       gameChosenFromSearch: null,
@@ -273,7 +232,9 @@ class SearchModal extends Component {
               variant="outline-light">go
             </Button>  
         </Form>
-        <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+
+        {/* Text Search Modal */}
+        <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.textSearchModal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>
             Searching for "{this.state.gameToSearch}"
           </ModalHeader>
@@ -284,7 +245,7 @@ class SearchModal extends Component {
                         <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
                       </Table>
                     : 
-                      <div style={styles.container}> <Spinner style={styles.middle} size='lg' color="primary" /></div>
+                      <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
                   }
             <hr/>
 
@@ -324,6 +285,7 @@ class SearchModal extends Component {
             <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>
           </ModalFooter>
         </Modal>
+
       </div>
     );
   }
