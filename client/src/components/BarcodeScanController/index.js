@@ -5,6 +5,7 @@ import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Button } from "reactstrap";
 import DisplayScan from '../DisplayScan';
+import ManualSearch from '../ManualSearch';
 
 const styles = {
     increaseMargins: {
@@ -14,16 +15,24 @@ const styles = {
     },
     blue: {
         color: "#007bff"
+    },
+    middle: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
     }
   }
 
-class SearchOptions extends Component {
+class BarcodeScanController extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
           barcodeScanModal: false,
           backdrop: true,
+          manualSearch: false
         };
         this.toggle = this.toggle.bind(this);
       }
@@ -36,9 +45,10 @@ class SearchOptions extends Component {
     }
 
     toggle = () => {
-    this.setState(prevState => ({
-      barcodeScanModal: !prevState.barcodeScanModal
-    }))
+        this.setState(prevState => ({
+        barcodeScanModal: !prevState.barcodeScanModal
+    })) 
+
   }
 
     render() {
@@ -64,15 +74,27 @@ class SearchOptions extends Component {
                     } />
 
                 {/* Barcode Modal */}
-                <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.barcodeScanModal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+                <Modal 
+                    scrollable={true} 
+                    size={"lg"} 
+                    autoFocus={true} 
+                    isOpen={this.state.barcodeScanModal} 
+                    toggle={this.toggle} 
+                    className={this.props.className} 
+                    backdrop={this.state.backdrop}>
                 <ModalHeader toggle={this.toggle}>
                     Searching by barcode...
                 </ModalHeader>
                 <ModalBody>
-                        <DisplayScan/>
+                
+                    {(this.props.manualSearch) 
+                        ? <ManualSearch/> 
+                        : <div style={styles.middle}><DisplayScan/></div>
+                    }
+                   
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>
+                    <Button color="primary" size="lg" onClick={this.props.updateManualSearch}>{(this.props.manualSearch) ? "back to scanner" : "enter barcode manually"}</Button>
                 </ModalFooter>
                 </Modal>
             </div>
@@ -81,4 +103,4 @@ class SearchOptions extends Component {
 
 }
 
-export default SearchOptions;
+export default BarcodeScanController;

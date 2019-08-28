@@ -12,7 +12,7 @@ module.exports = {
             .then(response => {
                 console.log(response.data.results);
                 res.json(response.data.results)
-            })
+                })
             .catch(error => {
                 console.log(error);
               });

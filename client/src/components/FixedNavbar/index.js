@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import API from '../../utils/API';
 import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
-import SearchOptions from '../SearchOptions';
+import BarcodeScanController from '../BarcodeScanController';
 
 class FixedNavbar extends Component {
   
@@ -13,7 +13,9 @@ state = {
   loggedIn: this.props.loggedIn,
   redirectTo: null,
   search: "text",
-  gameToSearch: ""
+  gameToSearch: "",
+  barcodeSearchResult: "",
+  manualSearch: false
 }
 
 logout = event => {
@@ -44,6 +46,18 @@ updateTextSearch = (newGame) => {
   })
 }
 
+updateManualSearch = () => {
+  this.setState(prevState => ({
+    manualSearch: !prevState.manualSearch
+  }))
+}
+
+updateBarcodeSearchResult = (gameName) => {
+  this.setState({
+    barcodeSearchResult: gameName
+  })
+}
+
 render() {
 
   if (this.state.redirectTo) {
@@ -64,11 +78,9 @@ render() {
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-2">title</Dropdown.Item>
                 <Dropdown.Item href="#/action-1">system</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">rating</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">beaten</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">digital</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">physical (a-z)</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">physical (price)</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">physical</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">favorite</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">now playing</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">year released</Dropdown.Item>
@@ -81,8 +93,18 @@ render() {
         <Navbar.Brand className="mx-auto">{this.props.username}'s virtual backlog</Navbar.Brand>
 
         <Nav className="ml-auto">
-          <SearchOptions searchOption={this.state.search} updateSearchOption={this.updateSearchOption}/>
-          <SearchModal loadGames={this.props.loadGames} searchOption={this.state.search} updateTextSearch={this.updateTextSearch} gameToSearch={this.state.gameToSearch}/>
+          <BarcodeScanController 
+            searchOption={this.state.search} 
+            updateSearchOption={this.updateSearchOption} 
+            updateBarcodeSearchResult={this.updateBarcodeSearchResult}
+            updateManualSearch={this.updateManualSearch}
+            manualSearch={this.state.manualSearch}/>
+          <SearchModal 
+            loadGames={this.props.loadGames} 
+            searchOption={this.state.search} 
+            updateTextSearch={this.updateTextSearch} 
+            gameToSearch={this.state.gameToSearch} 
+            barcodeSearchResult={this.state.barcodeSearchResult}/>
         </Nav>
 
       </Navbar>
