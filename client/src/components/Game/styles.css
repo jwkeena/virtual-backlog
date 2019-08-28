@@ -7,6 +7,7 @@
 	perspective: 1800px;
 	-webkit-perspective-origin: 50% 15%;
 	perspective-origin: 50% 15%;
+	margin-left: 20vw;
 }
 
 .bk-list li {
@@ -14,7 +15,7 @@
 	width: 40px;
 	height: 400px;
 	float: left;
-	z-index: 1;
+	z-index: 0;
 	margin: 0px 0px 50px 1px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
@@ -24,6 +25,8 @@
 .bk-list li:last-child {
 	margin-right: 0;
 }
+
+
 
 .bk-list li .bk-game {
 	cursor: pointer;
@@ -83,7 +86,7 @@
 .bk-list li .bk-front > div {
 	width: 300px;
 	height: 400px;
-	z-index: 1;
+	z-index: 0;
 }
 
 .bk-list li .bk-left,
@@ -108,6 +111,10 @@
 }
 
 .bk-list li .bk-cover-back {
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black;
+	font-weight: bold;
+	font-family:'Press Start 2P', cursive;;
 	background-color: #000;
 	-webkit-transform: rotate3d(0,1,0,-179deg);
 	transform: rotate3d(0,1,0,-179deg);
@@ -130,6 +137,7 @@
 		inset 4px 0 5px rgba(255,255,255,0.1), 
 		inset 5px 0 5px rgba(0,0,0,0.05),
 		inset -5px 0 5px rgba(0,0,0,0.04);;
+	
 }
 
 .bk-list li .bk-top {
@@ -213,6 +221,10 @@
 }
 
 .bk-left h2 {
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black;
+	font-weight: bold;
+	font-family:'Press Start 2P', cursive;;
 	width: 400px;
 	height: 40px;
 	-webkit-transform-origin: 0 0;
@@ -287,6 +299,10 @@
 .bk-cover {	
 	background-repeat: no-repeat;
 	background-size: 100%;
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black;
+	font-weight: bold;
+	font-family:'Press Start 2P', cursive;;
 	/* background-position: 100% 95%; */
 }
 
@@ -296,6 +312,10 @@
 }
 
 .bk-cover h2 {
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black;
+	font-weight: bold;
+	font-family:'Press Start 2P', cursive;;
 	position: absolute;
 	bottom: 0;
 	right: 0;
@@ -312,21 +332,32 @@
 	font-weight: 400;
 	font-size: 13px;
 	padding-right: 20px;
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black;
+	font-weight: bold;
+	font-family:'Press Start 2P', cursive;;
 }
 
 .bk-cover h2 span:first-child {
 	display: block;
+	-webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black;
+	font-weight: bold;
+	font-family:'Press Start 2P', cursive;;
 }
 
 .bk-cover h2 span:last-child,
 .bk-left h2 span:last-child,
 .bk-content p  {
-	font-family: Georgia, Times, "Times New Roman", serif;
+	/* -webkit-text-stroke-width: .5px;
+	-webkit-text-stroke-color: black; */
+	/* font-weight: bold; */
+	font-family:'Press Start 2P', cursive;;
 } 
 
 .bk-left h2 {
 	color: #fff;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 40px;
 	text-align: center;
 }
@@ -378,124 +409,139 @@
 	float: left;
 }
 
-.bk-left .XONE{
-	background-color: lawngreen;
-}
-.bk-left .X360{
-	background-color: lawngreen;
-}
-.bk-left .XBOX{
-	background-color: lawngreen;
-}
-.bk-left .PS1{
-	background-color: grey;
-}
-.bk-left .PS1 h2{
+
+ .XONE h2{
 	color: black;
+	background-color: lawngreen!important;
+}
+ .X360 h2{
+	color: black!important;
+	background-color: lawngreen!important;
+}
+ .XBOX h2{
+	color: black!important;
+	background-color: lawngreen!important;
+}
+
+.PS1 h2{
+	background-color: grey!important;
+	color: black!important;
 } 
-.bk-left .PS4{
-	background-color: blue;
+ .PS4{
+	background-color: blue !important;
 }
-.bk-left .PS3{
-	background-color: black;
+ .PS3{
+	background-color: black!important;
 }
-.bk-left .PS2{
-	background-color: black;
+ .PS2{
+	background-color: black!important;
 }
-.bk-left .PC{
-	background-color: slategray;
+ .PC{
+	background-color: slategray!important;
 }
-.bk-left .NES h2{
-	color: red;
+ .NES h2{
+	color: red!important;
 }
-.bk-left .SNES h2{
-	color: red;
+ .SNES h2{
+	color: red!important;
 }
-.bk-left .N64{
-	background-color: red;
+ .N64{
+	background-color: red!important;
 }
-.bk-left .GCN{
-	background-color: #8873bc;
+ .GCN{
+	background-color: #8873bc!important;
 }
-.bk-left .Wii{
-	background-color: white;
+
+.Wii h2{
+	background-color: white!important;
+	color: black!important;
 }
-.bk-left .Wii h2{
-	color: black;
+ .WiiU{
+	background-color: #2ba4c8!important;
 }
-.bk-left .WiiU{
-	background-color: #2ba4c8;
+ .NSW{
+	background-color: red!important;
 }
-.bk-left .NSW{
-	background-color: red;
+ 
+.GB h2{
+	background-color: darkgray!important;
+	color: #2ba4c8!important;
 }
-.bk-left .GB{
-	background-color: darkgray;
+
+.GBC h2{
+	background-color: darkgray!important;
+	color: #2ba4c8!important;
 }
-.bk-left .GB h2{
-	color: #2ba4c8;
+ .GBA h2{
+	 color:#8873bc;
+	background-color: darkgray!important;
 }
-.bk-left .GBC{
-	background-color: darkgray;
-}
-.bk-left .GBC h2{
-	color: #2ba4c8;
-}
-.bk-left .GBA{
-	background-color: darkgray;
-}
-.bk-left .N3DS{
-	background-color: white;
-}
-.bk-left .N3DS h2{
-	color: black;
+.N3DS h2{
+	background-color: white!important;
+	color: black!important;
 }
 
 .z-index0{
+	
 	z-index: 0;
 }
 .z-index1{
+	
 	z-index: 1;
 }
 .z-index2{
+	
 	z-index: 2;
 }
 .z-index3{
+	
 	z-index: 3;
 }
 .z-index4{
+	
 	z-index: 4;
 }
 .z-index5{
+	
 	z-index: 5;
 }
 .z-index6{
+	
 	z-index: 6;
 }
 .z-index7{
+	
 	z-index: 7;
 }
 .z-index01{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index11{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index21{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index31{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index41{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index51{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index61{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
 .z-index71{
-	z-index: 13;
+	
+	z-index: 13!important;
 }
