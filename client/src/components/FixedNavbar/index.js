@@ -8,14 +8,14 @@ import { Redirect } from 'react-router-dom';
 import BarcodeScanController from '../BarcodeScanController';
 
 class FixedNavbar extends Component {
-  
+
 state = {
-  loggedIn: this.props.loggedIn,
-  redirectTo: null,
-  search: "text",
-  gameToSearch: "",
-  barcodeSearchResult: "",
-  manualSearch: false
+    loggedIn: this.props.loggedIn,
+    redirectTo: null,
+    search: "text",
+    gameToSearch: "",
+    barcodeSearchResult: null,
+    manualSearch: false,
 }
 
 logout = event => {
@@ -37,6 +37,12 @@ logout = event => {
 updateSearchOption = (newOption) => {
   this.setState({
     search: newOption
+  })
+}
+
+updateGameToSearch = (newGame) => {
+  this.setState({
+    gameToSearch: newGame
   })
 }
 
@@ -98,13 +104,18 @@ render() {
             updateSearchOption={this.updateSearchOption} 
             updateBarcodeSearchResult={this.updateBarcodeSearchResult}
             updateManualSearch={this.updateManualSearch}
-            manualSearch={this.state.manualSearch}/>
+            updateGameToSearch={this.updateGameToSearch}
+            manualSearch={this.state.manualSearch}
+            barcodeToSearch={this.state.barcodeToSearch}
+            updateTextSearch={this.updateTextSearch}/>
           <SearchModal 
             loadGames={this.props.loadGames} 
             searchOption={this.state.search} 
+            updateSearchOption={this.updateSearchOption}
             updateTextSearch={this.updateTextSearch} 
             gameToSearch={this.state.gameToSearch} 
-            barcodeSearchResult={this.state.barcodeSearchResult}/>
+            barcodeSearchResult={this.state.barcodeSearchResult}
+            updateGameToSearch={this.updateGameToSearch}/>
         </Nav>
 
       </Navbar>

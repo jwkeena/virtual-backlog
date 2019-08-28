@@ -96,12 +96,10 @@ class SearchResults extends Component {
                     </Fragment>
               )
             })}
-          </tbody>
+              </tbody>
             )
-
       }
     }
-
 }
 
 export default SearchResults;

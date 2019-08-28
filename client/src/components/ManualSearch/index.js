@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Field, Input } from '@zendeskgarden/react-forms';
+import { Button } from "react-bootstrap";
 
-const styles = {
-    hide: {
-        display: "none"
-    }
-}
 class ManualSearch extends Component {
     
     state = {
@@ -34,7 +30,7 @@ class ManualSearch extends Component {
           if (this.state.manualBarcode.length < 10) {
               alert ("Barcode must be at least 10 numbers.")
           } else {
-              console.log("submitted", this.state.manualBarcode)
+              this.props.processBarcodeThenSearchGames(this.state.manualBarcode);
           }
       }
 
@@ -44,11 +40,19 @@ class ManualSearch extends Component {
             
             <form onSubmit={this.onFormSubmit}>
                 <Field>
-                <Input 
-                    value={this.state.manualBarcode}
-                    onChange={this.inputChange}
-                    />
-                <button style={styles.hide} type="submit">search</button>
+                    <Input 
+                        value={this.state.manualBarcode}
+                        onChange={this.inputChange}
+                        placeholder="Enter barcode"
+                        />
+                    <br></br><br></br>
+                    <Button 
+                        variant="primary" 
+                        size="lg"
+                        type="submit"
+                        block>
+                        search
+                    </Button>
                 </Field>
             </form>
         )

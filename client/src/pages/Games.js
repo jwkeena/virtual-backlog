@@ -135,11 +135,11 @@ class Games extends Component {
         
         <br/>
         
-            {/* {(this.state.gamesLoaded) &&  */}
+            {(this.state.gamesLoaded) && 
             
             <MDBRow>
                 <MDBCol size='sm-12' className = 'bk-list'>
-                    {this.state.gameSeed.map((games,i) => 
+                    {this.state.gamesLoaded.map((games,i) => 
                      <Game 
                     gameOpen = {this.state.gameOpen} 
                     title = {games.title}
@@ -171,6 +171,7 @@ class Games extends Component {
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </MDBCol>
             </MDBRow>
+                } {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
             
         )

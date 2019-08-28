@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarcode } from '@fortawesome/free-solid-svg-icons';
 import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Button } from "reactstrap";
+import { Button } from "react-bootstrap";
 import DisplayScan from '../DisplayScan';
 import ManualSearch from '../ManualSearch';
+import axios from 'axios';
 
 const styles = {
     increaseMargins: {
@@ -35,7 +36,7 @@ class BarcodeScanController extends Component {
           manualSearch: false
         };
         this.toggle = this.toggle.bind(this);
-      }
+    }
 
     clickHandler = (searchOption) => {
         if (searchOption === "barcode") {
@@ -47,9 +48,28 @@ class BarcodeScanController extends Component {
     toggle = () => {
         this.setState(prevState => ({
         barcodeScanModal: !prevState.barcodeScanModal
-    })) 
+        }))
+    }
 
-  }
+    processBarcodeThenSearchGames = (barcode) => {
+        console.log(barcode)
+        axios.get("https://cors-anywhere.herokuapp.com/https://api.upcitemdb.com/prod/trial/lookup?upc=" + barcode)
+            .then(res => {
+                console.log(this.props.searchOption)
+                if (res.data.items[0].title) {
+                    this.props.updateBarcodeSearchResult(res.data.items[0].title);
+                    this.toggle();
+                    this.props.updateTextSearch(res.data.items[0].title);
+                    this.props.updateBarcodeSearchResult(null);
+                } else {
+                    alert("No matching title for that barcode.")
+                }
+                }) 
+            .catch(error=> {
+                console.log(error);
+                alert("Barcode search failed.")
+            });
+    }
 
     render() {
         return (
@@ -59,7 +79,7 @@ class BarcodeScanController extends Component {
                     inverse size="lg" 
                     onClick={() => this.clickHandler("barcode")} 
                     style={
-                        (this.props.searchOption === "barcode") 
+                        (this.props.searchOption === "barcode" || this.props.searchOption === "barcode-searching") 
                             ? Object.assign({}, styles.blue, styles.increaseMargins) 
                             : styles.increaseMargins
                         }/>
@@ -88,13 +108,32 @@ class BarcodeScanController extends Component {
                 <ModalBody>
                 
                     {(this.props.manualSearch) 
-                        ? <ManualSearch/> 
-                        : <div style={styles.middle}><DisplayScan/></div>
+                        ? <ManualSearch 
+                            processBarcodeThenSearchGames={this.processBarcodeThenSearchGames}/> 
+                        : <div style={styles.middle}>
+                            <DisplayScan
+                              processBarcodeThenSearchGames={this.processBarcodeThenSearchGames}/>
+                          </div>
                     }
                    
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" size="lg" onClick={this.props.updateManualSearch}>{(this.props.manualSearch) ? "back to scanner" : "enter barcode manually"}</Button>
+                    {(this.props.manualSearch) 
+                        ? <Button 
+                            variant="secondary" 
+                            size="sm" 
+                            onClick={this.props.updateManualSearch}
+                            block>
+                            back to scanner
+                          </Button>
+                        : <Button 
+                            variant="primary" 
+                            size="lg"
+                            onClick={this.props.updateManualSearch}
+                            block>
+                            enter barcode manually
+                          </Button>
+                    }
                 </ModalFooter>
                 </Modal>
             </div>

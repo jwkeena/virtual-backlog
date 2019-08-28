@@ -6,7 +6,7 @@ import RadioButtons from "../RadioButtons";
 import Checkbox from "../Checkbox";
 import { Table } from 'reactstrap';
 import FormControl from 'react-bootstrap/FormControl';
-import { Button } from "reactstrap";
+import { Button } from "react-bootstrap";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form } from 'reactstrap';
 import API from "../../utils/API";
 import { Field, Input, Message } from '@zendeskgarden/react-forms';
@@ -28,7 +28,6 @@ class SearchModal extends Component {
       textSearchModal: false,
       backdrop: true,
       barcodeSearchResult: "",
-      gameToSearch: "",
       searchResults: null,
       gameChosenFromSearch: null,
       possiblePlatforms: [],
@@ -52,12 +51,23 @@ class SearchModal extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  componentDidUpdate() {
+    if (this.props.searchOption === "barcode" && this.props.gameToSearch !== "") {
+      this.props.updateSearchOption("barcode-searching");
+      this.setState(prevState => ({
+        textSearchModal: !prevState.textSearchModal
+      }), () => {
+        this.searchGame(this.props.gameToSearch);
+      })
+    }
+  }
+
   scrollToBottom = () => {
     this.endOfSearchResults.scrollIntoView({ behavior: "smooth" });
   }
 
   toggle() {
-    const query = this.state.gameToSearch.trim()
+    const query = this.props.gameToSearch.trim()
         
     if (query === "" && this.state.textSearchModal === false) {
       alert("Enter a game to search.")
@@ -66,7 +76,7 @@ class SearchModal extends Component {
         textSearchModal: !prevState.textSearchModal
       }), () => {
         if (this.state.textSearchModal === true) {
-          this.searchGame(this.state.gameToSearch);
+          this.searchGame(this.props.gameToSearch);
         } else {
           this.resetSearchState();
         }
@@ -77,12 +87,9 @@ class SearchModal extends Component {
   textSearchInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
-    const name = event.target.name;
 
     // Updating the input's state
-    this.setState({
-    [name]: value
-    }, this.props.updateTextSearch(value.trim()));
+    this.props.updateTextSearch(value);
   };
 
   searchGame = (searchQuery) => {
@@ -192,10 +199,10 @@ class SearchModal extends Component {
   }
 
   resetSearchState = () => {
+    this.props.updateGameToSearch("");
     this.setState({
       textSearchModal: false,
       barcodeScanModal: false,
-      gameToSearch: "",
       searchResults: null,
       gameChosenFromSearch: null,
       possiblePlatforms: [],
@@ -222,7 +229,7 @@ class SearchModal extends Component {
         <Form inline onSubmit={(e) => e.preventDefault()}>
             <FormControl type="text" 
               onChange={this.textSearchInputChange} 
-              value={(this.props.searchOption === "text") ? this.state.gameToSearch : this.state.barcodeSearchResult} 
+              value={this.props.gameToSearch} 
               name="gameToSearch" 
               placeholder={(this.props.searchOption === "text") ? "type game title" : "scan barcode"} 
               className="mr-sm-2" />
@@ -234,15 +241,27 @@ class SearchModal extends Component {
         </Form>
 
         {/* Text Search Modal */}
-        <Modal scrollable={true} size={"lg"} autoFocus={true} isOpen={this.state.textSearchModal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+        <Modal 
+          scrollable={true} 
+          size={"lg"} 
+          autoFocus={true} 
+          isOpen={this.state.textSearchModal} 
+          toggle={this.toggle} 
+          className={this.props.className} 
+          backdrop={this.state.backdrop}>
+
           <ModalHeader toggle={this.toggle}>
-            Searching for "{this.state.gameToSearch}"
+            Searching for "{this.props.gameToSearch}"
           </ModalHeader>
+
           <ModalBody>
                   {(this.state.searchResults) 
                     ? 
                       <Table hover>
-                        <SearchResults searchResults={this.state.searchResults} chooseGame={this.chooseGame}></SearchResults>
+                        <SearchResults 
+                          searchResults={this.state.searchResults} 
+                          chooseGame={this.chooseGame}>
+                        </SearchResults>
                       </Table>
                     : 
                       <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
@@ -282,7 +301,12 @@ class SearchModal extends Component {
         </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" size="lg" onClick={this.shelve}>add to collection</Button>
+            <Button 
+              variant="primary" 
+              size="lg" 
+              onClick={this.shelve}
+              block>add to collection
+            </Button>
           </ModalFooter>
         </Modal>
 
