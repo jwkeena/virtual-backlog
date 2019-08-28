@@ -35,10 +35,6 @@ logout = event => {
 updateSearchOption = (newOption) => {
   this.setState({
     search: newOption
-  }, () => {
-    if (this.state.search === "barcode") {
-      window.open('https://vb-scanner.herokuapp.com', "_blank")
-    }
   })
 }
 

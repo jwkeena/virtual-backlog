@@ -5,6 +5,7 @@ import Game from "../components/Game";
 import API from "../utils/API";
 import gameSeed from "../components/GamesTest/gameListTest";
 import '../components/Game/styles.css'
+
 // import Modernizr from '../utils/modernizr.custom'
 
 // var transEndEventNames = {
@@ -104,6 +105,9 @@ class Games extends Component {
         
         <br/>
         
+        <MDBRow>
+            </MDBRow>
+
             {(this.state.gamesLoaded) && 
             
             <MDBRow>
@@ -133,6 +137,7 @@ class Games extends Component {
                     
                 </MDBCol>
             </MDBRow>
+
             }
             </MDBContainer> 
         )
