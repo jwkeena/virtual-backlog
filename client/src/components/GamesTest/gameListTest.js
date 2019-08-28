@@ -2,9 +2,9 @@
 
 const gameSeed = [{
     title: "Tetris Effect",
-    system: "PS4",
+    system_type: "PS4",
     developer: "Enhance Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/3059453-image.jpeg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "Tetris for the PS4/PSVR by Tetsuya Mizuguchi, creator of REZ and Lumines.",
     is_beaten: true,
     favorite: true,
@@ -16,13 +16,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:12
+    _id:12
 },
 {
     title: "BioShock Infinite",
-    system: "PS3",
+    system_type: "PS3",
     developer: "Irrational Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2379677-bioshockinfinite_boxart.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "The third game in the BioShock series leaves the bottom of the sea behind for an entirely new setting - the floating city of Columbia, circa 1912. Come to retrieve a girl named Elizabeth, ex-detective Booker DeWitt finds more in store for him there than he could ever imagine.",
     is_beaten: true,
     favorite: true,
@@ -33,13 +33,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:13
+    _id:13
 },
 {
     title: "Metroid: Zero Mission",
-    system: "GBA",
+    system_type: "GBA",
     developer: "Nintendo",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2617564-mzm.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "A GBA Metroid game and remake of the original Metroid for the NES. It also depicts what happens immediately after the self destruct sequence by Mother Brain.",
     is_beaten: true,
     favorite: true,
@@ -50,12 +50,12 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:14
+    _id:14
 },{
     title: "Tetris Effect",
-    system: "PS4",
+    system_type: "PS4",
     developer: "Enhance Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/3059453-image.jpeg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "Tetris for the PS4/PSVR by Tetsuya Mizuguchi, creator of REZ and Lumines.",
     is_beaten: true,
     favorite: true,
@@ -67,13 +67,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:15
+    _id:15
 },
 {
     title: "BioShock Infinite",
-    system: "PS3",
+    system_type: "XONE",
     developer: "Irrational Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2379677-bioshockinfinite_boxart.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "The third game in the BioShock series leaves the bottom of the sea behind for an entirely new setting - the floating city of Columbia, circa 1912. Come to retrieve a girl named Elizabeth, ex-detective Booker DeWitt finds more in store for him there than he could ever imagine.",
     is_beaten: true,
     favorite: true,
@@ -84,13 +84,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:16
+    _id:16
 },
 {
     title: "Metroid: Zero Mission",
-    system: "GBA",
+    system_type: "GBA",
     developer: "Nintendo",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2617564-mzm.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "A GBA Metroid game and remake of the original Metroid for the NES. It also depicts what happens immediately after the self destruct sequence by Mother Brain.",
     is_beaten: true,
     favorite: true,
@@ -101,12 +101,12 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:17
+    _id:17
 },{
     title: "Tetris Effect",
-    system: "PS4",
+    system_type: "PS4",
     developer: "Enhance Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/3059453-image.jpeg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "Tetris for the PS4/PSVR by Tetsuya Mizuguchi, creator of REZ and Lumines.",
     is_beaten: true,
     favorite: true,
@@ -118,13 +118,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:18
+    _id:18
 },
 {
-    title: "BioShock Infinite",
-    system: "PS3",
+    title: "Super Smash Bros",
+    system_type: "NSW",
     developer: "Irrational Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2379677-bioshockinfinite_boxart.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "The third game in the BioShock series leaves the bottom of the sea behind for an entirely new setting - the floating city of Columbia, circa 1912. Come to retrieve a girl named Elizabeth, ex-detective Booker DeWitt finds more in store for him there than he could ever imagine.",
     is_beaten: true,
     favorite: true,
@@ -135,13 +135,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:19
+    _id:19
 },
 {
-    title: "Metroid: Zero Mission",
-    system: "GBA",
+    title: "Xenoblade X",
+    system_type: "WiiU",
     developer: "Nintendo",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2617564-mzm.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "A GBA Metroid game and remake of the original Metroid for the NES. It also depicts what happens immediately after the self destruct sequence by Mother Brain.",
     is_beaten: true,
     favorite: true,
@@ -152,12 +152,12 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:20
+    _id:20
 },{
     title: "Tetris Effect",
-    system: "PS4",
+    system_type: "PS4",
     developer: "Enhance Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/3059453-image.jpeg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "Tetris for the PS4/PSVR by Tetsuya Mizuguchi, creator of REZ and Lumines.",
     is_beaten: true,
     favorite: true,
@@ -169,13 +169,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:21,
+    _id:21,
 },
 {
     title: "BioShock Infinite",
-    system: "PS3",
+    system_type: "PS3",
     developer: "Irrational Games",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2379677-bioshockinfinite_boxart.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "The third game in the BioShock series leaves the bottom of the sea behind for an entirely new setting - the floating city of Columbia, circa 1912. Come to retrieve a girl named Elizabeth, ex-detective Booker DeWitt finds more in store for him there than he could ever imagine.",
     is_beaten: true,
     favorite: true,
@@ -186,13 +186,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:23
+    _id:23
 },
 {
-    title: "Metroid: Zero Mission",
-    system: "GBA",
+    title: "Mario Sunshine",
+    system_type: "GCN",
     developer: "Nintendo",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2617564-mzm.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "A GBA Metroid game and remake of the original Metroid for the NES. It also depicts what happens immediately after the self destruct sequence by Mother Brain.",
     is_beaten: true,
     favorite: true,
@@ -203,13 +203,13 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:24
+    _id:24
 },
 {
     title: "Metroid: Zero Mission",
-    system: "GBA",
+    system_type: "GBA",
     developer: "Nintendo",
-    box_art: "https://www.giantbomb.com/api/image/scale_medium/2617564-mzm.jpg",
+    box_art: "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Super_Smash_Bros._Ultimate.jpg/220px-Super_Smash_Bros._Ultimate.jpg",
     description: "A GBA Metroid game and remake of the original Metroid for the NES. It also depicts what happens immediately after the self destruct sequence by Mother Brain.",
     is_beaten: true,
     favorite: true,
@@ -220,7 +220,7 @@ const gameSeed = [{
     date: new Date(Date.now()),
     user: "Justin",
     note: "testing",
-    id:11
+    _id:11
 }
 ]
 
