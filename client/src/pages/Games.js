@@ -140,7 +140,9 @@ class Games extends Component {
             <MDBRow>
                 <MDBCol size='sm-12' className = 'bk-list'>
                     {this.state.gamesLoaded.map((games,i) => 
-                     <Game 
+                     <Game
+                    loadGames = {this.loadGames} 
+                    handleClose = {this.handleClose}
                     gameOpen = {this.state.gameOpen} 
                     title = {games.title}
                     system_type = {games.system_type}
