@@ -63,6 +63,14 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));
   },
+  updateNote: function(req, res) {
+    console.log(req.body)
+    console.log(req.params.id)
+    db.Game
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => console.log(err));
+  },
   remove: function(req, res) {
     db.Game
       .findById({ _id: req.params.id })

@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
-import { Field, Toggle, Label } from "@zendeskgarden/react-forms";
+import { Field, Toggle, Label, Textarea } from "@zendeskgarden/react-forms";
+import { Form } from 'reactstrap';
 import API from '../../utils/API';
 // import './styles.css'
 // // return { init : init };
 
+const styles = {
+    description: {
+        fontSize: "13px",
+        fontStyle: "italic"
+    }, 
+    textarea: {
+        fontSize: "13px"
+    }
+}
 class Game extends Component {
 
-    deleteGame = (event) => {
+    state = {
+        editingNote: false,
+        note: ""
+    }
+
+    deleteGame = () => {
         const answer = window.confirm("Are you sure you want to delete this game from your collection?");
-        const id = event.target.value
 
         if (answer) {
-            API.deleteGame(id)
+            API.deleteGame(this.props.id)
               .then(res=> {
                 this.props.handleClose();
                 setTimeout(() => {this.props.loadGames()}, 2000)
@@ -28,13 +42,33 @@ class Game extends Component {
             property: event.target.value,
             currentValue: event.target.checked
         };
-        console.log(event.target)
-        console.log(event.target.checked)
         API.updateGame(this.props.id, propertyToUpdate)
               .then(res=> {
                 this.props.loadGames();
               })
               .catch(err => console.log(err));
+    }
+
+    writeNote = (event) => {
+        let value = event.target.value;
+        this.setState({
+          note: value
+        });
+    }
+
+    updateNote = () => {
+        this.setState(prevState => ({
+            editingNote: !prevState.editingNote
+        }), () => {
+            console.log(this.state.note)
+            if (!this.state.editingNote) {
+                API.updateNote(this.props.id, {note: this.state.note})
+                    .then(res=> {
+                        this.props.loadGames();
+                    })
+                    .catch(err => console.log(err));
+            }
+        })
     }
 
     render () {
@@ -55,11 +89,13 @@ class Game extends Component {
             <div className='bk-page'>
                 <div className={(this.props.page === 1 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>{this.props.title}</h5>
-                    <span>Year Released: {this.props.year_released}</span><br></br><br></br>
-                    <span>{this.props.description}</span><br></br><br></br>
-                    <a href={this.props.gb_url} target="_blank">More Details</a>
+                    <span>Year Released: {this.props.year_released}</span><br></br>
+                    <span style={styles.description}>{this.props.description}</span>
                 </div>
                 <div className={(this.props.page === 2 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
+                    <h5>Media Type</h5>
+                    <span>{(this.props.physical) ? "Physical" : "Digital"}</span>
+                    <br></br><br></br>
                     <h5>Options</h5>
                     <Field>
                         <Toggle 
@@ -112,7 +148,39 @@ class Game extends Component {
                 </div>
                 <div className={(this.props.page === 3 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Notes</h5>
-                    <span>{this.props.note}</span>
+
+                    {(this.state.editingNote) ? 
+                         <div>
+                            <Form onSubmit={this.noteShelve}>
+                                <Field>
+                                    <Textarea             
+                                        rows="5"
+                                        style={styles.textarea}
+                                        onChange={this.writeNote} 
+                                        defaultValue={this.props.note} 
+                                        resizable>
+                                    </Textarea>
+                                </Field>
+                            </Form>
+                            <br></br>
+                            <Button 
+                                onClick={this.updateNote} 
+                                variant="primary">Submit
+                            </Button>
+                        </div>
+                        :
+                        <div>
+                            <span style={styles.textarea}>{this.props.note}</span>
+                            <br></br><br></br>
+                            <Button 
+                                onClick={this.updateNote} 
+                                variant="primary">Update
+                            </Button>
+                        </div>
+                    }
+                     <br></br>
+                     <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer">>>Game Details</a>
+
                 </div>
                 <div className={(this.props.page === 4 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Danger Zone</h5><br></br>

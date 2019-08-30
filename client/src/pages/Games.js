@@ -146,6 +146,7 @@ class Games extends Component {
                     gameOpen = {this.state.gameOpen} 
                     title = {games.title}
                     system_type = {games.system_type}
+                    physical = {games.physical}
                     box_art = {games.box_art}
                     description = {games.description}
                     is_beaten = {games.is_beaten}

@@ -85,11 +85,13 @@ render() {
                 <Dropdown.Item href="#/">system</Dropdown.Item>
                 <Dropdown.Item href="#/">title</Dropdown.Item>
                 <Dropdown.Item href="#/">beaten</Dropdown.Item>
+                <Dropdown.Item href="#/">backlog</Dropdown.Item>
                 <Dropdown.Item href="#/">digital</Dropdown.Item>
                 <Dropdown.Item href="#/">physical</Dropdown.Item>
                 <Dropdown.Item href="#/">wishlist</Dropdown.Item>
                 <Dropdown.Item href="#/">now playing</Dropdown.Item>
                 <Dropdown.Item href="#/">year released</Dropdown.Item>
+                <Dropdown.Item href="#/">complete in box</Dropdown.Item>
                 <Dropdown.Item href="#/">all-time favorite</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

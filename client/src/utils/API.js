@@ -19,6 +19,10 @@ export default {
   updateGame: function(id, propertyToUpdate) {
     return axios.put("/api/games/" + id, propertyToUpdate)
   },
+
+  updateNote: function (id, newNote) {
+    return axios.put("/api/games/note/" + id, newNote)
+  },
   
   // Deletes the game with the given id
   deleteGame: function(id) {

@@ -155,10 +155,7 @@ class SearchModal extends Component {
   }
 
   writeNote = (event) => {
-    // Getting the value and name of the input which triggered the change
     let value = event.target.value;
-
-    // Updating the input's state
     this.setState({
       note: value
     });
@@ -302,20 +299,19 @@ class SearchModal extends Component {
               </Field>
             </Form>
 
-        <div style={{ float:"left", clear: "both" }}
-            ref={(el) => { this.endOfSearchResults = el; }}>
-        </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button 
-              variant="primary" 
-              size="lg" 
-              onClick={this.shelve}
-              block>add to collection
-            </Button>
-          </ModalFooter>
-        </Modal>
-
+            <div style={{ float:"left", clear: "both" }}
+                ref={(el) => { this.endOfSearchResults = el; }}>
+            </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button 
+                variant="primary" 
+                size="lg" 
+                onClick={this.shelve}
+                block>add to collection
+              </Button>
+            </ModalFooter>
+          </Modal>
       </div>
     );
   }
