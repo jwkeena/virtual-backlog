@@ -55,7 +55,6 @@ class BarcodeScanController extends Component {
         console.log(barcode)
         axios.get("https://cors-anywhere.herokuapp.com/https://api.upcitemdb.com/prod/trial/lookup?upc=" + barcode)
             .then(res => {
-                console.log(this.props.searchOption)
                 if (res.data.items[0].title) {
                     this.props.updateBarcodeSearchResult(res.data.items[0].title);
                     this.toggle();
@@ -67,7 +66,8 @@ class BarcodeScanController extends Component {
                 }) 
             .catch(error=> {
                 console.log(error);
-                alert("Barcode search failed.")
+                alert("Barcode search failed.");
+                this.toggle();
             });
     }
 

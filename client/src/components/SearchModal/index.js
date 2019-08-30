@@ -164,6 +164,11 @@ class SearchModal extends Component {
     });
   }
 
+  noteShelve = (event) => {
+    event.preventDefault();
+    this.shelve();
+  }
+
   shelve = () => {
     if (this.state.platformChosen === null) {
       return alert ("Choose a platform before submitting.");
@@ -268,7 +273,6 @@ class SearchModal extends Component {
                   }
             <hr/>
 
-            <form>
             <div>
                 <h3>Platform</h3>
                 {(this.state.possiblePlatforms.length > 0) && 
@@ -290,11 +294,12 @@ class SearchModal extends Component {
             <hr/>
 
             <h3>Notes</h3>
-            <Field>
-              <Input note={this.state.note} onChange={this.writeNote}/>
-              <Message>Notes and options can be changed later.</Message>
-            </Field>
-          </form>
+            <Form onSubmit={this.noteShelve}>
+              <Field>
+                <Input note={this.state.note} onChange={this.writeNote} onSubmit={this.shelve}/>
+                <Message>Notes and options can be changed later.</Message>
+              </Field>
+            </Form>
 
         <div style={{ float:"left", clear: "both" }}
             ref={(el) => { this.endOfSearchResults = el; }}>

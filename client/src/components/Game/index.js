@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
+import { Field, Toggle, Label } from "@zendeskgarden/react-forms";
 import API from '../../utils/API';
+
 // import './styles.css'
 
 // // return { init : init };
@@ -23,6 +25,20 @@ class Game extends Component {
         }
       }
 
+    updateGame = (event) => {
+        const propertyToUpdate = {
+            property: event.target.value,
+            currentValue: event.target.checked
+        };
+        console.log(event.target)
+        console.log(event.target.checked)
+        API.updateGame(this.props.id, propertyToUpdate)
+              .then(res=> {
+                this.props.loadGames();
+              })
+              .catch(err => console.log(err));
+    }
+
     render () {
         return (
             <li 
@@ -41,25 +57,63 @@ class Game extends Component {
             <div className='bk-page'>
                 <div className={(this.props.page === 1 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <p>{this.props.description}</p>
+                    <p>Year Released: {this.props.year_released}</p>
                 </div>
                 <div className={(this.props.page === 2 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
-                    <p>Owned?{this.props.owned}</p>
-                    <p>Physical Copy?{this.props.is_physical}</p>
-                    <p>Completed?{this.props.is_beaten}</p>
-                    <p>Currently Playing?{this.props.now_playing}</p>
-                    <p>Favorite Game?{this.props.is_favorite}</p>
-                    <p>Rating{this.props.rating}</p>
-                    <p>Estimated Value{this.props.price}</p>
-                    {/* <div className="custom-control custom-switch">
-                    <input type="checkbox" className="custom-control-input" id="customSwitches"/>
-                    <label className="custom-control-label" htmlFor="customSwitches">Toggle this switch element</label>
-                    </div> */}
+                    <Field>
+                        <Toggle 
+                            checked={this.props.favorite}
+                            value="favorite"
+                            onChange={this.updateGame}>
+                            <Label>All-time favorite</Label>
+                        </Toggle>
+                    </Field>
+                    <Field>
+                        <Toggle 
+                        checked={this.props.backlog}
+                        value="backlog"
+                        onChange={this.updateGame}>
+                            <Label>Backlog</Label>
+                        </Toggle>
+                    </Field>
+                    <Field>
+                        <Toggle 
+                            checked={this.props.is_beaten}
+                            value="is_beaten"
+                            onChange={this.updateGame}>
+                            <Label>Beaten</Label>
+                        </Toggle>
+                    </Field>
+                    
+                    <Field>
+                        <Toggle 
+                            checked={this.props.cib}
+                            value="cib"
+                            onChange={this.updateGame}>
+                            <Label>Complete in box</Label>
+                        </Toggle>
+                    </Field>
+                    <Field>
+                        <Toggle 
+                            checked={this.props.now_playing}
+                            value="now_playing"
+                            onChange={this.updateGame}>
+                            <Label>Now playing</Label>
+                        </Toggle>
+                    </Field>
+                    <Field>
+                        <Toggle 
+                            checked={this.props.wishlist}
+                            value="wishlist"
+                            onChange={this.updateGame}>
+                            <Label>Wishlist</Label>
+                        </Toggle>
+                    </Field>
                 </div>
                 <div className={(this.props.page === 3 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <p>Notes{this.props.note}</p>
-                    <p>Year Released{this.props.date}</p>
                 </div>
-                <div className={(this.props.page === 3 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
+                <div className={(this.props.page === 4 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <p>Delete This Title?{this.props.note}</p>
                     <Button value={this.props.id} onClick={this.deleteGame}>Delete</Button>
                     

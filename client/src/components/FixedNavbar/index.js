@@ -82,14 +82,15 @@ render() {
                 sort
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-2">title</Dropdown.Item>
                 <Dropdown.Item href="#/action-1">system</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">title</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">beaten</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">digital</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">physical</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">favorite</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">wishlist</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">now playing</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">year released</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">all-time favorite</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           <Nav.Link>recommended</Nav.Link>

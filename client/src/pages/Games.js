@@ -151,11 +151,13 @@ class Games extends Component {
                     is_beaten = {games.is_beaten}
                     favorite = {games.favorite}
                     now_playing = {games.now_playing}
-                    owned = {games.owned}
-                    rating = {games.rating}
-                    price = {games.price}
                     year_released = {games.year_released}
                     date = {games.data}
+                    backlog = {games.backlog}
+                    cib = {games.cib}
+                    guid = {games.guid}
+                    points = {games.points}
+                    wishlist = {games.wishlist}
                     note = {games.note}
                     id = {games._id}
                     page = {this.state.page}
