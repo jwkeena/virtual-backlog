@@ -5,8 +5,17 @@ import Game from "../components/Game";
 import API from "../utils/API";
 import gameSeed from "../components/GamesTest/gameListTest";
 import '../components/Game/styles.css'
+import { Spinner } from 'reactstrap';
 
-
+const styles = {
+  middle: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center"
+  }
+}
 class Games extends Component {
     constructor(props) {
         super(props);
@@ -36,7 +45,6 @@ class Games extends Component {
         let clickedArray = this.state.clicked.slice(0)
         // console.log("clickedArray" + clickedArray)
         
-        
         if (this.state.gameOpen === 0){
         this.setState({zIndex: 1})
         clickedArray[i] = !clickedArray[i]
@@ -44,24 +52,15 @@ class Games extends Component {
             this.setState({gameOpen:1})
             setTimeout(() => {
                 this.setState({gameOpen:2})
-                
-
-        }, 1000)
-
+            }, 1000)
         // this.setState.currentGame = 0;
         }
 
         else if (this.state.gameOpen === 2){
             this.setState({gameOpen:3})
-
-
         }
-
-        
-    
         //     // $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
         // }
-
     }
 
     handlePageRight = i => {
@@ -76,6 +75,7 @@ class Games extends Component {
             this.setState({page:4})
         }  
     }
+
     handleClose = i => {
         console.log("clicked!")
          if (this.state.gameOpen === 3){
@@ -93,6 +93,7 @@ class Games extends Component {
             }, 1000)
         }
     }
+
     handlePageLeft = i => {
         console.log("clicked!")
         if (this.state.page === 2){
@@ -135,14 +136,13 @@ class Games extends Component {
         
         <br/>
         
-            {(this.state.gamesLoaded) && 
+            {(this.state.gamesLoaded) ? 
             
             <MDBRow>
                 <MDBCol size='sm-12' className = 'bk-list'>
                     {this.state.gamesLoaded.map((games,i) => 
                      <Game
                     loadGames = {this.loadGames} 
-                    handleClose = {this.handleClose}
                     gameOpen = {this.state.gameOpen} 
                     title = {games.title}
                     system_type = {games.system_type}
@@ -156,6 +156,7 @@ class Games extends Component {
                     backlog = {games.backlog}
                     cib = {games.cib}
                     guid = {games.guid}
+                    gb_url={games.gb_url}
                     points = {games.points}
                     wishlist = {games.wishlist}
                     note = {games.note}
@@ -174,9 +175,11 @@ class Games extends Component {
                     />)}
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </MDBCol>
-            </MDBRow>
+            </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
                 } {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
+
+           
             
         )
     }

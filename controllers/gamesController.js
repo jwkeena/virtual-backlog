@@ -43,12 +43,10 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    console.log("updating game", req.params.id, req.body)
     const property = req.body.property;
     let updatedValue = !req.body.currentValue;
     db.Game
       .findOneAndUpdate({ _id: req.params.id }, updatedValue, function (err, game) {
-        console.log("findingandupdatingone")
         if (err) {
           console.log(err)
         } else {

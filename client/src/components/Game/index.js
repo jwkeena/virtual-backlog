@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
 import { Field, Toggle, Label } from "@zendeskgarden/react-forms";
 import API from '../../utils/API';
-
 // import './styles.css'
-
 // // return { init : init };
 
 class Game extends Component {
@@ -56,10 +54,13 @@ class Game extends Component {
 
             <div className='bk-page'>
                 <div className={(this.props.page === 1 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
-                    <p>{this.props.description}</p>
-                    <p>Year Released: {this.props.year_released}</p>
+                    <h5>{this.props.title}</h5>
+                    <span>Year Released: {this.props.year_released}</span><br></br><br></br>
+                    <span>{this.props.description}</span><br></br><br></br>
+                    <a href={this.props.gb_url} target="_blank">More Details</a>
                 </div>
                 <div className={(this.props.page === 2 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
+                    <h5>Options</h5>
                     <Field>
                         <Toggle 
                             checked={this.props.favorite}
@@ -84,7 +85,6 @@ class Game extends Component {
                             <Label>Beaten</Label>
                         </Toggle>
                     </Field>
-                    
                     <Field>
                         <Toggle 
                             checked={this.props.cib}
@@ -111,11 +111,12 @@ class Game extends Component {
                     </Field>
                 </div>
                 <div className={(this.props.page === 3 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
-                    <p>Notes{this.props.note}</p>
+                    <h5>Notes</h5>
+                    <span>{this.props.note}</span>
                 </div>
                 <div className={(this.props.page === 4 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
-                    <p>Delete This Title?{this.props.note}</p>
-                    <Button value={this.props.id} onClick={this.deleteGame}>Delete</Button>
+                    <h5>Danger Zone</h5><br></br>
+                    <Button value={this.props.id} onClick={this.deleteGame} variant="danger">Delete</Button>
                     
                 </div>
 

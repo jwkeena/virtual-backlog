@@ -185,6 +185,7 @@ class SearchModal extends Component {
       description: saved.deck,
       note: this.state.note,
       guid: saved.guid,
+      gb_url: saved.site_detail_url,
       year_released: saved.expected_release_year,
       favorite: this.state.isChecked[0].checked,
       backlog: this.state.isChecked[1].checked,

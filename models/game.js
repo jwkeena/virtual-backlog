@@ -18,6 +18,7 @@ const gameSchema = new Schema({
   now_playing: Boolean, 
   wishlist: Boolean,
   points: Number,
+  gb_url: String,
   date: { type: Date, default: Date.now }
 });
 
