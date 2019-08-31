@@ -10,6 +10,11 @@
 	margin-left: 20vw;
 }
 
+.bk-list-centered{
+	perspective-origin:50%;
+}
+
+
 .bk-list li {
 	position: relative;
 	width: 40px;
