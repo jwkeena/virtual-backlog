@@ -56,46 +56,46 @@ class Games extends Component {
 
         switch (this.state.sortOption) {
             case "system":
-                sorted = sorted.sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Sort by system, then alphabetically
+                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Filter non-wishlist, sort by system, then alphabetically
                 break;
             case "title":
-                sorted = sorted.sort((a, b) => (a.title > b.title) ? 1 : -1 ) // Sort by title only
+                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.title > b.title) ? 1 : -1 ) // Sort by title only
                 break;
             case "beaten":
-                sorted = sorted.filter(game => game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "unbeaten":
-                sorted = sorted.filter(game => !game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => !game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "backlog":
-                sorted = sorted.filter(game => game.backlog).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.backlog).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "digital":
-                sorted = sorted.filter(game => !game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => !game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;    
             case "physical":
-                sorted = sorted.filter(game => game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "wishlist":
                 sorted = sorted.filter(game => game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "now playing":
-                sorted = sorted.filter(game => game.now_playing).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.now_playing).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "year released":
-                sorted = sorted.sort((a, b) => (a.year_released > b.year_released) ? 1 : -1 ) // Sort by title only
+                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.year_released > b.year_released) ? 1 : -1 ) // Sort by title only
                 break;
             case "complete in box":
-                sorted = sorted.filter(game => game.cib).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).filter(game => game.cib).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "not complete in box":
-                sorted = sorted.filter(game => !game.cib).sort((a, b) => (a.title > b.title) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).filter(game => !game.cib).sort((a, b) => (a.title > b.title) ? 1 : -1 );
                 break;
             case "all-time favorite":
-                sorted = sorted.filter(game => game.favorite).sort((a, b) => (a.title > b.title) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.favorite).sort((a, b) => (a.title > b.title) ? 1 : -1 );
                 break;
             default: 
-                sorted = sorted.sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Sort by system, then alphabetically
+                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Sort by system, then alphabetically
         }
         
         this.setState({
