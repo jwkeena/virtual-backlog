@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Dropdown from 'react-bootstrap/Dropdown';
+import SortingDropdown from '../SortingDropdown';
 import API from '../../utils/API';
 import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
@@ -15,7 +15,7 @@ state = {
     search: "text",
     gameToSearch: "",
     barcodeSearchResult: null,
-    manualSearch: false,
+    manualSearch: false
 }
 
 logout = event => {
@@ -77,26 +77,10 @@ render() {
       <Navbar bg="dark" variant="dark" style={{ minWidth: 700 }}>
       
         <Nav className="mr-auto">
-            <Dropdown>
-              <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
-                sort
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/">system</Dropdown.Item>
-                <Dropdown.Item href="#/">title</Dropdown.Item>
-                <Dropdown.Item href="#/">beaten</Dropdown.Item>
-                <Dropdown.Item href="#/">backlog</Dropdown.Item>
-                <Dropdown.Item href="#/">digital</Dropdown.Item>
-                <Dropdown.Item href="#/">physical</Dropdown.Item>
-                <Dropdown.Item href="#/">wishlist</Dropdown.Item>
-                <Dropdown.Item href="#/">now playing</Dropdown.Item>
-                <Dropdown.Item href="#/">year released</Dropdown.Item>
-                <Dropdown.Item href="#/">complete in box</Dropdown.Item>
-                <Dropdown.Item href="#/">all-time favorite</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <SortingDropdown 
+              sortOption={this.props.sortOption}
+              updateSortOption={this.props.updateSortOption}/>
           <Nav.Link>statistics</Nav.Link>
-          {/* <Nav.Link>recommended</Nav.Link> */}
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
 

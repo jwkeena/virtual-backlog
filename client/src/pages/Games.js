@@ -20,6 +20,8 @@ class Games extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            sortOption: "system",
+            gamesSorted: null,
             gameSeed: gameSeed,
             gamesLoaded: null,
             gamesCount: 13,
@@ -30,13 +32,75 @@ class Games extends Component {
             checked: false,
             zIndex: 0,
             zCounter: 0,
-            page:1,
-            switch1:true,
-            switch2:false,
+            page: 1,
+            switch1: true,
+            switch2: false,
             transform: false,
             vanish: 0
         }
         this.loadGames = this.loadGames.bind(this);
+        this.updateSortOption = this.updateSortOption.bind(this)
+    }
+
+    updateSortOption = (option) => {
+        this.setState({
+            sortOption: option
+        }, () => {
+            this.sortGames();
+        })
+    }
+
+    sortGames = () => {
+        console.log("sorting games by " + this.state.sortOption);
+        let sorted = this.state.gamesLoaded;
+
+        switch (this.state.sortOption) {
+            case "system":
+                sorted = sorted.sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Sort by system, then alphabetically
+                break;
+            case "title":
+                sorted = sorted.sort((a, b) => (a.title > b.title) ? 1 : -1 ) // Sort by title only
+                break;
+            case "beaten":
+                sorted = sorted.filter(game => game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "unbeaten":
+                sorted = sorted.filter(game => !game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "backlog":
+                sorted = sorted.filter(game => game.backlog).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "digital":
+                sorted = sorted.filter(game => !game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;    
+            case "physical":
+                sorted = sorted.filter(game => game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "wishlist":
+                sorted = sorted.filter(game => game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "now playing":
+                sorted = sorted.filter(game => game.now_playing).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "year released":
+                sorted = sorted.sort((a, b) => (a.year_released > b.year_released) ? 1 : -1 ) // Sort by title only
+                break;
+            case "complete in box":
+                sorted = sorted.filter(game => game.cib).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                break;
+            case "not complete in box":
+                sorted = sorted.filter(game => !game.cib).sort((a, b) => (a.title > b.title) ? 1 : -1 );
+                break;
+            case "all-time favorite":
+                sorted = sorted.filter(game => game.favorite).sort((a, b) => (a.title > b.title) ? 1 : -1 );
+                break;
+            default: 
+                sorted = sorted.sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Sort by system, then alphabetically
+        }
+        
+        this.setState({
+            gamesSorted: sorted
+        })
     }
 
     componentDidMount(){
@@ -49,6 +113,7 @@ class Games extends Component {
     //     var vanishingPoint = scrollLocation + window.innerHeight / 2;
     //     $(".bk-list").css('-webkit-perspective-origin', ' 50% ' + vanishingPoint + 'px');
     // })
+
     handleScroll = () =>{
         var scrollLocation = window.pageYOffset;   
         // console.log("scroolloco "+ scrollLocation)
@@ -58,7 +123,6 @@ class Games extends Component {
         // console.log("scrolling " + vanishingPoint)
         }
     
-
     handleClick = i =>{
         let clickedArray = this.state.clicked.slice(0)
         // console.log("clickedArray" + clickedArray)
@@ -136,9 +200,10 @@ class Games extends Component {
         const username = localStorage.getItem("username");
         API.getGames(username)
         .then((res) => {
-            console.log(res.data)
             this.setState({
                 gamesLoaded: res.data
+            }, () => {
+                this.sortGames();
             })
             }
         )
@@ -150,15 +215,21 @@ class Games extends Component {
       let negativeC = 7
       return (
         <MDBContainer fluid > 
-        <FixedNavbar loggedIn={this.props.loggedIn} loadGames={this.loadGames} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
+        <FixedNavbar 
+            sortOption={this.state.sortOption}
+            updateSortOption={this.updateSortOption}
+            loggedIn={this.props.loggedIn} 
+            loadGames={this.loadGames} 
+            logoutBoolean={this.props.logoutBoolean} 
+            username={this.props.username}/>
         
         <br/>
         
-            {(this.state.gamesLoaded) ? 
+            {(this.state.gamesSorted) ? 
             
             <MDBRow>
                 <MDBCol size='sm-12' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
-                    {this.state.gamesLoaded.map((games,i) => 
+                    {this.state.gamesSorted.map((games,i) => 
                      <Game
                     loadGames = {this.loadGames} 
                     gameOpen = {this.state.gameOpen} 
@@ -198,13 +269,8 @@ class Games extends Component {
             </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
                 } {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
-
-           
-            
         )
-    }
-    
-}
-;
+    } 
+};
 
 export default Games;
