@@ -155,13 +155,15 @@ class SearchModal extends Component {
   }
 
   writeNote = (event) => {
-    // Getting the value and name of the input which triggered the change
     let value = event.target.value;
-
-    // Updating the input's state
     this.setState({
       note: value
     });
+  }
+
+  noteShelve = (event) => {
+    event.preventDefault();
+    this.shelve();
   }
 
   shelve = () => {
@@ -180,6 +182,7 @@ class SearchModal extends Component {
       description: saved.deck,
       note: this.state.note,
       guid: saved.guid,
+      gb_url: saved.site_detail_url,
       year_released: saved.expected_release_year,
       favorite: this.state.isChecked[0].checked,
       backlog: this.state.isChecked[1].checked,
@@ -268,7 +271,6 @@ class SearchModal extends Component {
                   }
             <hr/>
 
-            <form>
             <div>
                 <h3>Platform</h3>
                 {(this.state.possiblePlatforms.length > 0) && 
@@ -290,26 +292,26 @@ class SearchModal extends Component {
             <hr/>
 
             <h3>Notes</h3>
-            <Field>
-              <Input note={this.state.note} onChange={this.writeNote}/>
-              <Message>Notes and options can be changed later.</Message>
-            </Field>
-          </form>
+            <Form onSubmit={this.noteShelve}>
+              <Field>
+                <Input note={this.state.note} onChange={this.writeNote} onSubmit={this.shelve}/>
+                <Message>Notes and options can be changed later.</Message>
+              </Field>
+            </Form>
 
-        <div style={{ float:"left", clear: "both" }}
-            ref={(el) => { this.endOfSearchResults = el; }}>
-        </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button 
-              variant="primary" 
-              size="lg" 
-              onClick={this.shelve}
-              block>add to collection
-            </Button>
-          </ModalFooter>
-        </Modal>
-
+            <div style={{ float:"left", clear: "both" }}
+                ref={(el) => { this.endOfSearchResults = el; }}>
+            </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button 
+                variant="primary" 
+                size="lg" 
+                onClick={this.shelve}
+                block>add to collection
+              </Button>
+            </ModalFooter>
+          </Modal>
       </div>
     );
   }

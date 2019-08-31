@@ -82,17 +82,21 @@ render() {
                 sort
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-2">title</Dropdown.Item>
-                <Dropdown.Item href="#/action-1">system</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">beaten</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">digital</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">physical</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">favorite</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">now playing</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">year released</Dropdown.Item>
+                <Dropdown.Item href="#/">system</Dropdown.Item>
+                <Dropdown.Item href="#/">title</Dropdown.Item>
+                <Dropdown.Item href="#/">beaten</Dropdown.Item>
+                <Dropdown.Item href="#/">backlog</Dropdown.Item>
+                <Dropdown.Item href="#/">digital</Dropdown.Item>
+                <Dropdown.Item href="#/">physical</Dropdown.Item>
+                <Dropdown.Item href="#/">wishlist</Dropdown.Item>
+                <Dropdown.Item href="#/">now playing</Dropdown.Item>
+                <Dropdown.Item href="#/">year released</Dropdown.Item>
+                <Dropdown.Item href="#/">complete in box</Dropdown.Item>
+                <Dropdown.Item href="#/">all-time favorite</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          <Nav.Link>recommended</Nav.Link>
+          <Nav.Link>statistics</Nav.Link>
+          {/* <Nav.Link>recommended</Nav.Link> */}
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
 

@@ -43,10 +43,33 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
+    const property = req.body.property;
+    let updatedValue = !req.body.currentValue;
+    db.Game
+      .findOneAndUpdate({ _id: req.params.id }, updatedValue, function (err, game) {
+        if (err) {
+          console.log(err)
+        } else {
+          game[property] = !game[property];
+          game.save(function(err, updatedGame) {
+            if (err) {
+              console.log(err)
+            } else {
+              console.log(updatedGame)
+            }
+          })
+        }     
+      })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => console.log(err));
+  },
+  updateNote: function(req, res) {
+    console.log(req.body)
+    console.log(req.params.id)
     db.Game
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => console.log(err));
   },
   remove: function(req, res) {
     db.Game

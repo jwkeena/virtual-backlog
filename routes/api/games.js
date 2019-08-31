@@ -15,4 +15,7 @@ router.route("/:id")
   .put(gamesController.update)
   .delete(gamesController.remove);
 
+router.route("/note/:id")
+  .put(gamesController.updateNote)
+
 module.exports = router;
