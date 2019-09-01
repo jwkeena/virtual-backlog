@@ -20,7 +20,7 @@ export default class SortingDropdown extends React.Component {
 
   render() {
     return (
-      <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+      <ButtonDropdown direction="up" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
           sorted by {
             this.props.sortOption === "system_type" ? "system" 

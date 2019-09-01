@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import SortingDropdown from '../SortingDropdown';
 import API from '../../utils/API';
 import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
@@ -74,17 +73,13 @@ render() {
     )
   } else {
   return (
-      <Navbar bg="dark" variant="dark" style={{ minWidth: 700 }}>
-      
+      <Navbar bg="dark" variant="dark">
+        
         <Nav className="mr-auto">
-            <SortingDropdown 
-              sortOption={this.props.sortOption}
-              updateSortOption={this.props.updateSortOption}/>
-          <Nav.Link>statistics</Nav.Link>
+          <Navbar.Brand className="mr-auto">{this.props.username}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
+          <Nav.Link>share</Nav.Link>
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
-
-        <Navbar.Brand className="mx-auto">{this.props.username}'s virtual backlog</Navbar.Brand>
 
         <Nav className="ml-auto">
           <BarcodeScanController 

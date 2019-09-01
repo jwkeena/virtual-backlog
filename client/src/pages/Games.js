@@ -220,21 +220,22 @@ class Games extends Component {
       let zCounter = this.state.zCounter
       let negativeC = 7
       return (
-        <MDBContainer fluid > 
+        <div>
         <FixedNavbar 
-            sortOption={this.state.sortOption}
-            updateSortOption={this.updateSortOption}
-            loggedIn={this.props.loggedIn} 
-            loadGames={this.loadGames} 
-            logoutBoolean={this.props.logoutBoolean} 
-            username={this.props.username}/>
+        sortOption={this.state.sortOption}
+        updateSortOption={this.updateSortOption}
+        loggedIn={this.props.loggedIn} 
+        loadGames={this.loadGames} 
+        logoutBoolean={this.props.logoutBoolean} 
+        username={this.props.username}/>
+        <MDBContainer fluid > 
         
         <br/>
         
             {(this.state.gamesSorted) ? 
             
             <MDBRow>
-                <MDBCol size='sm-12' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
+                <MDBCol size='sm-8' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
                     loadGames = {this.loadGames}
@@ -277,12 +278,14 @@ class Games extends Component {
                 } {/* <-- remove this bracket when loading from gameSeed */}
             
             <MDBRow>
-                <Statistics
-                    sortOption={this.state.sortOption}
-                    amountOfGamesInCollection={this.state.amountOfGamesInCollection}
-                    amountOfGamesSorted={this.state.amountOfGamesSorted}/>
             </MDBRow>
             </MDBContainer> 
+            <Statistics
+                sortOption={this.state.sortOption}
+                updateSortOption={this.updateSortOption}
+                amountOfGamesInCollection={this.state.amountOfGamesInCollection}
+                amountOfGamesSorted={this.state.amountOfGamesSorted}/>
+            </div>
         )
     } 
 };

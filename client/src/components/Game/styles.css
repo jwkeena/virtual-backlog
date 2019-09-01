@@ -34,7 +34,7 @@
 .bk-list li .bk-game {
 	cursor: pointer;
 	position: absolute;
-	width: 100%;
+	width: 80%;
 	height: 400px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
