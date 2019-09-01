@@ -58,12 +58,11 @@ class Games extends Component {
     updateCustomSearch = (query) => {
         let sorted = this.state.gamesLoaded;
         sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
-        const amountInCollection = sorted.filter(game => !game.wishlist).length;
         const amount = sorted.length;
         this.setState({
+            sortOption: "custom search",
             gamesSorted: sorted,
-            amountOfGamesSorted: amount,
-            amountOfGamesInCollection: amountInCollection
+            amountOfGamesSorted: amount
         });
     }
 
