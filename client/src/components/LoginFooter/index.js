@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import giantbomblogo from '../../giantbomblogo.png';
 
-
 const styles = {
     giantbomblogo: {
       height: "25px"

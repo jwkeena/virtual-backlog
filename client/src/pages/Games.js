@@ -6,6 +6,7 @@ import API from "../utils/API";
 import gameSeed from "../components/GamesTest/gameListTest";
 import '../components/Game/styles.css'
 import { Spinner } from 'reactstrap';
+import Statistics from '../components/Statistics';
 
 const styles = {
   middle: {
@@ -22,6 +23,8 @@ class Games extends Component {
         this.state = { 
             sortOption: "system_type",
             gamesSorted: null,
+            amountOfGamesSorted: 0,
+            amountOfGamesInCollection: null,
             gameSeed: gameSeed,
             gamesLoaded: null,
             gamesCount: 13,
@@ -52,6 +55,7 @@ class Games extends Component {
 
     sortGames = () => {
         let sorted = this.state.gamesLoaded;
+        const amountInCollection = sorted.filter(game => !game.wishlist).length;
         switch (this.state.sortOption) {
             case "system_type":
                 sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) 
@@ -96,8 +100,12 @@ class Games extends Component {
                 sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Same as first option
         }
         
+        const amount = sorted.length;
+
         this.setState({
-            gamesSorted: sorted
+            gamesSorted: sorted,
+            amountOfGamesSorted: amount,
+            amountOfGamesInCollection: amountInCollection
         })
     }
 
@@ -199,7 +207,7 @@ class Games extends Component {
         API.getGames(username)
         .then((res) => {
             this.setState({
-                gamesLoaded: res.data
+                gamesLoaded: res.data,
             }, () => {
                 this.sortGames();
             })
@@ -267,6 +275,13 @@ class Games extends Component {
                 </MDBCol>
             </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
                 } {/* <-- remove this bracket when loading from gameSeed */}
+            
+            <MDBRow>
+                <Statistics
+                    sortOption={this.state.sortOption}
+                    amountOfGamesInCollection={this.state.amountOfGamesInCollection}
+                    amountOfGamesSorted={this.state.amountOfGamesSorted}/>
+            </MDBRow>
             </MDBContainer> 
         )
     } 

@@ -7,7 +7,6 @@ import Jumbotron from '../components/Jumbotron';
 import LoginFooter from '../components/LoginFooter';
 class Login extends Component {
 
-    // Setting the component's initial state
     state = {
         username: "",
         password: "",
@@ -30,11 +29,8 @@ class Login extends Component {
     }
 
     handleInputChange = event => {
-        // Getting the value and name of the input which triggered the change
         let value = event.target.value;
         const name = event.target.name;
-
-        // Updating the input's state
         this.setState({
         [name]: value
         });
@@ -42,9 +38,6 @@ class Login extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log(this.props)
-        console.log('handleSubmit', this.state.username);
-
         axios
             .post('/api/users/login', {
                 username: this.state.username,
