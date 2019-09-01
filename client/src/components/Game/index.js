@@ -29,7 +29,7 @@ class Game extends Component {
             API.deleteGame(this.props.id)
               .then(res=> {
                 this.props.handleClose();
-                setTimeout(() => {this.props.loadGames()}, 2000)
+                setTimeout(() => {this.props.loadGames()}, 1000)
               })
               .catch(err => console.log(err));
         } else {
@@ -42,11 +42,23 @@ class Game extends Component {
             property: event.target.value,
             currentValue: event.target.checked
         };
-        API.updateGame(this.props.id, propertyToUpdate)
-              .then(res=> {
-                this.props.loadGames();
-              })
-              .catch(err => console.log(err));
+        if (propertyToUpdate.property === this.props.sortOption) {
+            console.log("match");
+            this.props.handleClose();
+            setTimeout(() => {
+                API.updateGame(this.props.id, propertyToUpdate)
+                .then(res=> {
+                  this.props.loadGames();
+                })
+                .catch(err => console.log(err));
+            }, 1000);
+        } else {
+            API.updateGame(this.props.id, propertyToUpdate)
+                  .then(res=> {
+                    this.props.loadGames();
+                  })
+                  .catch(err => console.log(err));
+        }
     }
 
     writeNote = (event) => {
@@ -80,8 +92,8 @@ class Game extends Component {
                     <div className={(this.props.gameOpen === 1 && this.props.clicked ? 'bk-game game' + this.props.id +' bk-outside'  : this.props.gameOpen === 2 && this.props.clicked  ? 'bk-game game'+this.props.id+' bk-outside bk-viewinside' : this.props.gameOpen === 3 && this.props.clicked ? 'bk-game game'+this.props.id+' bk-outside bk-viewinside bk-open' :'bk-game game'+ this.props.id)}> 
         
             <div className='bk-front'>
-                <div className='bk-cover-back'></div>
-                <div className={('bk-cover '+ this.props.system_type )} src={(this.props.box_art)}>
+                <div className='bk-cover-back' style={{backgroundImage: 'url('+ this.props.box_art +')'}}></div>
+                <div className={('bk-cover '+ this.props.system_type )} style={{backgroundImage: 'url('+ this.props.box_art +')'}}>
                     <h2><span>  {this.props.title}  </span> <span> {this.props.system_type} </span></h2>   
                 </div>
             </div>

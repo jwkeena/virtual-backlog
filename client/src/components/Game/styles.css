@@ -11,7 +11,7 @@
 	margin-left: 20vw;
 }
 
-.bk-list-centered{
+.bk-list-centered {
 	perspective-origin:50%;
 }
 
@@ -38,8 +38,8 @@
 	height: 400px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
-	-webkit-transition: -webkit-transform .5s;
-	transition: transform .5s;
+	-webkit-transition: -webkit-transform .4s;
+	transition: transform .4s;
 	-webkit-transform: rotate3d(0, 1, 0, 90deg);
 	transform: rotate3d(0, 1, 0, 90deg);
 }
@@ -60,8 +60,8 @@
 	transform-style: preserve-3d;
 	-webkit-transform-origin: 0% 50%;
 	transform-origin: 0% 50%;
-	-webkit-transition: -webkit-transform .5s;
-	transition: transform .5s;
+	-webkit-transition: -webkit-transform .2s;
+	transition: transform .2s;
 	-webkit-transform: translate3d(0, 0, 20px);
 	transform: translate3d(0, 0, 20px);
 }
@@ -248,8 +248,8 @@
 	pointer-events: none;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-webkit-transition: opacity 0.3s ease-in-out;
-	transition: opacity 0.3s ease-in-out;
+	-webkit-transition: opacity 0.4s ease-in-out;
+	transition: opacity 0.4s ease-in-out;
 	cursor: default;
 }
 

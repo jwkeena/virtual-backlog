@@ -4,7 +4,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Jumbotron from '../components/Jumbotron';
-
+import LoginFooter from '../components/LoginFooter';
 class Login extends Component {
 
     // Setting the component's initial state
@@ -118,6 +118,7 @@ class Login extends Component {
                     <Link className="text-center" to={"/register/"}>
                     <p>Don't have an account?</p>
                     </Link>
+                    <LoginFooter/>
                   </MDBContainer>
                 </div>
             )
