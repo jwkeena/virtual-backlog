@@ -22,6 +22,7 @@ class Games extends Component {
         super(props);
         this.state = { 
             sortOption: "system_type",
+            customSearch: "",
             gamesSorted: null,
             amountOfGamesSorted: 0,
             amountOfGamesInCollection: null,
@@ -42,7 +43,8 @@ class Games extends Component {
             vanish: 0
         }
         this.loadGames = this.loadGames.bind(this);
-        this.updateSortOption = this.updateSortOption.bind(this)
+        this.updateSortOption = this.updateSortOption.bind(this);
+        this.updateCustomSearch = this.updateCustomSearch.bind(this);
     }
 
     updateSortOption = (option) => {
@@ -51,6 +53,18 @@ class Games extends Component {
         }, () => {
             this.sortGames();
         })
+    }
+
+    updateCustomSearch = (query) => {
+        let sorted = this.state.gamesLoaded;
+        sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
+        const amountInCollection = sorted.filter(game => !game.wishlist).length;
+        const amount = sorted.length;
+        this.setState({
+            gamesSorted: sorted,
+            amountOfGamesSorted: amount,
+            amountOfGamesInCollection: amountInCollection
+        });
     }
 
     sortGames = () => {
@@ -101,7 +115,6 @@ class Games extends Component {
         }
         
         const amount = sorted.length;
-
         this.setState({
             gamesSorted: sorted,
             amountOfGamesSorted: amount,
@@ -266,7 +279,7 @@ class Games extends Component {
                     zIndex = {this.state.zIndex}
                     clicked = {this.state.clicked[i]}
                     zCounter = {zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --}
-                    handleClick = { () => this.handleClick(i)}
+                    handleClick = {() => this.handleClick(i)}
                     handlePageLeft = {()=>this.handlePageLeft(i)}
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}
@@ -281,6 +294,7 @@ class Games extends Component {
             </MDBRow>
             </MDBContainer> 
             <Statistics
+                updateCustomSearch={this.updateCustomSearch}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}

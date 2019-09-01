@@ -1,13 +1,21 @@
 import React from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Field, Input } from '@zendeskgarden/react-forms';
 
+const styles = {
+  customSearch: {
+    position: "relative",
+    right: "10px"
+  }
+}
 export default class SortingDropdown extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      customSearch: ""
     };
   }
 
@@ -16,6 +24,16 @@ export default class SortingDropdown extends React.Component {
       dropdownOpen: !this.state.dropdownOpen
     });
 
+  }
+
+  typeCustomSearch = (event) => {
+    let value = event.target.value;
+    this.setState({
+      customSearch: value
+    }, () => {
+      value = value.toLowerCase();
+      this.props.updateCustomSearch(value)
+    });
   }
 
   render() {
@@ -31,12 +49,20 @@ export default class SortingDropdown extends React.Component {
             : this.props.sortOption }
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem onClick={() => {this.props.updateSortOption("title")}}>title</DropdownItem>
+          <DropdownItem style={styles.customSearch} toggle={false} >
+            <Field>
+              <Input 
+                value={this.state.customSearch}
+                onChange={this.typeCustomSearch} 
+                placeholder="Title includes..."/>
+            </Field>
+          </DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("system_type")}}>system</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("is_beaten")}}>beaten</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("digital")}}>digital</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("physical")}}>physical</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("backlog")}}>backlog</DropdownItem>
+          <DropdownItem onClick={() => {this.props.updateSortOption("title")}}>title (a-z)</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("now_playing")}}>now playing</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("year_released")}}>year released</DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("favorite")}}>all-time favorite</DropdownItem>
