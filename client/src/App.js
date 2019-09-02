@@ -53,7 +53,7 @@ class App extends Component {
             
             <Switch>
               {/* This is the route hit the first time the app is served */}
-              <Route exact path="/" render={() => <Login loggedIn={this.state.loggedIn} username={this.state.username} updateUser={this.updateUser}/>} />
+              <Route exact path="/" render={() => <Login loggedIn={this.state.loggedIn} logoutBoolean={this.logoutBoolean} username={this.state.username} updateUser={this.updateUser}/>} />
 
               {/* This is the main games page route, only accessible after logging in */}
               {(this.state.loggedIn === true) &&  
