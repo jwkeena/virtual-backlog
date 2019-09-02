@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Field, Toggle, Label, Textarea } from "@zendeskgarden/react-forms";
 import { Form } from 'reactstrap';
 import API from '../../utils/API';
+import axios from 'axios';
 // import './styles.css'
 // // return { init : init };
 
@@ -22,43 +23,77 @@ class Game extends Component {
         note: ""
     }
 
-    deleteGame = () => {
-        const answer = window.confirm("Are you sure you want to delete this game from your collection?");
-
-        if (answer) {
-            API.deleteGame(this.props.id)
-              .then(res=> {
-                this.props.handleClose();
-                setTimeout(() => {this.props.loadGames()}, 1000)
-              })
-              .catch(err => console.log(err));
-        } else {
-            return;
-        }
-      }
-
     updateGame = (event) => {
-        const propertyToUpdate = {
-            property: event.target.value,
-            currentValue: event.target.checked
-        };
-        if (propertyToUpdate.property === this.props.sortOption) {
-            console.log("match");
-            this.props.handleClose();
-            setTimeout(() => {
-                API.updateGame(this.props.id, propertyToUpdate)
-                .then(res=> {
-                  this.props.loadGames();
-                })
-                .catch(err => console.log(err));
-            }, 1000);
+        let usernameToVerify;
+        if (this.props.sharingUser) {
+            usernameToVerify = this.props.sharingUser;
         } else {
-            API.updateGame(this.props.id, propertyToUpdate)
-                  .then(res=> {
-                    this.props.loadGames();
-                  })
-                  .catch(err => console.log(err));
+            usernameToVerify = localStorage.getItem("username")
         }
+        const property = event.target.value;
+        const currentValue = event.target.checked
+        axios
+            .post('/api/users/me')
+            .then(response => {
+                const loggedInUser = response.data
+                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
+                if (loggedInUser === usernameToVerify) {
+                    const propertyToUpdate = {
+                        property: property,
+                        currentValue: currentValue
+                    };
+                    if (propertyToUpdate.property === this.props.sortOption) {
+                        console.log("match");
+                        this.props.handleClose();
+                        setTimeout(() => {
+                            API.updateGame(this.props.id, propertyToUpdate)
+                            .then(res=> {
+                                this.props.loadGames();
+                            })
+                            .catch(err => console.log(err));
+                        }, 1000);
+                    } else {
+                        API.updateGame(this.props.id, propertyToUpdate)
+                                .then(res=> {
+                                this.props.loadGames();
+                                })
+                                .catch(err => console.log(err));
+                    }
+                } else {
+                    alert("You are not authorized to make changes to another user's collection.")
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
+    deleteGame = () => {
+        let usernameToVerify;
+        if (this.props.sharingUser) {
+            usernameToVerify = this.props.sharingUser;
+        } else {
+            usernameToVerify = localStorage.getItem("username");
+        }
+        axios
+            .post('/api/users/me')
+            .then(response => {
+                const loggedInUser = response.data
+                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
+                if (loggedInUser === usernameToVerify) {
+                    const answer = window.confirm("Are you sure you want to delete this game from your collection?");
+                    if (answer) {
+                        API.deleteGame(this.props.id)
+                        .then(res=> {
+                            this.props.handleClose();
+                            setTimeout(() => {this.props.loadGames()}, 1000)
+                        })
+                        .catch(err => console.log(err));
+                    } else {
+                        return;
+                    }
+                } else {
+                    alert("You are not authorized to make changes to another user's collection.");
+                }
+            }) 
     }
 
     writeNote = (event) => {
@@ -69,18 +104,34 @@ class Game extends Component {
     }
 
     updateNote = () => {
-        this.setState(prevState => ({
-            editingNote: !prevState.editingNote
-        }), () => {
-            console.log(this.state.note)
-            if (!this.state.editingNote) {
-                API.updateNote(this.props.id, {note: this.state.note})
-                    .then(res=> {
-                        this.props.loadGames();
+        let usernameToVerify;
+        if (this.props.sharingUser) {
+            usernameToVerify = this.props.sharingUser;
+        } else {
+            usernameToVerify = localStorage.getItem("username");
+        }
+        axios
+            .post('/api/users/me')
+            .then(response => {
+                const loggedInUser = response.data
+                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
+                if (loggedInUser === usernameToVerify) {
+                    this.setState(prevState => ({
+                        editingNote: !prevState.editingNote
+                    }), () => {
+                        console.log(this.state.note)
+                        if (!this.state.editingNote) {
+                            API.updateNote(this.props.id, {note: this.state.note})
+                                .then(res=> {
+                                    this.props.loadGames();
+                                })
+                                .catch(err => console.log(err));
+                        }
                     })
-                    .catch(err => console.log(err));
-            }
-        })
+                } else {
+                    alert("You are not authorized to make changes to another user's collection.");
+                }
+            })
     }
 
     render () {
@@ -191,7 +242,7 @@ class Game extends Component {
                         </div>
                     }
                      <br></br>
-                     <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer">>>Game Details</a>
+                     <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer">Game Details</a>
 
                 </div>
                 <div className={(this.props.page === 4 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>

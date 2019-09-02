@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Games from "./pages/Games";
 import NoMatch from "./pages/NoMatch";
+import Share from "./pages/Share";
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 import '@zendeskgarden/react-forms/dist/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -65,7 +66,10 @@ class App extends Component {
               }
 
               <Route exact path="/register" component={Register} />
-              
+
+              {/* Allows users to show off their collections without being logged in as that user */}
+              <Route exact path="/:handle" component={Share} />
+
               <Route component={NoMatch} />
               
             </Switch>

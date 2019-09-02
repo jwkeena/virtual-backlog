@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol} from 'mdbreact';
-import FixedNavbar from "../components/FixedNavbar";
+import FixedNavbarShare from "../components/FixedNavbarShare";
 import Game from "../components/Game";
 import API from "../utils/API";
 import gameSeed from "../components/GamesTest/gameListTest";
@@ -21,6 +21,7 @@ class Games extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            sharingUser: null,
             sortOption: "system_type",
             customSearch: "",
             gamesSorted: null,
@@ -47,6 +48,29 @@ class Games extends Component {
         this.updateCustomSearch = this.updateCustomSearch.bind(this);
     }
 
+    componentDidMount(){
+        console.log(localStorage.getItem("username"))
+        window.addEventListener('scroll', this.handleScroll);
+        const { handle } = this.props.match.params;
+        this.setState({
+            sharingUser: handle
+        }, () => {
+            this.loadGames()
+        })
+    }
+
+    loadGames () {
+        API.getGames(this.state.sharingUser)
+        .then((res) => {
+            this.setState({
+                gamesLoaded: res.data,
+            }, () => {
+                this.sortGames();
+            })
+            }
+        )
+    }
+
     updateSortOption = (option) => {
         this.setState({
             sortOption: option
@@ -60,7 +84,7 @@ class Games extends Component {
         sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
         const amount = sorted.length;
         this.setState({
-            sortOption: "custom",
+            sortOption: "custom search",
             gamesSorted: sorted,
             amountOfGamesSorted: amount
         });
@@ -121,11 +145,6 @@ class Games extends Component {
         })
     }
 
-    componentDidMount(){
-        this.loadGames()
-        window.addEventListener('scroll', this.handleScroll);
-    }
-
     // $(window).scroll(function() {
     //     var scrollLocation = $(document).scrollTop();   
     //     var vanishingPoint = scrollLocation + window.innerHeight / 2;
@@ -180,17 +199,13 @@ class Games extends Component {
         // console.log("clicked!")
          if (this.state.gameOpen === 3){
             this.setState({gameOpen:2})
-
             setTimeout(() => {
-            this.setState({gameOpen:1})
-
-            }, 500)
-            setTimeout(() => {
-            this.setState({gameOpen:0})
-            this.setState({clicked:[]})
-            this.setState({zIndex: 0})
-            this.setState({page:1})
-            }, 500)
+            this.setState({
+                gameOpen:0, 
+                clicked: [], 
+                zindex: 0, 
+                page: 1})
+            }, 400)
         }
     }
 
@@ -214,32 +229,19 @@ class Games extends Component {
         });
       }
 
-    loadGames () {
-        const username = localStorage.getItem("username");
-        API.getGames(username)
-        .then((res) => {
-            this.setState({
-                gamesLoaded: res.data,
-            }, () => {
-                this.sortGames();
-            })
-            }
-        )
-    }
-
     render () {
       let gamesCount = 12
       let zCounter = this.state.zCounter
       let negativeC = 7
       return (
         <div>
-        <FixedNavbar 
-        sortOption={this.state.sortOption}
-        updateSortOption={this.updateSortOption}
-        loggedIn={this.props.loggedIn} 
-        loadGames={this.loadGames} 
-        logoutBoolean={this.props.logoutBoolean} 
-        username={this.props.username}/>
+        <FixedNavbarShare 
+            sortOption={this.state.sortOption}
+            updateSortOption={this.updateSortOption}
+            loggedIn={this.props.loggedIn} 
+            loadGames={this.loadGames} 
+            logoutBoolean={this.props.logoutBoolean} 
+            sharingUser={this.state.sharingUser}/>
         <MDBContainer fluid > 
         
         <br/>
@@ -250,8 +252,8 @@ class Games extends Component {
                 <MDBCol size='sm-8' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
-                    sharing = {false}
-                    username = {this.props.username}
+                    sharingUser = {this.state.sharingUser}
+                    sharing = {true}
                     loadGames = {this.loadGames}
                     sortOption = {this.state.sortOption}
                     gameOpen = {this.state.gameOpen} 

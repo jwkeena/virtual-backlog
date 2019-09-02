@@ -49,7 +49,7 @@ class Login extends Component {
                 console.log("Successful login");
                 // Update localstorage
                 localStorage.setItem("username", this.state.username);
-                localStorage.setItem("mostRecentUser", this.state.username)
+                localStorage.setItem("mostRecentUser", this.state.username);
                 // update App.js state
                 this.props.updateUser(this.state.username)
                 // update the state to redirect to game library
