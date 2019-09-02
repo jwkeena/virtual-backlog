@@ -49,7 +49,6 @@ class Games extends Component {
     }
 
     componentDidMount(){
-        console.log(localStorage.getItem("username"))
         window.addEventListener('scroll', this.handleScroll);
         const { handle } = this.props.match.params;
         this.setState({

@@ -5,16 +5,40 @@ import API from '../../utils/API';
 import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
 import BarcodeScanController from '../BarcodeScanController';
+import ShareButtons from "../ShareButtons";
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
+const styles = {
+  middle: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center"
+  }
+}
 class FixedNavbar extends Component {
 
-state = {
-    loggedIn: this.props.loggedIn,
-    redirectTo: null,
-    search: "text",
-    gameToSearch: "",
-    barcodeSearchResult: null,
-    manualSearch: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      shareModal: false,
+      customLink: "https://virtualbacklog.herokuapp.com/" + this.props.username,
+      backdrop: true,
+      loggedIn: this.props.loggedIn,
+      redirectTo: null,
+      search: "text",
+      gameToSearch: "",
+      barcodeSearchResult: null,
+      manualSearch: false
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+toggle() {
+    this.setState(prevState => ({
+    shareModal: !prevState.shareModal
+    }))
 }
 
 logout = event => {
@@ -73,11 +97,12 @@ render() {
     )
   } else {
   return (
+    <div>
       <Navbar bg="dark" variant="dark">
         
         <Nav className="mr-auto">
           <Navbar.Brand className="mr-auto">{this.props.username}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
-          <Nav.Link>share</Nav.Link>
+          <Nav.Link onClick={this.toggle}>share</Nav.Link>
           <Nav.Link href="/">home</Nav.Link>
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
@@ -101,8 +126,30 @@ render() {
             barcodeSearchResult={this.state.barcodeSearchResult}
             updateGameToSearch={this.updateGameToSearch}/>
         </Nav>
-
       </Navbar>
+
+        {/* Share Modal */}
+        <Modal 
+          centered
+          size={"lg"} 
+          autoFocus={true} 
+          isOpen={this.state.shareModal} 
+          toggle={this.toggle} 
+          className={this.props.className} 
+          backdrop={this.state.backdrop}>
+
+            <ModalHeader toggle={this.toggle}>
+            </ModalHeader>
+
+            <ModalBody>
+              <div style={styles.middle}>
+                  <h5>your custom link is: {this.state.customLink}</h5><br/>
+                <ShareButtons customLink={this.state.customLink}/>
+              </div>
+            </ModalBody>
+
+        </Modal>
+    </div>
       );
     }
   }

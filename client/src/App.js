@@ -19,6 +19,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Logout at the end of a session
+    // this.setState({
+    //   loggedIn: false
+    // })
+    
     // Check if there's a logged in user in localstorage
     if (localStorage.getItem("username")) {
       this.setState({
