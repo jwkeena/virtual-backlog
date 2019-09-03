@@ -15,7 +15,8 @@ export default class SortingDropdown extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      customSearch: ""
+      customTitleSearch: "",
+      customSystemSearch: ""
     };
   }
 
@@ -28,11 +29,24 @@ export default class SortingDropdown extends React.Component {
 
   typeCustomSearch = (event) => {
     let value = event.target.value;
+    let name = event.target.name;
+
     this.setState({
-      customSearch: value
+      [name]: value
     }, () => {
       value = value.toLowerCase();
-      this.props.updateCustomSearch(value)
+      if (name === "customTitleSearch") {
+        this.props.updateCustomTitleSearch(value);
+        this.setState({
+          customSystemSearch: ""
+        })
+      } 
+      if (name === "customSystemSearch") {
+        this.props.updateCustomSystemSearch(value);
+        this.setState({
+          customTitleSearch: ""
+        })
+      }       
     });
   }
 
@@ -52,9 +66,19 @@ export default class SortingDropdown extends React.Component {
           <DropdownItem style={styles.customSearch} toggle={false} >
             <Field>
               <Input 
-                value={this.state.customSearch}
+                name="customTitleSearch"
+                value={this.state.customTitleSearch}
                 onChange={this.typeCustomSearch} 
                 placeholder="Title includes..."/>
+            </Field>
+          </DropdownItem>
+          <DropdownItem style={styles.customSearch} toggle={false} >
+            <Field>
+              <Input 
+                name="customSystemSearch"
+                value={this.state.customSystemSearch}
+                onChange={this.typeCustomSearch} 
+                placeholder="System abbreviation"/>
             </Field>
           </DropdownItem>
           <DropdownItem onClick={() => {this.props.updateSortOption("system_type")}}>system</DropdownItem>

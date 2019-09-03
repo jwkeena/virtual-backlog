@@ -143,7 +143,7 @@ render() {
 
             <ModalBody>
               <div style={styles.middle}>
-                  <h5>your custom link is: {this.state.customLink}</h5><br/>
+                  <h5>your custom link is: <a href={this.state.customLink}>{this.state.customLink}</a></h5><br/>
                 <ShareButtons customLink={this.state.customLink}/>
               </div>
             </ModalBody>

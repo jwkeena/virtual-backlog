@@ -11,7 +11,8 @@ render() {
       <Navbar bg="dark" fixed="bottom" variant="dark" style={{ maxWidth: "100%" }}>
         <Nav className="mr-auto">
             <SortingDropdown
-              updateCustomSearch={this.props.updateCustomSearch}
+              updateCustomTitleSearch={this.props.updateCustomTitleSearch}
+              updateCustomSystemSearch={this.props.updateCustomSystemSearch}
               sortOption={this.props.sortOption}
               updateSortOption={this.props.updateSortOption}/>
         </Nav>
