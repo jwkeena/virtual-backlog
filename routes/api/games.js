@@ -15,6 +15,7 @@ router.route("/:id")
   .put(gamesController.update)
   .delete(gamesController.remove);
 
+// Matches with "api/games/note/:id"
 router.route("/note/:id")
   .put(gamesController.updateNote)
 

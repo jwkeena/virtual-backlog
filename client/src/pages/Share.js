@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBCol} from 'mdbreact';
-import FixedNavbar from "../components/FixedNavbar";
+import FixedNavbarShare from "../components/FixedNavbarShare";
 import Game from "../components/Game";
 import API from "../utils/API";
 import gameSeed from "../components/GamesTest/gameListTest";
@@ -21,6 +21,7 @@ class Games extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            sharingUser: null,
             sortOption: "system_type",
             customSearch: "",
             gamesSorted: null,
@@ -46,6 +47,28 @@ class Games extends Component {
         this.updateSortOption = this.updateSortOption.bind(this);
         this.updateCustomTitleSearch = this.updateCustomTitleSearch.bind(this);
         this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
+    }
+
+    componentDidMount(){
+        window.addEventListener('scroll', this.handleScroll);
+        const { handle } = this.props.match.params;
+        this.setState({
+            sharingUser: handle
+        }, () => {
+            this.loadGames()
+        })
+    }
+
+    loadGames () {
+        API.getGames(this.state.sharingUser)
+        .then((res) => {
+            this.setState({
+                gamesLoaded: res.data,
+            }, () => {
+                this.sortGames();
+            })
+            }
+        )
     }
 
     updateSortOption = (option) => {
@@ -150,20 +173,24 @@ class Games extends Component {
         })
     }
 
-    componentDidMount(){
-        this.loadGames()
-        window.addEventListener('scroll', this.handleScroll);
-    }
+    // $(window).scroll(function() {
+    //     var scrollLocation = $(document).scrollTop();   
+    //     var vanishingPoint = scrollLocation + window.innerHeight / 2;
+    //     $(".bk-list").css('-webkit-perspective-origin', ' 50% ' + vanishingPoint + 'px');
+    // })
 
-   
     handleScroll = () =>{
         var scrollLocation = window.pageYOffset;   
+        // console.log("scroolloco "+ scrollLocation)
         var vanishingPoint = scrollLocation + window.innerHeight / 2;
+        // console.log("windowheight " + window.innerHeight)
         this.setState({vanish:vanishingPoint})
+        // console.log("scrolling " + vanishingPoint)
         }
     
     handleClick = i =>{
         let clickedArray = this.state.clicked.slice(0)
+        // console.log("clickedArray" + clickedArray)
         
         if (this.state.gameOpen === 0){
         this.setState({zIndex: 1})
@@ -179,7 +206,8 @@ class Games extends Component {
         else if (this.state.gameOpen === 2){
             this.setState({gameOpen:3})
         }
-       
+        //     // $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
+        // }
     }
 
     handlePageRight = i => {
@@ -199,17 +227,13 @@ class Games extends Component {
         // console.log("clicked!")
          if (this.state.gameOpen === 3){
             this.setState({gameOpen:2})
-
             setTimeout(() => {
-            this.setState({gameOpen:1})
-
-            }, 500)
-            setTimeout(() => {
-            this.setState({gameOpen:0})
-            this.setState({clicked:[]})
-            this.setState({zIndex: 0})
-            this.setState({page:1})
-            }, 500)
+            this.setState({
+                gameOpen:0, 
+                clicked: [], 
+                zindex: 0, 
+                page: 1})
+            }, 400)
         }
     }
 
@@ -233,49 +257,31 @@ class Games extends Component {
         });
       }
 
-    loadGames () {
-        const username = localStorage.getItem("username");
-        API.getGames(username)
-        .then((res) => {
-            this.setState({
-                gamesLoaded: res.data,
-            }, () => {
-                this.sortGames();
-            })
-            }
-        )
-    }
-
     render () {
       let gamesCount = 12
-      let zCounter = 0
-    //   if (zCounter >= 13){
-    //     zCounter = 0
-    //   }
+      let zCounter = this.state.zCounter
       let negativeC = 7
-
-  
       return (
         <div>
-        <FixedNavbar 
-        sortOption={this.state.sortOption}
-        updateSortOption={this.updateSortOption}
-        loggedIn={this.props.loggedIn} 
-        loadGames={this.loadGames} 
-        logoutBoolean={this.props.logoutBoolean} 
-        username={this.props.username}/>
+        <FixedNavbarShare 
+            sortOption={this.state.sortOption}
+            updateSortOption={this.updateSortOption}
+            loggedIn={this.props.loggedIn} 
+            loadGames={this.loadGames} 
+            logoutBoolean={this.props.logoutBoolean} 
+            sharingUser={this.state.sharingUser}/>
         <MDBContainer fluid > 
         
         <br/>
         
-            {/* {(this.state.gamesLoaded) ?  */}
+            {(this.state.gamesSorted) ? 
             
             <MDBRow>
-                <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
-                    {this.state.gameSeed.map((games,i) => 
+                <MDBCol size='sm-8' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
+                    {this.state.gamesSorted.map((games,i) => 
                      <Game
-                    sharing = {false}
-                    username = {this.props.username}
+                    sharingUser = {this.state.sharingUser}
+                    sharing = {true}
                     loadGames = {this.loadGames}
                     sortOption = {this.state.sortOption}
                     gameOpen = {this.state.gameOpen} 
@@ -303,19 +309,17 @@ class Games extends Component {
                     switch2 = {this.state.switch2}
                     zIndex = {this.state.zIndex}
                     clicked = {this.state.clicked[i]}
-                    zCounter = {negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC -- }
-                    negativeC = {negativeC}
-                    handleClick = { () => this.handleClick(i)}
+                    zCounter = {zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --}
+                    handleClick = {() => this.handleClick(i)}
                     handlePageLeft = {()=>this.handlePageLeft(i)}
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}
                     handleSwitchChange = {()=>this.handleSwitchChange()}
                     />)}
-                    
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
-                </div>
+                </MDBCol>
             </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
-                 {/* <-- remove this bracket when loading from gameSeed */}
+                } {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
             <Statistics
                 updateCustomTitleSearch={this.updateCustomTitleSearch}

@@ -1,21 +1,44 @@
 import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Dropdown from 'react-bootstrap/Dropdown';
 import API from '../../utils/API';
 import SearchModal from "../SearchModal";
 import { Redirect } from 'react-router-dom';
 import BarcodeScanController from '../BarcodeScanController';
+import ShareButtons from "../ShareButtons";
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
+const styles = {
+  middle: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center"
+  }
+}
 class FixedNavbar extends Component {
 
-state = {
-    loggedIn: this.props.loggedIn,
-    redirectTo: null,
-    search: "text",
-    gameToSearch: "",
-    barcodeSearchResult: null,
-    manualSearch: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      shareModal: false,
+      customLink: "https://virtualbacklog.herokuapp.com/" + this.props.username,
+      backdrop: true,
+      loggedIn: this.props.loggedIn,
+      redirectTo: null,
+      search: "text",
+      gameToSearch: "",
+      barcodeSearchResult: null,
+      manualSearch: false
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+toggle() {
+    this.setState(prevState => ({
+    shareModal: !prevState.shareModal
+    }))
 }
 
 logout = event => {
@@ -74,33 +97,15 @@ render() {
     )
   } else {
   return (
-      <Navbar bg="dark" variant="dark" style={{ minWidth: 700 }}>
-      
+    <div>
+      <Navbar bg="dark" variant="dark">
+        
         <Nav className="mr-auto">
-            <Dropdown>
-              <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
-                sort
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/">system</Dropdown.Item>
-                <Dropdown.Item href="#/">title</Dropdown.Item>
-                <Dropdown.Item href="#/">beaten</Dropdown.Item>
-                <Dropdown.Item href="#/">backlog</Dropdown.Item>
-                <Dropdown.Item href="#/">digital</Dropdown.Item>
-                <Dropdown.Item href="#/">physical</Dropdown.Item>
-                <Dropdown.Item href="#/">wishlist</Dropdown.Item>
-                <Dropdown.Item href="#/">now playing</Dropdown.Item>
-                <Dropdown.Item href="#/">year released</Dropdown.Item>
-                <Dropdown.Item href="#/">complete in box</Dropdown.Item>
-                <Dropdown.Item href="#/">all-time favorite</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          <Nav.Link>statistics</Nav.Link>
-          {/* <Nav.Link>recommended</Nav.Link> */}
+          <Navbar.Brand className="mr-auto">{this.props.username}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
+          <Nav.Link onClick={this.toggle}>share</Nav.Link>
+          <Nav.Link href="/">home</Nav.Link>
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
-
-        <Navbar.Brand className="mx-auto">{this.props.username}'s virtual backlog</Navbar.Brand>
 
         <Nav className="ml-auto">
           <BarcodeScanController 
@@ -121,8 +126,30 @@ render() {
             barcodeSearchResult={this.state.barcodeSearchResult}
             updateGameToSearch={this.updateGameToSearch}/>
         </Nav>
-
       </Navbar>
+
+        {/* Share Modal */}
+        <Modal 
+          centered
+          size={"lg"} 
+          autoFocus={true} 
+          isOpen={this.state.shareModal} 
+          toggle={this.toggle} 
+          className={this.props.className} 
+          backdrop={this.state.backdrop}>
+
+            <ModalHeader toggle={this.toggle}>
+            </ModalHeader>
+
+            <ModalBody>
+              <div style={styles.middle}>
+                  <h5>your custom link is: <a href={this.state.customLink}>{this.state.customLink}</a></h5><br/>
+                <ShareButtons customLink={this.state.customLink}/>
+              </div>
+            </ModalBody>
+
+        </Modal>
+    </div>
       );
     }
   }

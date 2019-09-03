@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 import axios from 'axios';
+import API from '../utils/API';
 import Jumbotron from '../components/Jumbotron';
-
+import LoginFooter from '../components/LoginFooter';
 class Login extends Component {
 
-    // Setting the component's initial state
     state = {
         username: "",
         password: "",
@@ -30,11 +31,8 @@ class Login extends Component {
     }
 
     handleInputChange = event => {
-        // Getting the value and name of the input which triggered the change
         let value = event.target.value;
         const name = event.target.name;
-
-        // Updating the input's state
         this.setState({
         [name]: value
         });
@@ -42,9 +40,6 @@ class Login extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log(this.props)
-        console.log('handleSubmit', this.state.username);
-
         axios
             .post('/api/users/login', {
                 username: this.state.username,
@@ -56,7 +51,7 @@ class Login extends Component {
                 console.log("Successful login");
                 // Update localstorage
                 localStorage.setItem("username", this.state.username);
-                localStorage.setItem("mostRecentUser", this.state.username)
+                localStorage.setItem("mostRecentUser", this.state.username);
                 // update App.js state
                 this.props.updateUser(this.state.username)
                 // update the state to redirect to game library
@@ -72,6 +67,19 @@ class Login extends Component {
             })
     }
 
+    logout = event => {
+      event.preventDefault();
+      API.logout({username: this.props.username}).then(response => {
+        console.log(response.data)
+        if (response.status === 200) {
+          localStorage.removeItem("username")
+          this.props.logoutBoolean();
+        }
+      }).catch(error => {
+          console.log("logout error ", error)
+      })
+    }
+
     render () {
             if (this.state.redirectTo !== null) {
               return <Redirect to={{ pathname: this.state.redirectTo }} />
@@ -80,44 +88,63 @@ class Login extends Component {
             <div>
                 <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>
                   <MDBContainer>
-                    <MDBRow className ="justify-content-center">
-                      <MDBCol md="6" >
-                        <form>
-                          <p className="h5 text-center mb-4">Sign in</p>
-                          <div className="grey-text">
-                            <MDBInput
-                              name="username"
-                              value={this.state.username}
-                              onChange={this.handleInputChange}
-                              label="Username"
-                              icon="envelope"
-                              group
-                              type="text"
-                              validate
-                              error="wrong"
-                              success="right"
-                            />
-                            <MDBInput
-                              name="password"
-                              value={this.state.password}
-                              onChange={this.handleInputChange}
-                              label="Type your password"
-                              icon="lock"
-                              group
-                              type="password"
-                              validate
-                            />
-                          </div>
-                          <div className="text-center">
-                            <MDBBtn type="submit" color="unique" onClick={this.handleFormSubmit}>Login</MDBBtn>
-                          </div>
-                        </form>
-                      </MDBCol>
-                    </MDBRow>
-                    <br/>
-                    <Link className="text-center" to={"/register/"}>
-                    <p>Don't have an account?</p>
-                    </Link>
+                    
+                    {(this.props.loggedIn) && 
+                      <div className="text-center">
+                        <h5>logged in as <b>{this.state.username}</b></h5>
+                        <br/>
+                        <Button type="submit" onClick={this.logout} variant="primary">Logout</Button>
+                        <br/><br/>
+                        <Link className="text-center" to={"/games"}>
+                          <p>Back to collection</p>
+                        </Link>
+                      </div>
+                    }
+
+                    {!this.props.loggedIn && 
+                    <div>
+                      <MDBRow className ="justify-content-center">
+                        <MDBCol md="6" >
+                          <form>
+                            <p className="h5 text-center mb-4">Sign in</p>
+                            <div className="grey-text">
+                              <MDBInput
+                                name="username"
+                                value={this.state.username}
+                                onChange={this.handleInputChange}
+                                label="Username"
+                                icon="envelope"
+                                group
+                                type="text"
+                                validate
+                                error="wrong"
+                                success="right"
+                              />
+                              <MDBInput
+                                name="password"
+                                value={this.state.password}
+                                onChange={this.handleInputChange}
+                                label="Type your password"
+                                icon="lock"
+                                group
+                                type="password"
+                                validate
+                              />
+                            </div>
+                            <div className="text-center">
+                              <Button type="submit" variant="primary" onClick={this.handleFormSubmit}>Login</Button>
+                            </div>
+                          </form>
+                        </MDBCol>
+                      </MDBRow>
+                      <br/>
+                      <Link className="text-center" to={"/register/"}>
+                      <p>Don't have an account?</p>
+                      </Link>
+                    </div>
+
+                    }
+                    <LoginFooter/>
                   </MDBContainer>
                 </div>
             )

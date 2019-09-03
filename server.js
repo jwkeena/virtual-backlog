@@ -9,8 +9,7 @@ const PORT = process.env.PORT || 3001;
 // Middlware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(
-  session({
+app.use(session({
   secret: 'the-real-transported-man', //pick a random string to make the hash that is generated secure
   resave: false,
   saveUninitialized: false

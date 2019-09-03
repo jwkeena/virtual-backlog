@@ -234,12 +234,12 @@ class SearchModal extends Component {
               onChange={this.textSearchInputChange} 
               value={this.props.gameToSearch} 
               name="gameToSearch" 
-              placeholder={(this.props.searchOption === "text") ? "type game title" : "scan barcode"} 
+              placeholder={(this.props.searchOption === "text") ? "type game to add" : "scan barcode"} 
               className="mr-sm-2" />
             <Button 
               type="submit" 
               onClick={this.toggle} 
-              variant="outline-light">go
+              variant="outline-light">search
             </Button>  
         </Form>
 
