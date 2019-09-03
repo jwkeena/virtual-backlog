@@ -29,7 +29,6 @@ class Games extends Component {
             clicked: [],
             checked: false,
             zIndex: 0,
-            zCounter: 0,
             page:1,
             switch1:true,
             switch2:false,
@@ -44,24 +43,16 @@ class Games extends Component {
         window.addEventListener('scroll', this.handleScroll);
     }
 
-    // $(window).scroll(function() {
-    //     var scrollLocation = $(document).scrollTop();   
-    //     var vanishingPoint = scrollLocation + window.innerHeight / 2;
-    //     $(".bk-list").css('-webkit-perspective-origin', ' 50% ' + vanishingPoint + 'px');
-    // })
+   
     handleScroll = () =>{
         var scrollLocation = window.pageYOffset;   
-        // console.log("scroolloco "+ scrollLocation)
         var vanishingPoint = scrollLocation + window.innerHeight / 2;
-        // console.log("windowheight " + window.innerHeight)
         this.setState({vanish:vanishingPoint})
-        // console.log("scrolling " + vanishingPoint)
         }
     
 
     handleClick = i =>{
         let clickedArray = this.state.clicked.slice(0)
-        // console.log("clickedArray" + clickedArray)
         
         if (this.state.gameOpen === 0){
         this.setState({zIndex: 1})
@@ -77,8 +68,7 @@ class Games extends Component {
         else if (this.state.gameOpen === 2){
             this.setState({gameOpen:3})
         }
-        //     // $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
-        // }
+       
     }
 
     handlePageRight = i => {
@@ -146,19 +136,24 @@ class Games extends Component {
 
     render () {
       let gamesCount = 12
-      let zCounter = this.state.zCounter
+      let zCounter = 0
+    //   if (zCounter >= 13){
+    //     zCounter = 0
+    //   }
       let negativeC = 7
+
+  
       return (
         <MDBContainer fluid > 
         <FixedNavbar loggedIn={this.props.loggedIn} loadGames={this.loadGames} logoutBoolean={this.props.logoutBoolean} username={this.props.username}/>
         
         <br/>
         
-            {(this.state.gamesLoaded) ? 
+            {/* {(this.state.gamesLoaded) ?  */}
             
             <MDBRow>
-                <MDBCol size='sm-12' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
-                    {this.state.gamesLoaded.map((games,i) => 
+                <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
+                    {this.state.gameSeed.map((games,i) => 
                      <Game
                     loadGames = {this.loadGames} 
                     gameOpen = {this.state.gameOpen} 
@@ -186,17 +181,19 @@ class Games extends Component {
                     switch2 = {this.state.switch2}
                     zIndex = {this.state.zIndex}
                     clicked = {this.state.clicked[i]}
-                    zCounter = {zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --}
+                    zCounter = {negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC -- }
+                    negativeC = {negativeC}
                     handleClick = { () => this.handleClick(i)}
                     handlePageLeft = {()=>this.handlePageLeft(i)}
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}
                     handleSwitchChange = {()=>this.handleSwitchChange()}
                     />)}
+                    
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
-                </MDBCol>
+                </div>
             </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
-                } {/* <-- remove this bracket when loading from gameSeed */}
+                 {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
 
            

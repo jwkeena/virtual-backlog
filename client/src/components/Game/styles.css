@@ -1,7 +1,7 @@
 .bk-list {
 	list-style: none;
 	position: relative;
-	width: 533px;
+	width: 533px !important;
 	/* 13 games * 40px + 13 games * margin (1px) */
 	margin: 0 auto;
 	-webkit-perspective: 1800px;
@@ -9,11 +9,10 @@
 	-webkit-perspective-origin: 50% 15%;
 	perspective-origin: 50% 15%;
 	margin-left: 20vw;
+	
 }
 
-.bk-list-centered{
-	perspective-origin:50%;
-}
+
 
 
 .bk-list li {
@@ -21,7 +20,7 @@
 	width: 40px;
 	height: 400px;
 	float: left;
-	z-index: 0;
+	/* z-index: 0; */
 	margin: 0px 0px 50px 1px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
@@ -575,4 +574,10 @@
 .z-index71 {
 
 	z-index: 13 !important;
+}
+
+.breakLine{
+	display: block;
+	background: black;
+  	padding: 1px 8px;
 }
