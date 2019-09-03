@@ -45,7 +45,8 @@ class Games extends Component {
         }
         this.loadGames = this.loadGames.bind(this);
         this.updateSortOption = this.updateSortOption.bind(this);
-        this.updateCustomSearch = this.updateCustomSearch.bind(this);
+        this.updateCustomTitleSearch = this.updateCustomTitleSearch.bind(this);
+        this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
     }
 
     componentDidMount(){
@@ -78,12 +79,40 @@ class Games extends Component {
         })
     }
 
-    updateCustomSearch = (query) => {
+    updateCustomTitleSearch = (query) => {
+        if (query === "") {
+            this.setState({
+                sortOption: "system"
+            }, () => {
+                this.sortGames();
+            })
+        }
+        
         let sorted = this.state.gamesLoaded;
         sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
         const amount = sorted.length;
         this.setState({
-            sortOption: "custom search",
+            sortOption: "custom (title)",
+            gamesSorted: sorted,
+            amountOfGamesSorted: amount
+        });
+    }
+
+    updateCustomSystemSearch = (query) => {
+        if (query === "") {
+            this.setState({
+                sortOption: "system"
+            }, () => {
+                this.sortGames();
+            })
+        }
+        
+        let sorted = this.state.gamesLoaded;
+        sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1)
+
+        const amount = sorted.length;
+        this.setState({
+            sortOption: "custom (system)",
             gamesSorted: sorted,
             amountOfGamesSorted: amount
         });
@@ -293,7 +322,8 @@ class Games extends Component {
                 } {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
             <Statistics
-                updateCustomSearch={this.updateCustomSearch}
+                updateCustomTitleSearch={this.updateCustomTitleSearch}
+                updateCustomSystemSearch={this.updateCustomSystemSearch}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}
