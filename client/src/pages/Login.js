@@ -18,7 +18,8 @@ class Login extends Component {
         username: "",
         password: "",
         loggedIn: this.props.loggedIn,
-        redirectTo: null
+        redirectTo: null,
+        continueTracker: "up"
     };
 
     componentDidMount () {
@@ -33,6 +34,12 @@ class Login extends Component {
             username: localStorage.getItem("username")
         });
         }
+    }
+
+    handleContinueTracker = (option) => {
+      this.setState({
+        continueTracker: option
+      })
     }
 
     handleInputChange = event => {
@@ -110,15 +117,18 @@ class Login extends Component {
                     {!this.props.loggedIn && 
                     <div>
                       <MDBRow className ="justify-content-center">
-                        <MDBCol md="6" >
+                      
+                         <MDBCol md="6" className="container" >
+                          <div className={(this.state.continueTracker === "up") ? "continue-up" : "continue-down"}>Continue?</div>
+                          <img className={(this.state.continueTracker === "up") ? "cursor-up" : "cursor-down"} src = {Pointer} alt="FF Cursor"/>   
                           <form>
-                            <img className = "cursor" src = {Pointer} alt="FF Cursor"/>
-                            <div className="h5 text-left mb-4 continue">Continue?</div>
-                            <div className="grey-text">
+                            <div className="grey-text container" >
                               <MDBInput
+                                className="float-left"
                                 name="username"
                                 value={this.state.username}
                                 onChange={this.handleInputChange}
+                                onClick={() => this.handleContinueTracker("up")}
                                 label="Username"
                                 icon="envelope"
                                 group
@@ -131,7 +141,8 @@ class Login extends Component {
                                 name="password"
                                 value={this.state.password}
                                 onChange={this.handleInputChange}
-                                label="Type your password"
+                                onClick={() => this.handleContinueTracker("down")}
+                                label="Password"
                                 icon="lock"
                                 group
                                 type="password"
@@ -139,23 +150,20 @@ class Login extends Component {
                               />
                             </div>
                             <div className="text-center">
-                              <Button className = "button" type="submit" variant="warning" onClick={this.handleFormSubmit}>Press Start</Button>
+                              <Button className="button" title="Login" type="submit" variant="warning" onClick={this.handleFormSubmit}>Press Start</Button>
                             </div>
                           </form>
+
                         </MDBCol>
                       </MDBRow>
                       <br/>
                       <Link className="text-center" to={"/register/"}>
-                      <p className = "newGame">New Game?</p>
+                      <p className="newGame" title="Register new account">New Game?</p>
                       </Link>
                       <a href="https://jwkeena.github.io"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
                       <a href="https://captainefff.github.io"><img className="dave" src = {Dave} alt="David Banviile"/></a>
-                    </div>
-
-}
+                    </div>}
                     <LoginFooter/>
-                    
-                  
                   </MDBContainer>
                 </div>
                 

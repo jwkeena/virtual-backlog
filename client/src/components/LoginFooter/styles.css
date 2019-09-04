@@ -1,13 +1,12 @@
-.jumbotron  {
-    color: white;
-    background-color:black !important;
-    font-family:'Press Start 2P', cursive;;
-
+.jumbotron {
+  color: white;
+  background-color: black !important;
+  font-family: 'Press Start 2P', cursive;
 }
 
-.button{
-font-family:'Press Start 2P', cursive;
-background-color: #004A7F;
+.button {
+  font-family: 'Press Start 2P', cursive;
+  background-color: #004A7F;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   border: none;
@@ -24,56 +23,126 @@ background-color: #004A7F;
   -o-animation: glowing 1500ms infinite;
   animation: glowing 1500ms infinite;
 }
+
 @-webkit-keyframes glowing {
-  0% { background-color: darkgoldenrod; -webkit-box-shadow: 0 0 3px darkgoldenrod; }
-  50% { background-color: yellow; -webkit-box-shadow: 0 0 40px yellow; }
-  100% { background-color: darkgoldenrod; -webkit-box-shadow: 0 0 3px darkgoldenrod; }
+  0% {
+    background-color: darkgoldenrod;
+    -webkit-box-shadow: 0 0 3px darkgoldenrod;
+  }
+
+  50% {
+    background-color: yellow;
+    -webkit-box-shadow: 0 0 40px yellow;
+  }
+
+  100% {
+    background-color: darkgoldenrod;
+    -webkit-box-shadow: 0 0 3px darkgoldenrod;
+  }
 }
 
 @-moz-keyframes glowing {
-  0% { background-color: darkgoldenrod; -moz-box-shadow: 0 0 3px darkgoldenrod; }
-  50% { background-color: yellow; -moz-box-shadow: 0 0 40px yellow; }
-  100% { background-color: darkgoldenrod; -moz-box-shadow: 0 0 3px darkgoldenrod; }
+  0% {
+    background-color: darkgoldenrod;
+    -moz-box-shadow: 0 0 3px darkgoldenrod;
+  }
+
+  50% {
+    background-color: yellow;
+    -moz-box-shadow: 0 0 40px yellow;
+  }
+
+  100% {
+    background-color: darkgoldenrod;
+    -moz-box-shadow: 0 0 3px darkgoldenrod;
+  }
 }
 
 @-o-keyframes glowing {
-  0% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
-  50% { background-color: yellow; box-shadow: 0 0 40px yellow; }
-  100% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
+  0% {
+    background-color: darkgoldenrod;
+    box-shadow: 0 0 3px darkgoldenrod;
+  }
+
+  50% {
+    background-color: yellow;
+    box-shadow: 0 0 40px yellow;
+  }
+
+  100% {
+    background-color: darkgoldenrod;
+    box-shadow: 0 0 3px darkgoldenrod;
+  }
 }
 
 @keyframes glowing {
-  0% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
-  50% { background-color: yellow; box-shadow: 0 0 40px yellow; }
-  100% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
+  0% {
+    background-color: darkgoldenrod;
+    box-shadow: 0 0 3px darkgoldenrod;
+  }
+
+  50% {
+    background-color: yellow;
+    box-shadow: 0 0 40px yellow;
+  }
+
+  100% {
+    background-color: darkgoldenrod;
+    box-shadow: 0 0 3px darkgoldenrod;
+  }
 }
 
-.cursor{
-    height: 25%;
-    width:25%;
-    float:left;
-    margin-left: 20px;
+.cursor-up {
+  left: -25px;
+  top: 0px;
+  position: absolute;
 }
 
-.continue{
-padding-top:15px;
-font-family: 'Press Start 2P', cursive;
+.continue-up {
+  position: absolute;
+  top: 10px;
+  left: -165px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 15px;
 }
 
-.newGame{
-font-family: 'Press Start 2P', cursive;
+.cursor-down {
+  left: -25px;
+  top: 90px;
+  position: absolute;
 }
 
-.justin{
-position: relative;
-float:left;
-height: 50%;
-width: 50%;
+.continue-down {
+  position: absolute;
+  top: 100px;
+  left: -165px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 15px !important;
 }
 
-.dave{
-position: relative;
-float:right;
-height: 50%;
-width: 50%;
+.newGame {
+  font-family: 'Press Start 2P', cursive;
+  color: darkgoldenrod;
+}
+
+.justin {
+  position: relative;
+  float: left;
+  height: 50%;
+  width: 50%;
+}
+
+.dave {
+  position: relative;
+  float: right;
+  height: 50%;
+  width: 50%;
+}
+
+.float-left {
+  float: left;
+}
+
+.container {
+  position: relative;
 }
