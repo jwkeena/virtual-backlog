@@ -268,11 +268,11 @@ class Games extends Component {
         
         <br/>
         
-            {/* {(this.state.gamesLoaded) ?  */}
+            {(this.state.gamesSorted) ? 
             
             <MDBRow>
                 <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
-                    {this.state.gameSeed.map((games,i) => 
+                    {this.state.gamesSorted.map((games,i) => 
                      <Game
                     sharing = {false}
                     username = {this.props.username}
@@ -315,7 +315,7 @@ class Games extends Component {
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </div>
             </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
-                 {/* <-- remove this bracket when loading from gameSeed */}
+            }   {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
             <Statistics
                 updateCustomTitleSearch={this.updateCustomTitleSearch}

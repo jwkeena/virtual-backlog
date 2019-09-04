@@ -114,11 +114,13 @@ class Login extends Component {
                       <div className="text-center">
                         <h5>logged in as <b>{this.state.username}</b></h5>
                         <br/>
-                        <Button type="submit" onClick={this.logout} variant="primary">Logout</Button>
+                        <Button type="submit" variant="warning" className="button" title="Logout" onClick={this.logout} >Game Over</Button>
                         <br/><br/>
-                        <Link className="text-center" to={"/games"}>
+                        <Link className="text-center black" to={"/games"}>
                           <p>Back to collection</p>
                         </Link>
+                        <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
+                        <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
                       </div>
                     }
 

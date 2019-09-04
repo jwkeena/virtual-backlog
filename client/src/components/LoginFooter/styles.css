@@ -3,8 +3,12 @@
   background-color: black !important;
 }
 
-.jumbotron h2 {
+h5, .jumbotron h2 {
   font-family: 'Press Start 2P', cursive;
+}
+
+.black, .black:hover {
+  color: black;
 }
 
 .button {
