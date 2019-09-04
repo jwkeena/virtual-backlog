@@ -3,8 +3,12 @@
   background-color: black !important;
 }
 
-h5, .jumbotron h2 {
+h4, h5, .jumbotron h2 {
   font-family: 'Press Start 2P', cursive;
+}
+
+h5 {
+  font-size: 14px !important;
 }
 
 .black, .black:hover {

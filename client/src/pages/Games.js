@@ -296,6 +296,7 @@ class Games extends Component {
                     points = {games.points}
                     wishlist = {games.wishlist}
                     note = {games.note}
+                    tags = {games.tags}
                     id = {games._id}
                     key = {games._id}
                     page = {this.state.page}

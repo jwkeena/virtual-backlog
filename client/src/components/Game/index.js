@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
-import { Field, Toggle, Label, Textarea } from "@zendeskgarden/react-forms";
+import { Field, Toggle, Label, Textarea, Input } from "@zendeskgarden/react-forms";
 import { Form } from 'reactstrap';
 import API from '../../utils/API';
 import axios from 'axios';
@@ -20,7 +20,9 @@ class Game extends Component {
 
     state = {
         editingNote: false,
-        note: ""
+        addingTag: false,
+        note: "",
+        tag: ""
     }
 
     updateGame = (event) => {
@@ -103,6 +105,17 @@ class Game extends Component {
         });
     }
 
+    writeTag = (event) => {
+        let value = event.target.value.trim();
+        if (value === " ") {
+            return
+        } else {
+            this.setState({
+              tag: value
+            });
+        }
+    }
+
     updateNote = () => {
         let usernameToVerify;
         if (this.props.sharingUser) {
@@ -117,11 +130,45 @@ class Game extends Component {
                 console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
                     this.setState(prevState => ({
-                        editingNote: !prevState.editingNote
+                        editingNote: !prevState.editingNote,
+                        addingTag: false
                     }), () => {
                         console.log(this.state.note)
                         if (!this.state.editingNote) {
                             API.updateNote(this.props.id, {note: this.state.note})
+                                .then(res=> {
+                                    this.props.loadGames();
+                                })
+                                .catch(err => console.log(err));
+                        }
+                    })
+                } else {
+                    alert("You are not authorized to make changes to another user's collection.");
+                }
+            })
+    }
+
+    updateTag = (event) => {
+        event.preventDefault();
+        let usernameToVerify;
+        if (this.props.sharingUser) {
+            usernameToVerify = this.props.sharingUser;
+        } else {
+            usernameToVerify = localStorage.getItem("username");
+        }
+        axios
+            .post('/api/users/me')
+            .then(response => {
+                const loggedInUser = response.data
+                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
+                if (loggedInUser === usernameToVerify) {
+                    this.setState(prevState => ({
+                        addingTag: !prevState.addingTag,
+                        editingNote: false
+                    }), () => {
+                        console.log(this.state.tag)
+                        if (!this.state.editingNote) {
+                            API.updateTag(this.props.id, {tag: this.state.tag})
                                 .then(res=> {
                                     this.props.loadGames();
                                 })
@@ -153,7 +200,8 @@ class Game extends Component {
                 <div className={(this.props.page === 1 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>{this.props.title}</h5>
                     <span>Year Released: {this.props.year_released}</span><br></br>
-                    <span style={styles.description}>{this.props.description}</span>
+                    <span style={styles.description}>{this.props.description}</span><br></br><br></br>
+                    <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer">Game Details</a>
                 </div>
                 <div className={(this.props.page === 2 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Media Type</h5>
@@ -211,13 +259,12 @@ class Game extends Component {
                 </div>
                 <div className={(this.props.page === 3 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Notes</h5>
-
                     {(this.state.editingNote) ? 
                          <div>
-                            <Form onSubmit={this.noteShelve}>
+                            <Form>
                                 <Field>
                                     <Textarea             
-                                        rows="5"
+                                        rows="3"
                                         style={styles.textarea}
                                         onChange={this.writeNote} 
                                         defaultValue={this.props.note} 
@@ -234,15 +281,68 @@ class Game extends Component {
                         :
                         <div>
                             <span style={styles.textarea}>{this.props.note}</span>
-                            <br></br><br></br>
-                            <Button 
-                                onClick={this.updateNote} 
-                                variant="primary">Update
-                            </Button>
+                            
+                            {(this.props.note === "" || !this.props.note) 
+                                ?  
+                                <div>
+                                    <br></br>
+                                    <Button 
+                                        onClick={this.updateNote} 
+                                        variant="primary">Add note
+                                    </Button>
+                                </div>
+                                : 
+                                <div>
+                                    <br></br>
+                                    <Button 
+                                        onClick={this.updateNote} 
+                                        variant="primary">Update
+                                    </Button>
+                                </div>}
                         </div>
                     }
                      <br></br>
-                     <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer">Game Details</a>
+                     <h5>Tags</h5>
+                     {(this.state.addingTag) ? 
+                         <div>
+                            <Form onSubmit={this.updateTag}>
+                                <Field>
+                                    <Input 
+                                        value={this.state.tag}
+                                        onChange={this.writeTag}>
+                                    </Input>                 
+                                </Field>
+                            </Form>
+                            <br></br>
+                            <Button 
+                                
+                                onClick={this.updateTag} 
+                                variant="primary">Submit
+                            </Button>
+                        </div>
+                        :
+                        <div>
+                            <span style={styles.textarea}>{this.props.tags}</span>
+                            
+                            {(this.props.tags.length === 0 || !this.props.tags) 
+                                ?  
+                                <div>
+                                    <br></br>
+                                    <Button 
+                                        onClick={this.updateTag} 
+                                        variant="primary">Add tag
+                                    </Button>
+                                </div>
+                                : 
+                                <div>
+                                    <br></br>
+                                    <Button 
+                                        onClick={this.updateTag} 
+                                        variant="primary">Add another tag
+                                    </Button>
+                                </div>}
+                        </div>
+                    }
 
                 </div>
                 <div className={(this.props.page === 4 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>

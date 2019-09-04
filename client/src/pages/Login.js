@@ -93,7 +93,6 @@ class Login extends Component {
     }
 
     render () {
-      
             if (this.state.redirectTo !== null) {
               return <Redirect to={{ pathname: this.state.redirectTo }} />
             } else {
@@ -106,77 +105,76 @@ class Login extends Component {
                     </Helmet>
                 </div>
 
-
                 <Jumbotron/>
-                  <MDBContainer>
-                  
-                    {(this.props.loggedIn) && 
-                      <div className="text-center">
-                        <h5>logged in as <b>{this.state.username}</b></h5>
-                        <br/>
-                        <Button type="submit" variant="warning" className="button" title="Logout" onClick={this.logout} >Game Over</Button>
-                        <br/><br/>
-                        <Link className="text-center black" to={"/games"}>
-                          <p>Back to collection</p>
-                        </Link>
-                        <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
-                        <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
-                      </div>
-                    }
 
-                    {!this.props.loggedIn && 
-                    <div>
-                      <MDBRow className ="justify-content-center">
-                      
-                         <MDBCol md="6" className="container" >
-                          <div className={(this.state.continueTracker === "up") ? "continue-up" : "continue-down"}>Continue?</div>
-                          <img className={(this.state.continueTracker === "up") ? "cursor-up" : "cursor-down"} src = {Pointer} alt="FF Cursor"/>   
-                          <form>
-                            <div className="grey-text container" >
-                              <MDBInput
-                                className="float-left"
-                                name="username"
-                                value={this.state.username}
-                                onChange={this.handleInputChange}
-                                onClick={() => this.handleContinueTracker("up")}
-                                label="Username"
-                                icon="envelope"
-                                group
-                                type="text"
-                                validate
-                                error="wrong"
-                                success="right"
-                              />
-                              <MDBInput
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.handleInputChange}
-                                onClick={() => this.handleContinueTracker("down")}
-                                label="Password"
-                                icon="lock"
-                                group
-                                type="password"
-                                validate
-                              />
-                            </div>
-                            <div className="text-center">
-                              <Button className="button" title="Login" type="submit" variant="warning" onClick={this.handleFormSubmit}>Press Start</Button>
-                            </div>
-                          </form>
-
-                        </MDBCol>
-                      </MDBRow>
+                <MDBContainer>
+                
+                  {(this.props.loggedIn) && 
+                    <div className="text-center">
+                      <h5>logged in as <b>{this.state.username}</b></h5>
                       <br/>
-                      <Link className="text-center" to={"/register/"}>
-                      <p className="newGame" title="Register new account">New Game?</p>
+                      <Button type="submit" variant="warning" className="button" title="Logout" onClick={this.logout} >Game Over</Button>
+                      <br/><br/>
+                      <Link className="text-center black" to={"/games"}>
+                        <p>Back to collection</p>
                       </Link>
                       <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
                       <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
-                    </div>}
-                    <LoginFooter/>
-                  </MDBContainer>
+                    </div>
+                  }
+
+                  {!this.props.loggedIn && 
+                  <div>
+                    <MDBRow className ="justify-content-center">
+                    
+                        <MDBCol md="6" className="container" >
+                        <div className={(this.state.continueTracker === "up") ? "continue-up" : "continue-down"}>Continue?</div>
+                        <img className={(this.state.continueTracker === "up") ? "cursor-up" : "cursor-down"} src = {Pointer} alt="FF Cursor"/>   
+                        <form>
+                          <div className="grey-text container" >
+                            <MDBInput
+                              className="float-left"
+                              name="username"
+                              value={this.state.username}
+                              onChange={this.handleInputChange}
+                              onClick={() => this.handleContinueTracker("up")}
+                              label="Username"
+                              icon="envelope"
+                              group
+                              type="text"
+                              validate
+                              error="wrong"
+                              success="right"
+                            />
+                            <MDBInput
+                              name="password"
+                              value={this.state.password}
+                              onChange={this.handleInputChange}
+                              onClick={() => this.handleContinueTracker("down")}
+                              label="Password"
+                              icon="lock"
+                              group
+                              type="password"
+                              validate
+                            />
+                          </div>
+                          <div className="text-center">
+                            <Button className="button" title="Login" type="submit" variant="warning" onClick={this.handleFormSubmit}>Press Start</Button>
+                          </div>
+                        </form>
+
+                      </MDBCol>
+                    </MDBRow>
+                    <br/>
+                    <Link className="text-center" to={"/register/"}>
+                    <p className="newGame" title="Register new account">New Game?</p>
+                    </Link>
+                    <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
+                    <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
+                  </div>}
+                  <LoginFooter/>
+                </MDBContainer>
                 </div>
-                
             )
         }
     }

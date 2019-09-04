@@ -102,8 +102,8 @@ render() {
         
         <Nav className="mr-auto">
           <Navbar.Brand className="mr-auto">{this.props.username}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
-          <Nav.Link onClick={this.toggle}>share</Nav.Link>
           <Nav.Link href="/">home</Nav.Link>
+          <Nav.Link onClick={this.toggle}>share</Nav.Link>
           <Nav.Link onClick={this.logout}>logout</Nav.Link>
         </Nav>
 

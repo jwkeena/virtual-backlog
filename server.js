@@ -14,7 +14,7 @@ app.use(session({
   secret: 'the-real-transported-man', //pick a random string to make the hash that is generated secure
   resave: false,
   saveUninitialized: false,
-  store: new MongoStore({mongooseConnection: mongoose.connection})
+  store: new MongoStore({mongooseConnection: mongoose.connection}) // Saves sessions 
 })
 )
 // Serve up static assets (usually on heroku)

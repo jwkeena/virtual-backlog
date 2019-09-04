@@ -19,4 +19,8 @@ router.route("/:id")
 router.route("/note/:id")
   .put(gamesController.updateNote)
 
+// Matches with "api/games/tag/:id"
+router.route("/tag/:id")
+  .put(gamesController.updateTag)
+
 module.exports = router;
