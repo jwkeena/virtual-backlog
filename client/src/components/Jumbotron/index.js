@@ -4,7 +4,9 @@ import giantbomblogo from '../../giantbomblogo.png';
 
 const styles = {
   giantbomblogo: {
-    height: "25px"
+    height: "25px",
+    position: "relative",
+    right: "3px"
   }
 }
 

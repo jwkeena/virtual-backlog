@@ -1,5 +1,5 @@
 .jumbotron {
-  color: white;
+  color: beige;
   background-color: black !important;
 }
 
@@ -131,14 +131,14 @@
 
 .justin {
   position: fixed;
-  height: 250px;
+  height: 225px;
   bottom: 40px;
-  right: 47%;
+  right: 48%;
 }
 
 .dave {
   position: fixed;
-  height: 250px;
+  height: 225px;
   bottom: 40px;
   right: 38%;
 }
