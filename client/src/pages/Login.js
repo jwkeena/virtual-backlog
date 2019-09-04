@@ -7,6 +7,11 @@ import axios from 'axios';
 import API from '../utils/API';
 import Jumbotron from '../components/Jumbotron';
 import LoginFooter from '../components/LoginFooter';
+import '../components/LoginFooter/styles.css'
+import Pointer from '../components/Painting/Cursor.png'
+import Justin from '../components/Painting/Justin.gif'
+import Dave from '../components/Painting/Dave.gif'
+
 class Login extends Component {
 
     state = {
@@ -81,14 +86,15 @@ class Login extends Component {
     }
 
     render () {
+      
             if (this.state.redirectTo !== null) {
               return <Redirect to={{ pathname: this.state.redirectTo }} />
             } else {
               return (
             <div>
-                <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>
+                <Jumbotron className = "jumbo"><h1>Virtual Backlog</h1></Jumbotron>
                   <MDBContainer>
-                    
+                  
                     {(this.props.loggedIn) && 
                       <div className="text-center">
                         <h5>logged in as <b>{this.state.username}</b></h5>
@@ -106,7 +112,8 @@ class Login extends Component {
                       <MDBRow className ="justify-content-center">
                         <MDBCol md="6" >
                           <form>
-                            <p className="h5 text-center mb-4">Sign in</p>
+                            <img className = "cursor" src = {Pointer} alt="FF Cursor"/>
+                            <div className="h5 text-left mb-4 continue">Continue?</div>
                             <div className="grey-text">
                               <MDBInput
                                 name="username"
@@ -132,21 +139,26 @@ class Login extends Component {
                               />
                             </div>
                             <div className="text-center">
-                              <Button type="submit" variant="primary" onClick={this.handleFormSubmit}>Login</Button>
+                              <Button className = "button" type="submit" variant="warning" onClick={this.handleFormSubmit}>Press Start</Button>
                             </div>
                           </form>
                         </MDBCol>
                       </MDBRow>
                       <br/>
                       <Link className="text-center" to={"/register/"}>
-                      <p>Don't have an account?</p>
+                      <p className = "newGame">New Game?</p>
                       </Link>
+                      <a href="https://jwkeena.github.io"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
+                      <a href="https://captainefff.github.io"><img className="dave" src = {Dave} alt="David Banviile"/></a>
                     </div>
 
-                    }
+}
                     <LoginFooter/>
+                    
+                  
                   </MDBContainer>
                 </div>
+                
             )
         }
     }

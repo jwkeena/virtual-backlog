@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MDBContainer, MDBRow, MDBCol} from 'mdbreact';
+import { MDBContainer, MDBRow} from 'mdbreact';
 import FixedNavbar from "../components/FixedNavbar";
 import Game from "../components/Game";
 import API from "../utils/API";

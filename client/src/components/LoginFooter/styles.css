@@ -1,0 +1,79 @@
+.jumbotron  {
+    color: white;
+    background-color:black !important;
+    font-family:'Press Start 2P', cursive;;
+
+}
+
+.button{
+font-family:'Press Start 2P', cursive;
+background-color: #004A7F;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: darkgoldenrod; -webkit-box-shadow: 0 0 3px darkgoldenrod; }
+  50% { background-color: yellow; -webkit-box-shadow: 0 0 40px yellow; }
+  100% { background-color: darkgoldenrod; -webkit-box-shadow: 0 0 3px darkgoldenrod; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: darkgoldenrod; -moz-box-shadow: 0 0 3px darkgoldenrod; }
+  50% { background-color: yellow; -moz-box-shadow: 0 0 40px yellow; }
+  100% { background-color: darkgoldenrod; -moz-box-shadow: 0 0 3px darkgoldenrod; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
+  50% { background-color: yellow; box-shadow: 0 0 40px yellow; }
+  100% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
+}
+
+@keyframes glowing {
+  0% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
+  50% { background-color: yellow; box-shadow: 0 0 40px yellow; }
+  100% { background-color: darkgoldenrod; box-shadow: 0 0 3px darkgoldenrod; }
+}
+
+.cursor{
+    height: 25%;
+    width:25%;
+    float:left;
+    margin-left: 20px;
+}
+
+.continue{
+padding-top:15px;
+font-family: 'Press Start 2P', cursive;
+}
+
+.newGame{
+font-family: 'Press Start 2P', cursive;
+}
+
+.justin{
+position: relative;
+float:left;
+height: 50%;
+width: 50%;
+}
+
+.dave{
+position: relative;
+float:right;
+height: 50%;
+width: 50%;
+}
