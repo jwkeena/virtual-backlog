@@ -11,7 +11,6 @@ import '../components/LoginFooter/styles.css'
 import Pointer from '../components/Painting/Cursor.png'
 import Justin from '../components/Painting/Justin.gif'
 import Dave from '../components/Painting/Dave.gif'
-
 class Login extends Component {
 
     state = {
@@ -99,7 +98,7 @@ class Login extends Component {
             } else {
               return (
             <div>
-                <Jumbotron className = "jumbo"><h1>Virtual Backlog</h1></Jumbotron>
+                <Jumbotron/>
                   <MDBContainer>
                   
                     {(this.props.loggedIn) && 
@@ -160,8 +159,8 @@ class Login extends Component {
                       <Link className="text-center" to={"/register/"}>
                       <p className="newGame" title="Register new account">New Game?</p>
                       </Link>
-                      <a href="https://jwkeena.github.io"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
-                      <a href="https://captainefff.github.io"><img className="dave" src = {Dave} alt="David Banviile"/></a>
+                      <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
+                      <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
                     </div>}
                     <LoginFooter/>
                   </MDBContainer>

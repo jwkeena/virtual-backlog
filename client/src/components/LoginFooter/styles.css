@@ -1,6 +1,9 @@
 .jumbotron {
   color: white;
   background-color: black !important;
+}
+
+.jumbotron h2 {
   font-family: 'Press Start 2P', cursive;
 }
 
@@ -123,20 +126,21 @@
 .newGame {
   font-family: 'Press Start 2P', cursive;
   color: darkgoldenrod;
+  font-size: 13px !important;
 }
 
 .justin {
-  position: relative;
-  float: left;
-  height: 50%;
-  width: 50%;
+  position: fixed;
+  height: 250px;
+  bottom: 40px;
+  right: 47%;
 }
 
 .dave {
-  position: relative;
-  float: right;
-  height: 50%;
-  width: 50%;
+  position: fixed;
+  height: 250px;
+  bottom: 40px;
+  right: 38%;
 }
 
 .float-left {

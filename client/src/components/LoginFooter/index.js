@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import giantbomblogo from '../../giantbomblogo.png';
 
 const styles = {
-    giantbomblogo: {
-      height: "25px"
-    },
-    link: {
-        color: "white"
-    }
+  link: {
+      color: "white"
   }
-
+}
 class LoginFooter extends Component {
 
 render() {
@@ -22,7 +17,7 @@ render() {
         &copy;&nbsp;
         <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://jwkeena.github.io/">Justin Keena</a>&nbsp;and&nbsp;
         <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://captainefff.github.io/">David Banville</a>&nbsp; 
-        >> powered by the&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://www.giantbomb.com/"><img style={styles.giantbomblogo} alt="Giant Bomb Logo" src={giantbomblogo}/></a>&nbsp;api 
+        
         </Nav>
       </Navbar>
       );
