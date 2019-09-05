@@ -48,6 +48,24 @@ class Games extends Component {
         this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
     }
 
+    componentDidMount(){
+        this.loadGames()
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    loadGames () {
+        const username = localStorage.getItem("username");
+        API.getGames(username)
+        .then((res) => {
+            this.setState({
+                gamesLoaded: res.data,
+            }, () => {
+                this.sortGames();
+            })
+            }
+        )
+    }
+
     updateSortOption = (option) => {
         this.setState({
             sortOption: option
@@ -149,12 +167,6 @@ class Games extends Component {
             amountOfGamesInCollection: amountInCollection
         })
     }
-
-    componentDidMount(){
-        this.loadGames()
-        window.addEventListener('scroll', this.handleScroll);
-    }
-
    
     handleScroll = () =>{
         var scrollLocation = window.pageYOffset;   
@@ -231,19 +243,6 @@ class Games extends Component {
           [switchNumber]: !this.state[switchNumber]
         });
       }
-
-    loadGames () {
-        const username = localStorage.getItem("username");
-        API.getGames(username)
-        .then((res) => {
-            this.setState({
-                gamesLoaded: res.data,
-            }, () => {
-                this.sortGames();
-            })
-            }
-        )
-    }
 
     render () {
       let gamesCount = 12

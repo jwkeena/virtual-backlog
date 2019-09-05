@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 const styles = {
   beige: {
       color: "beige"
-  },
+  }
 }
 class LoginFooter extends Component {
 
@@ -15,9 +15,8 @@ render() {
       <Navbar bg="dark" fixed="bottom" variant="dark">
         <Nav className="mx-auto" style={styles.beige}>
         &copy;&nbsp;
-        <a style={styles.beige} target="_blank" rel="noopener noreferrer" href="https://jwkeena.github.io/">Justin Keena</a>&nbsp;and&nbsp;
-        <a style={styles.beige} target="_blank" rel="noopener noreferrer" href="https://captainefff.github.io/">David Banville</a>&nbsp; 
-        
+        <a style={styles.beige} target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/justin-keena">Justin Keena</a>&nbsp;and&nbsp;
+        <a style={styles.beige} target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/david-banville-30713b1b/">David Banville</a>&nbsp; 
         </Nav>
       </Navbar>
       );

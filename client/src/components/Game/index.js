@@ -198,10 +198,9 @@ class Game extends Component {
 
             <div className='bk-page'>
                 <div className={(this.props.page === 1 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
-                    <h5>{this.props.title}</h5>
+                    <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer"><h5>{this.props.title}</h5></a>
                     <span>Year Released: {this.props.year_released}</span><br></br>
                     <span style={styles.description}>{this.props.description}</span><br></br><br></br>
-                    <a href={this.props.gb_url} target="_blank" rel="noopener noreferrer">Game Details</a>
                 </div>
                 <div className={(this.props.page === 2 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Media Type</h5>
@@ -274,6 +273,7 @@ class Game extends Component {
                             </Form>
                             <br></br>
                             <Button 
+                                size="sm"
                                 onClick={this.updateNote} 
                                 variant="primary">Submit
                             </Button>
@@ -287,6 +287,7 @@ class Game extends Component {
                                 <div>
                                     <br></br>
                                     <Button 
+                                        size="sm"
                                         onClick={this.updateNote} 
                                         variant="primary">Add note
                                     </Button>
@@ -295,6 +296,7 @@ class Game extends Component {
                                 <div>
                                     <br></br>
                                     <Button 
+                                        size="sm"
                                         onClick={this.updateNote} 
                                         variant="primary">Update
                                     </Button>
@@ -315,7 +317,7 @@ class Game extends Component {
                             </Form>
                             <br></br>
                             <Button 
-                                
+                                size="sm"
                                 onClick={this.updateTag} 
                                 variant="primary">Submit
                             </Button>
@@ -329,6 +331,7 @@ class Game extends Component {
                                 <div>
                                     <br></br>
                                     <Button 
+                                        size="sm"
                                         onClick={this.updateTag} 
                                         variant="primary">Add tag
                                     </Button>
@@ -337,6 +340,7 @@ class Game extends Component {
                                 <div>
                                     <br></br>
                                     <Button 
+                                        size="sm"
                                         onClick={this.updateTag} 
                                         variant="primary">Add another tag
                                     </Button>

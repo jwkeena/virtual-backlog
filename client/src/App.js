@@ -10,7 +10,6 @@ import '@zendeskgarden/react-forms/dist/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Painting from "./components/Painting"
 
-
 class App extends Component {
   
   state = {
@@ -18,13 +17,7 @@ class App extends Component {
     username: "",
   }
 
-  componentDidMount() {
-    // Logout at the end of a session
-    // this.setState({
-    //   loggedIn: false
-    // })
-    
-    // Check if there's a logged in user in localstorage
+  componentDidMount() {   
     if (localStorage.getItem("username")) {
       this.setState({
         username: localStorage.getItem("username"),
@@ -83,7 +76,6 @@ class App extends Component {
       </ThemeProvider>
     );
   }
-  
 }
 
 export default App;
