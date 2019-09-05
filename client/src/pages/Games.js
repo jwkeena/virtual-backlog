@@ -221,7 +221,7 @@ class Games extends Component {
             this.setState({clicked:[]})
             this.setState({zIndex: 0})
             this.setState({page:1})
-            }, 500)
+            }, 1500)
         }
     }
 
