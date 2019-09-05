@@ -365,7 +365,13 @@ class Game extends Component {
                         <Button value={this.props.id} onClick={this.deleteGame} variant="danger">Delete</Button>
                     </div>
                 </div>
-
+            <nav>
+            <span className="bk-page-1" onClick = {this.props.handlePage1}>&lt;</span>
+            <span className="bk-page-2" onClick = {this.props.handlePage2}>&lt;</span>
+            <span className="bk-page-3" onClick = {this.props.handlePage3}>&lt;</span>
+            <span className="bk-page-4" onClick = {this.props.handlePage4}>&lt;</span>
+            
+            </nav>
             <nav>
             <span className="bk-page-prev" onClick = {this.props.handlePageLeft}>&lt;</span>
             <span className="bk-page-close" onClick = {this.props.handleClose}>X</span>
