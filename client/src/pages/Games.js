@@ -265,6 +265,9 @@ class Games extends Component {
         <MDBContainer fluid > 
         
         <br/>
+        <br/>
+        <br/>
+        <br/>
         
             {(this.state.gamesSorted) ? 
             

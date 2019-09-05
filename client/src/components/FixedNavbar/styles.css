@@ -1,0 +1,27 @@
+.visible {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    transition: top 1.25s;
+    transition-timing-function: ease-in-out;
+    z-index: 10;
+  }
+
+.hidden {
+    top: -90px;
+    z-index: 10;
+  }
+
+.visible-bottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    transition: bottom 1.25s;
+    transition-timing-function: ease-in-out;
+    z-index: 10;
+  }
+
+.hidden-bottom {
+    bottom: -90px;
+    z-index: 10;
+  }
