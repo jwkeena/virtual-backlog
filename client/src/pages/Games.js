@@ -184,12 +184,14 @@ class Games extends Component {
             this.setState({gameOpen:1})
             setTimeout(() => {
                 this.setState({gameOpen:2})
-            }, 1000)
+            }, 500)
         // this.setState.currentGame = 0;
         }
 
         else if (this.state.gameOpen === 2){
+            setTimeout(() => {
             this.setState({gameOpen:3})
+        }, 1000)
         }
        
     }
