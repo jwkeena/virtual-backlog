@@ -284,6 +284,7 @@ class Games extends Component {
             {(this.state.gamesSorted) ? 
             
             <MDBRow>
+                <div className = "shelf"></div>
                 <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
