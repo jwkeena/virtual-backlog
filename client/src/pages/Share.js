@@ -173,24 +173,14 @@ class Games extends Component {
         })
     }
 
-    // $(window).scroll(function() {
-    //     var scrollLocation = $(document).scrollTop();   
-    //     var vanishingPoint = scrollLocation + window.innerHeight / 2;
-    //     $(".bk-list").css('-webkit-perspective-origin', ' 50% ' + vanishingPoint + 'px');
-    // })
-
     handleScroll = () =>{
         var scrollLocation = window.pageYOffset;   
-        // console.log("scroolloco "+ scrollLocation)
         var vanishingPoint = scrollLocation + window.innerHeight / 2;
-        // console.log("windowheight " + window.innerHeight)
         this.setState({vanish:vanishingPoint})
-        // console.log("scrolling " + vanishingPoint)
         }
     
     handleClick = i =>{
         let clickedArray = this.state.clicked.slice(0)
-        // console.log("clickedArray" + clickedArray)
         
         if (this.state.gameOpen === 0){
         this.setState({zIndex: 1})
@@ -200,18 +190,14 @@ class Games extends Component {
             setTimeout(() => {
                 this.setState({gameOpen:2})
             }, 500)
-        // this.setState.currentGame = 0;
         }
 
         else if (this.state.gameOpen === 2){
             this.setState({gameOpen:3})
         }
-        //     // $content.removeClass( 'bk-content-current').eq( this.state.current ).addClass( 'bk-content-current' );
-        // }
     }
 
     handlePageRight = i => {
-        // console.log("clicked!")
         if (this.state.page === 1){
             this.setState({page:2})
         }
@@ -224,7 +210,6 @@ class Games extends Component {
     }
 
     handleClose = i => {
-        // console.log("clicked!")
          if (this.state.gameOpen === 3){
             this.setState({gameOpen:2})
             setTimeout(() => {
@@ -238,7 +223,6 @@ class Games extends Component {
     }
 
     handlePageLeft = i => {
-        // console.log("clicked!")
         if (this.state.page === 2){
             this.setState({page:1})
         }
@@ -277,7 +261,7 @@ class Games extends Component {
             {(this.state.gamesSorted) ? 
             
             <MDBRow>
-                <MDBCol size='sm-8' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish}}>
+                <MDBCol size='sm-8' className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
                     sharingUser = {this.state.sharingUser}
@@ -302,6 +286,7 @@ class Games extends Component {
                     points = {games.points}
                     wishlist = {games.wishlist}
                     note = {games.note}
+                    tags = {games.tags}
                     id = {games._id}
                     key = {games._id}
                     page = {this.state.page}
@@ -309,8 +294,9 @@ class Games extends Component {
                     switch2 = {this.state.switch2}
                     zIndex = {this.state.zIndex}
                     clicked = {this.state.clicked[i]}
-                    zCounter = {zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --}
-                    handleClick = {() => this.handleClick(i)}
+                    zCounter = {negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC -- }
+                    negativeC = {negativeC}
+                    handleClick = { () => this.handleClick(i)}
                     handlePageLeft = {()=>this.handlePageLeft(i)}
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}

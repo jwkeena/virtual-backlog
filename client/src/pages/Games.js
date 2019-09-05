@@ -214,7 +214,6 @@ class Games extends Component {
     }
 
     handlePageLeft = i => {
-        // console.log("clicked!")
         if (this.state.page === 2){
             this.setState({page:1})
         }
