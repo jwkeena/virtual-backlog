@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MDBContainer, MDBRow, MDBCol} from 'mdbreact';
+import { MDBContainer, MDBRow } from 'mdbreact';
 import FixedNavbarShare from "../components/FixedNavbarShare";
 import Game from "../components/Game";
 import API from "../utils/API";
@@ -256,6 +256,9 @@ class Games extends Component {
             sharingUser={this.state.sharingUser}/>
         <MDBContainer fluid > 
         
+        <br/>
+        <br/>
+        <br/>
         <br/>
         
             {(this.state.gamesSorted) ? 
