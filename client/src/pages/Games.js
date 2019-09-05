@@ -215,7 +215,7 @@ class Games extends Component {
             setTimeout(() => {
             this.setState({gameOpen:1})
 
-            }, 500)
+            }, 1000)
             setTimeout(() => {
             this.setState({gameOpen:0})
             this.setState({clicked:[]})

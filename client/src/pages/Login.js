@@ -166,8 +166,12 @@ class Login extends Component {
                       </MDBCol>
                     </MDBRow>
                     <br/>
+                    <br/>
                     <Link className="text-center" to={"/register/"}>
                     <p className="newGame" title="Register new account">New Game?</p>
+                    <br/>
+                    <br/>
+
                     </Link>
                     <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
                     <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
