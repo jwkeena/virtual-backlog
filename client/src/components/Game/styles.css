@@ -1,12 +1,10 @@
 
-.shelf{
-	background-color: #6c2505;
-	position: relative;
-	top: 50;
-	height: 10px;
-	width:533px;
-  
-  }
+
+
+body{
+	background-color: #cc8800;
+	background-image: url(../Painting/wood-pattern.png)
+}
 
 
 .bk-list {
