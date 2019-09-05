@@ -25,7 +25,6 @@ const styles = {
         textAlign: "center"
     }
   }
-
 class BarcodeScanController extends Component {
 
     constructor(props) {

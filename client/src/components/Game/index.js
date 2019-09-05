@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
 import { Field, Toggle, Label, Textarea, Input } from "@zendeskgarden/react-forms";
 import { Form } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
+import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import API from '../../utils/API';
 import axios from 'axios';
 // import './styles.css'
@@ -204,8 +208,11 @@ class Game extends Component {
                 </div>
                 <div className={(this.props.page === 2 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Media Type</h5>
-                    <span>{(this.props.physical) ? "Physical" : "Digital"}</span>
-                    <br></br><br></br>
+                    <span>{(this.props.physical) 
+                        ? <div><FontAwesomeIcon icon={faCompactDisc} size="lg"/>&nbsp; Physical</div>
+                        : <div><FontAwesomeIcon icon={faCloudDownloadAlt} size="lg"/>&nbsp; Digital</div>}
+                    </span>    
+                    <br></br>
                     <h5>Options</h5>
                     <Field>
                         <Toggle 
@@ -350,9 +357,13 @@ class Game extends Component {
 
                 </div>
                 <div className={(this.props.page === 4 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
-                    <h5>Danger Zone</h5><br></br>
-                    <Button value={this.props.id} onClick={this.deleteGame} variant="danger">Delete</Button>
-                    
+                    <div className="text-center">
+                        <FontAwesomeIcon icon={faExclamationTriangle} size="lg"/><br/><br/>
+                        <h5>
+                            Danger Zone
+                        </h5><br/>
+                        <Button value={this.props.id} onClick={this.deleteGame} variant="danger">Delete</Button>
+                    </div>
                 </div>
 
             <nav>
