@@ -189,7 +189,9 @@ class Games extends Component {
         }
 
         else if (this.state.gameOpen === 2){
+            setTimeout(() => {
             this.setState({gameOpen:3})
+        }, 1000)
         }
        
     }
@@ -215,14 +217,27 @@ class Games extends Component {
             setTimeout(() => {
             this.setState({gameOpen:1})
 
-            }, 500)
+            }, 1000)
             setTimeout(() => {
             this.setState({gameOpen:0})
             this.setState({clicked:[]})
             this.setState({zIndex: 0})
             this.setState({page:1})
-            }, 500)
+            }, 1500)
         }
+    }
+
+    handlePage1 = i => {
+        this.setState({page:1})
+    }
+    handlePage2 = i => {
+        this.setState({page:2})
+    }
+    handlePage3 = i => {
+        this.setState({page:3})
+    }
+    handlePage4 = i => {
+        this.setState({page:4})
     }
 
     handlePageLeft = i => {
@@ -312,6 +327,10 @@ class Games extends Component {
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}
                     handleSwitchChange = {()=>this.handleSwitchChange()}
+                    handlePage1 = {()=>this.handlePage1()}
+                    handlePage2 = {()=>this.handlePage2()}
+                    handlePage3 = {()=>this.handlePage3()}
+                    handlePage4 = {()=>this.handlePage4()}
                     />)}
                     
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}

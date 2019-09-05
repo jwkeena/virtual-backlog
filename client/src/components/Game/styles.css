@@ -1,3 +1,18 @@
+
+body{
+	background-color: #6c2505;
+  background-size: 40px 160px, 60px 29px, 27px 27px;
+	
+  
+  background-image:linear-gradient(94deg, rgba(91,33,5,.1) 0%,rgba(83,29,4,0.32) 23%,rgba(74,24,3,.41) 47%,rgba(80,27,5,0.44) 70%,rgba(81,27,5,0.59) 74%,rgba(93,33,4,0.2) 83%,rgba(115,43,3,.5) 100%),
+					linear-gradient(90deg, #541c09 50%, transparent 50%),
+					linear-gradient(90deg, #7a2e00 50%, #632401 50%),
+	;
+  
+  
+  }
+
+
 .bk-list {
 	list-style: none;
 	position: relative;
@@ -185,7 +200,7 @@
 .bk-list li .bk-right,
 .bk-list li .bk-top,
 .bk-list li .bk-bottom {
-	background-color: #fff;
+	background-color: #f5f6dc;
 }
 
 .bk-list li .bk-front>div {
@@ -241,7 +256,7 @@
 	right: 20px;
 	padding: 30px;
 	overflow: hidden;
-	background: #fff;
+	background: #f5f6dc;
 	opacity: 0;
 	pointer-events: none;
 	-webkit-backface-visibility: hidden;
@@ -274,7 +289,7 @@
 .bk-page nav {
 	display: block;
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 10px;
 	position: relative;
 	z-index: 100;
 	cursor: pointer;
