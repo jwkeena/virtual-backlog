@@ -1,11 +1,14 @@
 
 
+
+
 .shelf{
-	background-image: url(./bookshelf.jpg);
+	background-image: url(../Painting/bookshelf.jpg);
     background-repeat: repeat-y;
     background-size:  600px 1300px;
     background-position: 33vw 
 }
+
 
 
 .bk-list {
