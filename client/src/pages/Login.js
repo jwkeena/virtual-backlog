@@ -112,12 +112,13 @@ class Login extends Component {
                 <MDBContainer>
                 
                   {(this.props.loggedIn) && 
-                    <div className="text-center">
+                    <div className="text-center text-secondary">
+                      <br/><br/>
                       <h5>logged in as <b>{this.state.username}</b></h5>
                       <br/>
-                      <Button type="submit" variant="warning" className="button" title="Logout" onClick={this.logout} >Game Over</Button>
+                      <Button type="submit" variant="warning" className="button text-secondary" title="Logout" onClick={this.logout} >Game Over</Button>
                       <br/><br/>
-                      <Link className="text-center black" to={"/games"}>
+                      <Link className="text-center text-secondary" to={"/games"}>
                         <p>Back to collection</p>
                       </Link>
                       <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>

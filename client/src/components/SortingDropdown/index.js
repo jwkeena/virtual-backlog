@@ -56,17 +56,17 @@ export default class SortingDropdown extends React.Component {
   render() {
     return (
       <ButtonDropdown direction="up" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle className="text-warning" caret>
-          sorted by {
+        <DropdownToggle caret>
+        <span style={{color: "rgb(198,192,182)"}}>sorted by</span> <span className="text-warning">{
             this.props.sortOption === "system_type" ? "system" 
             : this.props.sortOption === "is_beaten" ? "beaten" 
             : this.props.sortOption === "now_playing" ? "now playing" 
             : this.props.sortOption === "year_released" ? "year released" 
             : this.props.sortOption === "cib" ? "complete in box" 
-            : this.props.sortOption }
+            : this.props.sortOption }</span>
         </DropdownToggle>
-        <DropdownMenu>
-        <DropdownItem  toggle={false} >
+        <DropdownMenu style={{backgroundColor: '#f1f1f1'}}>
+        <DropdownItem toggle={false} >
             <Field>
               <Input 
                 name="customTagSearch"
@@ -75,7 +75,7 @@ export default class SortingDropdown extends React.Component {
                 placeholder="Tag"/>
             </Field>
           </DropdownItem>
-          <DropdownItem  toggle={false} >
+          <DropdownItem toggle={false} >
             <Field>
               <Input 
                 name="customTitleSearch"
@@ -84,7 +84,7 @@ export default class SortingDropdown extends React.Component {
                 placeholder="Title includes..."/>
             </Field>
           </DropdownItem>
-          <DropdownItem  toggle={false} >
+          <DropdownItem toggle={false} >
             <Field>
               <Input 
                 name="customSystemSearch"

@@ -46,8 +46,8 @@ render() {
               sortOption={this.props.sortOption}
               updateSortOption={this.props.updateSortOption}/>
         </Nav>
-        <Navbar.Brand className="ml-auto text-warning">
-            games on display: {this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}
+        <Navbar.Brand className="ml-auto">
+            <span style={{color: "rgb(198,192,182)"}}>games on display:</span> <span className="text-warning">{this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}</span>
         </Navbar.Brand>
       </Navbar>
     </div>

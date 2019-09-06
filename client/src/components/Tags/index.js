@@ -30,7 +30,7 @@ class Tags extends Component {
                         return(
                             <div key={i} style={styles.inline}>
                                 <Badge 
-                                    variant={(this.props.selectedTag === tag) ? 'warning' : 'info'}
+                                    variant={(this.props.selectedTag === tag) ? 'warning' : 'primary'}
                                     onClick={() => {this.props.deleteTag(tag)}}
                                     value={tag}
                                     title="Click to delete"

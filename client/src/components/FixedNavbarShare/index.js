@@ -41,7 +41,7 @@ render() {
       
       <Nav className="mr-auto">
         <Navbar.Brand className="mr-auto text-warning pixel-font">{this.props.sharingUser}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
-        <Nav.Link className="text-warning" href="/">home</Nav.Link>
+        <Nav.Link href="/">home</Nav.Link>
       </Nav>
 
       <Nav className="ml-auto">
