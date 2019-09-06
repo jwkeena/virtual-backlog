@@ -3,11 +3,11 @@
 
 
 .shelf{
-	background-image: url(../Painting/bookshelf.jpg);
-    background-repeat: repeat-y;
+	background-image: url(../Painting/synthwave.png);
+    /* background-repeat: repeat-y;
     background-size:  600px 1400px;
 	background-position: 28vw 0;
-	top: -5px;
+	top: -5px; */
 }
 
 

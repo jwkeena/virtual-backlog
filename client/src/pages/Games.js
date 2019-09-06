@@ -277,7 +277,7 @@ class Games extends Component {
         loadGames={this.loadGames} 
         logoutBoolean={this.props.logoutBoolean} 
         username={this.props.username}/>
-        <MDBContainer fluid > 
+        <MDBContainer fluid className= "shelf"> 
         
         <br/>
         <br/>
@@ -286,7 +286,7 @@ class Games extends Component {
         
             {(this.state.gamesSorted) ? 
             
-            <MDBRow className= "shelf">
+            <MDBRow>
                 <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
