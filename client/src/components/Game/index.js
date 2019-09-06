@@ -17,8 +17,14 @@ const styles = {
         fontSize: "13px",
         fontStyle: "italic"
     }, 
-    textarea: {
-        fontSize: "13px"
+    smallFont: {
+        fontSize: "13px",
+        position: "relative",
+        top: "-1px"
+    }, 
+    smallMargins: {
+        marginTop: "10px",
+        marginBottom: "10px"
     }
 }
 class Game extends Component {
@@ -300,60 +306,70 @@ class Game extends Component {
                 </div>
                 <div className={(this.props.page === 3 && this.props.clicked ? 'bk-content bk-content-current': 'bk-content')}>
                     <h5>Notes</h5>
+                    <hr style={styles.smallMargins}/>
                     {(this.state.editingNote) ? 
                          <div>
                             <Form>
                                 <Field>
                                     <Textarea             
                                         rows="3"
-                                        style={styles.textarea}
+                                        style={styles.smallFont}
                                         onChange={this.writeNote} 
                                         defaultValue={this.props.note} 
                                         resizable>
                                     </Textarea>
                                 </Field>
                             </Form>
-                            <br></br>
-                            <Button 
-                                size="sm"
-                                onClick={this.updateNote} 
-                                variant="primary">submit
-                            </Button>
-                            &nbsp;
-                            <Button 
-                                size="sm"
-                                onClick={this.switchToEditingNote} 
-                                variant="secondary">back
-                            </Button>
+                            <hr style={styles.smallMargins}/>
+                            <div className="text-center">
+                                <Button 
+                                    size="sm"
+                                    onClick={this.updateNote} 
+                                    variant="primary">submit
+                                </Button>
+                                &nbsp;
+                                <Button 
+                                    size="sm"
+                                    onClick={this.switchToEditingNote} 
+                                    variant="secondary">back
+                                </Button>
+                            </div>
                 
                         </div>
                         :
                         <div>
-                            <span style={styles.textarea}>{this.props.note}</span>
+                            <span style={styles.smallFont}>{this.props.note}</span>
                             
                             {(this.props.note === "" || !this.props.note) 
                                 ?  
                                 <div>
-                                    <br></br>
-                                    <Button 
-                                        size="sm"
-                                        onClick={this.switchToEditingNote} 
-                                        variant="primary">add
-                                    </Button>
+                                    <div style={styles.smallFont}>(none)</div>
+                                    <hr style={styles.smallMargins}/>
+                                    <div className="text-center">
+                                        <Button 
+                                            size="sm"
+                                            onClick={this.switchToEditingNote} 
+                                            variant="primary">add
+                                        </Button>
+
+                                    </div>
                                 </div>
                                 : 
                                 <div>
-                                    <br></br>
-                                    <Button 
-                                        size="sm"
-                                        onClick={this.switchToEditingNote} 
-                                        variant="primary">update
-                                    </Button>
+                                    <hr style={styles.smallMargins}/>
+                                    <div className="text-center">
+                                        <Button 
+                                            size="sm"
+                                            onClick={this.switchToEditingNote} 
+                                            variant="primary">update
+                                        </Button>
+                                    </div>
                                 </div>}
                         </div>
                     }
                      <br></br>
                      <h5>Tags</h5>
+                     <hr style={styles.smallMargins}/>
                      {(this.state.addingTag) ? 
                          <div>
                             <Form onSubmit={(e) => e.preventDefault()}>
@@ -363,25 +379,27 @@ class Game extends Component {
                                         onChange={this.writeTag}>
                                     </Input>                 
                                 </Field>
-                                <br/><br/>
-                                <Button 
-                                    size="sm"
-                                    type="submit"
-                                    onClick={this.addNewTag}
-                                    variant="primary">submit
-                                </Button>
-                                &nbsp;
-                                <Button 
-                                    size="sm"
-                                    onClick={this.switchToAddingTag} 
-                                    variant="secondary">back
-                                </Button>
+                                <hr style={styles.smallMargins}/>
+                                <div className="text-center">
+                                    <Button 
+                                        size="sm"
+                                        type="submit"
+                                        onClick={this.addNewTag}
+                                        variant="primary">submit
+                                    </Button>
+                                    &nbsp;
+                                    <Button 
+                                        size="sm"
+                                        onClick={this.switchToAddingTag} 
+                                        variant="secondary">back
+                                    </Button>
+                                </div>
                             </Form>
                         </div>
                         :
                         <div>
                             
-                            <span style={styles.textarea}>
+                            <span style={styles.smallFont}>
                                 <Tags
                                     selectedTag={this.state.selectedTag}
                                     deleteTag={this.deleteTag}
@@ -390,13 +408,14 @@ class Game extends Component {
                                 </Tags>
                             </span>
 
-                            <br/>
-                            
-                            <Button 
-                                size="sm"
-                                onClick={this.switchToAddingTag} 
-                                variant="primary">add
-                            </Button>
+                            <hr style={styles.smallMargins}/>
+                            <div className="text-center">
+                                <Button 
+                                    size="sm"
+                                    onClick={this.switchToAddingTag} 
+                                    variant="primary">add
+                                </Button>
+                             </div>
                           
                         </div>
                     }

@@ -188,10 +188,9 @@ class Games extends Component {
         // this.setState.currentGame = 0;
         }
 
+        // Taking this out of a setTimeout makes the cover open instantly
         else if (this.state.gameOpen === 2){
-            setTimeout(() => {
             this.setState({gameOpen:3})
-        }, 600)
         }
        
     }
@@ -217,13 +216,13 @@ class Games extends Component {
             setTimeout(() => {
             this.setState({gameOpen:1})
 
-            }, 200)
+            }, 300)
             setTimeout(() => {
             this.setState({gameOpen:0})
             this.setState({clicked:[]})
             this.setState({zIndex: 0})
             this.setState({page:1})
-            }, 700)
+            }, 900)
         }
     }
 
