@@ -375,14 +375,27 @@ class Game extends Component {
                     </div>
                 </div>
             <nav>
+            <span className="bk-page-prev" onClick = {this.props.handlePageLeft}>&lt;</span>
             <span className="bk-page-1" onClick = {this.props.handlePage1}>1</span>
             <span className="bk-page-2" onClick = {this.props.handlePage2}>2</span>
             <span className="bk-page-3" onClick = {this.props.handlePage3}>3</span>
             <span className="bk-page-4" onClick = {this.props.handlePage4}>4</span>
-            <br/>
-            <span className="bk-page-prev" onClick = {this.props.handlePageLeft}>&lt;</span>
-            <span className="bk-page-close" onClick = {this.props.handleClose}>X</span>
             <span className="bk-page-next" onClick = {this.props.handlePageRight}>&gt;</span>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <span className="bk-page-close" onClick = {this.props.handleClose}>X</span>
             </nav>
 
             </div>

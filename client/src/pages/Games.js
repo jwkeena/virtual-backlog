@@ -191,7 +191,7 @@ class Games extends Component {
         else if (this.state.gameOpen === 2){
             setTimeout(() => {
             this.setState({gameOpen:3})
-        }, 1000)
+        }, 600)
         }
        
     }
@@ -286,7 +286,7 @@ class Games extends Component {
         
             {(this.state.gamesSorted) ? 
             
-            <MDBRow>
+            <MDBRow className= "shelf">
                 <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
