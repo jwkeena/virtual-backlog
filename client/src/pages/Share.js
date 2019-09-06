@@ -352,6 +352,7 @@ class Games extends Component {
             <Statistics
                 updateCustomTitleSearch={this.updateCustomTitleSearch}
                 updateCustomSystemSearch={this.updateCustomSystemSearch}
+                updateCustomTagSearch={this.updateCustomTagSearch}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}

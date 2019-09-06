@@ -288,12 +288,12 @@ class Games extends Component {
       return (
         <div>
         <FixedNavbar 
-        sortOption={this.state.sortOption}
-        updateSortOption={this.updateSortOption}
-        loggedIn={this.props.loggedIn} 
-        loadGames={this.loadGames} 
-        logoutBoolean={this.props.logoutBoolean} 
-        username={this.props.username}/>
+            sortOption={this.state.sortOption}
+            updateSortOption={this.updateSortOption}
+            loggedIn={this.props.loggedIn} 
+            loadGames={this.loadGames} 
+            logoutBoolean={this.props.logoutBoolean} 
+            username={this.props.username}/>
         <MDBContainer fluid className= "shelf"> 
         
         <br/>
