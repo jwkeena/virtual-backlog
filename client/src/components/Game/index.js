@@ -386,7 +386,6 @@ class Game extends Component {
             <br/>
             <br/>
             <br/>
-            <br/>
             <span className="bk-page-close" onClick = {this.props.handleClose}>X</span>
             </nav>
 
