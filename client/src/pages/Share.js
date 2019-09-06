@@ -29,6 +29,7 @@ class Games extends Component {
             amountOfGamesInCollection: null,
             gameSeed: gameSeed,
             gamesLoaded: null,
+            allTags: [],
             gamesCount: 13,
             currentGame: -1,
             counter: 0,
@@ -67,6 +68,7 @@ class Games extends Component {
                 gamesLoaded: res.data,
             }, () => {
                 this.sortGames();
+                this.collectAllTags();
             })
             }
         )
@@ -138,6 +140,22 @@ class Games extends Component {
             gamesSorted: sorted,
             amountOfGamesSorted: amount
         });
+    }
+
+    collectAllTags = () => {
+        const list = [];
+        for (let i=0; i<this.state.gamesLoaded.length; i++) {
+            const gameTags = this.state.gamesLoaded[i].tags
+            for (let j=0; j < gameTags.length; j++) {
+                console.log(gameTags[j])
+                if (!list.includes(gameTags[j])) {
+                    list.push(gameTags[j])
+                }
+            }
+        }
+        this.setState({
+            allTags: list
+        })
     }
 
     sortGames = () => {
@@ -353,6 +371,7 @@ class Games extends Component {
                 updateCustomTitleSearch={this.updateCustomTitleSearch}
                 updateCustomSystemSearch={this.updateCustomSystemSearch}
                 updateCustomTagSearch={this.updateCustomTagSearch}
+                allTags={this.state.allTags}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}

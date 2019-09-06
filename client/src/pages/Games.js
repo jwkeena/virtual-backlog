@@ -50,8 +50,8 @@ class Games extends Component {
         this.updateCustomTagSearch = this.updateCustomTagSearch.bind(this);
     }
 
-    componentDidMount(){
-        this.loadGames()
+    componentDidMount () {
+        this.loadGames();
         window.addEventListener('scroll', this.handleScroll);
     }
 
