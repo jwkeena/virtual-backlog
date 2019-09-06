@@ -141,7 +141,6 @@ class Games extends Component {
         for (let i=0; i<this.state.gamesLoaded.length; i++) {
             const gameTags = this.state.gamesLoaded[i].tags
             for (let j=0; j < gameTags.length; j++) {
-                console.log(gameTags[j])
                 if (!list.includes(gameTags[j])) {
                     list.push(gameTags[j])
                 }

@@ -33,6 +33,7 @@ class SearchModal extends Component {
       possiblePlatforms: [],
       platformChosen: null,
       note: "",
+      tags: "",
       mediaTypeChoices: [
         { label: "Physical", key: "physical-key", checked: false },
         { label: "Digital", key: "digital-key", checked: false }
@@ -113,7 +114,7 @@ class SearchModal extends Component {
       this.setState({
           possiblePlatforms: newList,
           gameChosenFromSearch: this.state.searchResults[gameIndex]
-        }, () => console.log(this.state.gameChosenFromSearch))
+        })
     } else {
       this.setState({
         possiblePlatforms: ["NONE"]
@@ -161,6 +162,13 @@ class SearchModal extends Component {
     });
   }
 
+  writeTags = (event) => {
+    let value = event.target.value;
+    this.setState({
+      tags: value
+    });
+  }
+
   noteShelve = (event) => {
     event.preventDefault();
     this.shelve();
@@ -172,6 +180,10 @@ class SearchModal extends Component {
     } else if (this.state.mediaTypeChoices[0].checked === false && this.state.mediaTypeChoices[1].checked === false) {
       return alert ("Select a media type before submitting.")
     }
+    let tags = [];
+    if (this.state.tags !== "") {
+      tags = this.state.tags.split(" ");
+    }
     const saved = this.state.gameChosenFromSearch;
     const newGame = {
       username: localStorage.getItem("username"),
@@ -181,6 +193,7 @@ class SearchModal extends Component {
       box_art: saved.image.medium_url,
       description: saved.deck,
       note: this.state.note,
+      tags: tags,
       guid: saved.guid,
       gb_url: saved.site_detail_url,
       year_released: saved.expected_release_year,
@@ -194,7 +207,6 @@ class SearchModal extends Component {
     }
     API.addGame(newGame)
       .then((res) => {
-        console.log(res.data);
         this.props.loadGames();
         this.resetSearchState();
       })
@@ -211,6 +223,7 @@ class SearchModal extends Component {
       possiblePlatforms: [],
       platformChosen: null,
       note: "",
+      tags: "",
       mediaTypeChoices: [
         { label: "Physical", key: "physical-key", checked: false },
         { label: "Digital", key: "digital-key", checked: false }
@@ -245,6 +258,7 @@ class SearchModal extends Component {
 
         {/* Text Search Modal */}
         <Modal 
+         
           scrollable={true} 
           size={"lg"} 
           autoFocus={true} 
@@ -253,11 +267,11 @@ class SearchModal extends Component {
           className={this.props.className} 
           backdrop={this.state.backdrop}>
 
-          <ModalHeader toggle={this.toggle}>
+          <ModalHeader toggle={this.toggle} className="text-warning" style={{backgroundColor: "#7c8d9c"}}>
             Searching for "{this.props.gameToSearch}"
           </ModalHeader>
 
-          <ModalBody>
+          <ModalBody style={{backgroundColor: "beige"}}>
                   {(this.state.searchResults) 
                     ? 
                       <Table hover>
@@ -291,11 +305,20 @@ class SearchModal extends Component {
               </MDBRow>
             <hr/>
 
+            <h3>Tags</h3>
+            <Form onSubmit={this.noteShelve}>
+              <Field>
+                <Input tags={this.state.tags} onChange={this.writeTags} onSubmit={this.shelve}/>
+                <Message>Separate each tag by a space. Use tags to create custom lists. </Message>
+              </Field>
+            </Form>
+            <hr/>
+
             <h3>Notes</h3>
             <Form onSubmit={this.noteShelve}>
               <Field>
                 <Input note={this.state.note} onChange={this.writeNote} onSubmit={this.shelve}/>
-                <Message>Notes and options can be changed later.</Message>
+                <Message>Options, tags, and notes can be changed later.</Message>
               </Field>
             </Form>
 
@@ -303,12 +326,12 @@ class SearchModal extends Component {
                 ref={(el) => { this.endOfSearchResults = el; }}>
             </div>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter style={{backgroundColor: "#7c8d9c"}}>
               <Button 
-                variant="primary" 
+                variant="warning" 
                 size="lg" 
                 onClick={this.shelve}
-                block>add to collection
+                block><span style={{color: "#7c8d9c"}}>add to collection</span>
               </Button>
             </ModalFooter>
           </Modal>
