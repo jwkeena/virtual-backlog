@@ -7,8 +7,11 @@ const styles = {
         marginRight: "6px",
         marginTop: "3px",
         marginBottom: "3px",
-        padding: "6px",
-        cursor: "pointer"
+        marginLeft: "0px",
+        cursor: "pointer",
+    },
+    inline: {
+        display: "inline-block"
     }
 }
 
@@ -17,7 +20,7 @@ class Tags extends Component {
             if (this.props.tags === undefined || this.props.tags.length === 0) {
                 return(
                     <div>
-                       <Badge variant='secondary' style={styles.buffer}>NONE</Badge>
+                       (none)
                     </div>
                 )
             } else {
@@ -25,14 +28,17 @@ class Tags extends Component {
                     <div>
                     {this.props.tags.map((tag, i) => {
                         return(
-                            <Badge 
-                                variant={(this.props.selected === tag) ? 'warning' : 'info'}
-                                onClick={() => {this.props.chooseTag(tag)}}
-                                key={i} 
-                                value={tag}
-                                style={styles.buffer}>
-                                    {tag}
-                            </Badge>
+                            <div key={i} style={styles.inline}>
+                                <Badge 
+                                    variant={(this.props.selectedTag === tag) ? 'warning' : 'info'}
+                                    onClick={() => {this.props.deleteTag(tag)}}
+                                    value={tag}
+                                    title="Click to delete"
+                                    style={styles.buffer}>
+                                        {tag}
+                                    &nbsp;<span aria-hidden="true" >&times;</span>
+                                </Badge>
+                            </div>
                         )
                     })}
                     </div>

@@ -151,6 +151,14 @@ h5 {
   right: 30%;
 }
 
+.pixel-shelf {
+  position: fixed;
+  height: 100px;
+  bottom: 40px;
+  right: 47%;
+}
+
+
 .float-left {
   float: left;
 }

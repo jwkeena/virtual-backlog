@@ -23,4 +23,7 @@ router.route("/note/:id")
 router.route("/tag/:id")
   .put(gamesController.addNewTag)
 
+router.route("/tag/delete/:id")
+  .put(gamesController.deleteTag)
+
 module.exports = router;

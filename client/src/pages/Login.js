@@ -11,6 +11,7 @@ import '../components/LoginFooter/styles.css';
 import Pointer from '../components/Painting/Cursor.png';
 import Justin from '../components/Painting/Justin.gif';
 import Dave from '../components/Painting/Dave.gif';
+import PixelShelf from '../components/Painting/bookshelf.png';
 import { Helmet } from 'react-helmet';
 class Login extends Component {
 
@@ -119,6 +120,7 @@ class Login extends Component {
                         <p>Back to collection</p>
                       </Link>
                       <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
+                      <img className="pixel-shelf" src = {PixelShelf} alt="Bookshelf"/>
                       <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
                     </div>
                   }
@@ -174,6 +176,7 @@ class Login extends Component {
 
                     </Link>
                     <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
+                    <img className="pixel-shelf" src = {PixelShelf} alt="Bookshelf"/>
                     <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
                   </div>}
                   <LoginFooter/>

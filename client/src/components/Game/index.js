@@ -9,7 +9,7 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import Tags from '../Tags';
 import API from '../../utils/API';
 import axios from 'axios';
-// import './styles.css'
+import './styles.css'
 // // return { init : init };
 
 const styles = {
@@ -50,8 +50,7 @@ class Game extends Component {
                         property: property,
                         currentValue: currentValue
                     };
-                    if (propertyToUpdate.property === this.props.sortOption) {
-                        console.log("match");
+                    if (propertyToUpdate.property === "wishlist" || propertyToUpdate.property === this.props.sortOption) {
                         this.props.handleClose();
                         setTimeout(() => {
                             API.updateGame(this.props.id, propertyToUpdate)
@@ -123,9 +122,9 @@ class Game extends Component {
     }
 
     switchToEditingNote = () => {
-        this.setState({
-            editingNote: true
-        })
+        this.setState(prevState => ({
+            editingNote: !prevState.editingNote
+        }))
     }
 
     updateNote = () => {
@@ -158,9 +157,9 @@ class Game extends Component {
     }
 
     switchToAddingTag = () => {
-        this.setState({
-            addingTag: true
-        })
+        this.setState(prevState => ({
+            addingTag: !prevState.addingTag
+        }))
     }
 
     addNewTag = (event) => {
@@ -192,8 +191,33 @@ class Game extends Component {
             })
     }
     
-    chooseTag = () => {
-        console.log("tag chosen")
+    deleteTag = (tag) => {
+        this.setState({
+            selectedTag: tag
+        }, () => {
+            let usernameToVerify;
+            if (this.props.sharingUser) {
+                usernameToVerify = this.props.sharingUser;
+            } else {
+                usernameToVerify = localStorage.getItem("username");
+            }
+            axios
+                .post('/api/users/me')
+                .then(response => {
+                    const loggedInUser = response.data
+                    console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
+                    if (loggedInUser === usernameToVerify) {
+                        API.deleteTag(this.props.id, {tag: this.state.selectedTag})
+                            .then(res => {
+                                console.log(res)
+                                this.props.loadGames();
+                            })
+                            .catch(err => console.log(err));
+                    } else {
+                        alert("You are not authorized to make changes to another user's collection.");
+                    }
+                })
+        })
     }
 
     render () {
@@ -293,8 +317,15 @@ class Game extends Component {
                             <Button 
                                 size="sm"
                                 onClick={this.updateNote} 
-                                variant="primary">SUBMIT
+                                variant="primary">submit
                             </Button>
+                            &nbsp;
+                            <Button 
+                                size="sm"
+                                onClick={this.switchToEditingNote} 
+                                variant="secondary">back
+                            </Button>
+                
                         </div>
                         :
                         <div>
@@ -307,7 +338,7 @@ class Game extends Component {
                                     <Button 
                                         size="sm"
                                         onClick={this.switchToEditingNote} 
-                                        variant="primary">ADD
+                                        variant="primary">add
                                     </Button>
                                 </div>
                                 : 
@@ -316,7 +347,7 @@ class Game extends Component {
                                     <Button 
                                         size="sm"
                                         onClick={this.switchToEditingNote} 
-                                        variant="primary">UPDATE
+                                        variant="primary">update
                                     </Button>
                                 </div>}
                         </div>
@@ -337,7 +368,13 @@ class Game extends Component {
                                     size="sm"
                                     type="submit"
                                     onClick={this.addNewTag}
-                                    variant="primary">SUBMIT
+                                    variant="primary">submit
+                                </Button>
+                                &nbsp;
+                                <Button 
+                                    size="sm"
+                                    onClick={this.switchToAddingTag} 
+                                    variant="secondary">back
                                 </Button>
                             </Form>
                         </div>
@@ -347,7 +384,7 @@ class Game extends Component {
                             <span style={styles.textarea}>
                                 <Tags
                                     selectedTag={this.state.selectedTag}
-                                    chooseTag={this.chooseTag}
+                                    deleteTag={this.deleteTag}
                                     tags={this.props.tags}
                                     >
                                 </Tags>
@@ -358,7 +395,7 @@ class Game extends Component {
                             <Button 
                                 size="sm"
                                 onClick={this.switchToAddingTag} 
-                                variant="primary">ADD
+                                variant="primary">add
                             </Button>
                           
                         </div>
@@ -375,26 +412,14 @@ class Game extends Component {
                     </div>
                 </div>
             <nav>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span className="bk-page-prev" onClick = {this.props.handlePageLeft}>&lt;</span>
-            <span className="bk-page-1" onClick = {this.props.handlePage1}>1</span>
-            <span className="bk-page-2" onClick = {this.props.handlePage2}>2</span>
-            <span className="bk-page-3" onClick = {this.props.handlePage3}>3</span>
-            <span className="bk-page-4" onClick = {this.props.handlePage4}>4</span>
+            <span className="bk-page-1" onClick = {this.props.handlePage1}>1</span>&nbsp;
+            <span className="bk-page-2" onClick = {this.props.handlePage2}>2</span>&nbsp;
+            <span className="bk-page-3" onClick = {this.props.handlePage3}>3</span>&nbsp;
+            <span className="bk-page-4" onClick = {this.props.handlePage4}>4</span>&nbsp;
             <span className="bk-page-next" onClick = {this.props.handlePageRight}>&gt;</span>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span className="bk-page-close" onClick = {this.props.handleClose}>X</span>
             </nav>
 

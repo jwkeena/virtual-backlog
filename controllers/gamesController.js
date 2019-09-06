@@ -70,11 +70,17 @@ module.exports = {
       .catch(err => console.log(err));
   },
   addNewTag: function(req, res) {
-    console.log(req.body)
-    console.log(req.params.id)
     db.Game
       .findOneAndUpdate({ _id: req.params.id }, 
         {$push: {tags: req.body.tag}},
+        {safe: true, upsert: true})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => console.log(err));
+  },
+  deleteTag: function(req, res) {
+    db.Game
+      .findOneAndUpdate({ _id: req.params.id }, 
+        {$pull: {tags: req.body.tag}},
         {safe: true, upsert: true})
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));

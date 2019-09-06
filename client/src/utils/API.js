@@ -27,6 +27,10 @@ export default {
   addNewTag: function(id, newTag) {
     return axios.put("/api/games/tag/" + id, newTag)
   },
+
+  deleteTag: function(id, tagToDelete) {
+    return axios.put("/api/games/tag/delete/" + id, tagToDelete)
+  },
   
   // Deletes the game with the given id
   deleteGame: function(id) {

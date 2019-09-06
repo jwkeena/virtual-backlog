@@ -2,15 +2,13 @@
 
 
 
-.shelf{
-	background-image: url(../Painting/synthwave.png);
+body {
+	background-image: url(../Painting/wood.jpg);
     /* background-repeat: repeat-y;
     background-size:  600px 1400px;
 	background-position: 28vw 0;
 	top: -5px; */
 }
-
-
 
 .bk-list {
 	list-style: none;
@@ -25,8 +23,6 @@
 	margin-left: 30vw;
 	
 }
-
-
 
 .bk-list li {
 	position: relative;
@@ -290,7 +286,7 @@
 	text-align: center;
 	margin-top: 10px;
 	position: relative;
-	z-index: 100;
+	z-index: -1;
 	cursor: pointer;
 }
 
@@ -512,6 +508,13 @@
 .GG h2 {
 	background-color: rgba(230, 115, 230, 0.637) !important;
 	color: yellow !important;
+}
+
+.VBOY h2 {
+	color: red !important;
+	border-color: red;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .z-index0 {

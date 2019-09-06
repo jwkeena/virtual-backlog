@@ -217,13 +217,13 @@ class Games extends Component {
             setTimeout(() => {
             this.setState({gameOpen:1})
 
-            }, 1000)
+            }, 200)
             setTimeout(() => {
             this.setState({gameOpen:0})
             this.setState({clicked:[]})
             this.setState({zIndex: 0})
             this.setState({page:1})
-            }, 1500)
+            }, 700)
         }
     }
 
