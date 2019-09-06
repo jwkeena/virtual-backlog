@@ -43,6 +43,7 @@ render() {
               updateCustomTitleSearch={this.props.updateCustomTitleSearch}
               updateCustomSystemSearch={this.props.updateCustomSystemSearch}
               updateCustomTagSearch={this.props.updateCustomTagSearch}
+              allTags={this.props.allTags}
               sortOption={this.props.sortOption}
               updateSortOption={this.props.updateSortOption}/>
         </Nav>

@@ -2,6 +2,7 @@ import React from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Field, Input } from '@zendeskgarden/react-forms';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 export default class SortingDropdown extends React.Component {
   constructor(props) {
     super(props);
@@ -83,9 +84,18 @@ export default class SortingDropdown extends React.Component {
               placeholder="Tag"/>
           </Field>
         </DropdownItem>
-        <Popover placement="right" trigger="focus" isOpen={this.state.popoverOpen} target="PopoverFocus" toggle={this.togglePopover}>
+        <Popover 
+          placement="right" 
+          trigger="focus" 
+          isOpen={this.state.popoverOpen} 
+          target="PopoverFocus" 
+          toggle={this.togglePopover}>
           <PopoverHeader>All tags in use</PopoverHeader>
-          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+          <PopoverBody>| &nbsp;
+            {this.props.allTags.map((tag, index) => (
+              <span key={index}><b>{tag}</b> | </span>
+            ))}
+            </PopoverBody>
         </Popover>
         <DropdownItem toggle={false} >
           <Field>
