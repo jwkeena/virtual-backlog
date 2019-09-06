@@ -42,6 +42,7 @@ render() {
             <SortingDropdown
               updateCustomTitleSearch={this.props.updateCustomTitleSearch}
               updateCustomSystemSearch={this.props.updateCustomSystemSearch}
+              updateCustomTagSearch={this.props.updateCustomTagSearch}
               sortOption={this.props.sortOption}
               updateSortOption={this.props.updateSortOption}/>
         </Nav>

@@ -46,6 +46,7 @@ class Games extends Component {
         this.updateSortOption = this.updateSortOption.bind(this);
         this.updateCustomTitleSearch = this.updateCustomTitleSearch.bind(this);
         this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
+        this.updateCustomTagSearch = this.updateCustomTagSearch.bind(this);
     }
 
     componentDidMount(){
@@ -112,6 +113,27 @@ class Games extends Component {
             amountOfGamesSorted: amount
         });
     }
+
+    updateCustomTagSearch = (query) => {
+        if (query === "") {
+            this.setState({
+                sortOption: "system"
+            }, () => {
+                this.sortGames();
+            })
+        }
+        
+        let sorted = this.state.gamesLoaded;
+        sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1)
+
+        const amount = sorted.length;
+        this.setState({
+            sortOption: "custom (tag)",
+            gamesSorted: sorted,
+            amountOfGamesSorted: amount
+        });
+    }
+
 
     sortGames = () => {
         let sorted = this.state.gamesLoaded;
@@ -340,6 +362,7 @@ class Games extends Component {
             <Statistics
                 updateCustomTitleSearch={this.updateCustomTitleSearch}
                 updateCustomSystemSearch={this.updateCustomSystemSearch}
+                updateCustomTagSearch={this.updateCustomTagSearch}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}

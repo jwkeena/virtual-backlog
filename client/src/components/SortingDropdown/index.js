@@ -16,7 +16,8 @@ export default class SortingDropdown extends React.Component {
     this.state = {
       dropdownOpen: false,
       customTitleSearch: "",
-      customSystemSearch: ""
+      customSystemSearch: "",
+      customTagSearch: ""
     };
   }
 
@@ -38,13 +39,22 @@ export default class SortingDropdown extends React.Component {
       if (name === "customTitleSearch") {
         this.props.updateCustomTitleSearch(value);
         this.setState({
-          customSystemSearch: ""
+          customSystemSearch: "",
+          customTagSearch: ""
         })
       } 
       if (name === "customSystemSearch") {
         this.props.updateCustomSystemSearch(value);
         this.setState({
-          customTitleSearch: ""
+          customTitleSearch: "",
+          customTagSearch: ""
+        })
+      }
+      if (name === "customTagSearch") {
+        this.props.updateCustomTagSearch(value);
+        this.setState({
+          customTitleSearch: "",
+          customSystemSearch: ""
         })
       }       
     });
@@ -63,7 +73,16 @@ export default class SortingDropdown extends React.Component {
             : this.props.sortOption }
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem style={styles.customSearch} toggle={false} >
+        <DropdownItem  toggle={false} >
+            <Field>
+              <Input 
+                name="customTagSearch"
+                value={this.state.customTagSearch}
+                onChange={this.typeCustomSearch} 
+                placeholder="Tag"/>
+            </Field>
+          </DropdownItem>
+          <DropdownItem  toggle={false} >
             <Field>
               <Input 
                 name="customTitleSearch"
@@ -72,7 +91,7 @@ export default class SortingDropdown extends React.Component {
                 placeholder="Title includes..."/>
             </Field>
           </DropdownItem>
-          <DropdownItem style={styles.customSearch} toggle={false} >
+          <DropdownItem  toggle={false} >
             <Field>
               <Input 
                 name="customSystemSearch"
