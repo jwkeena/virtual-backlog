@@ -10,7 +10,6 @@ import Tags from '../Tags';
 import API from '../../utils/API';
 import axios from 'axios';
 import './styles.css'
-// // return { init : init };
 
 const styles = {
     description: {

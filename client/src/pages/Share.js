@@ -47,6 +47,7 @@ class Games extends Component {
         this.updateSortOption = this.updateSortOption.bind(this);
         this.updateCustomTitleSearch = this.updateCustomTitleSearch.bind(this);
         this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
+        this.updateCustomTagSearch = this.updateCustomTagSearch.bind(this);
     }
 
     componentDidMount(){
@@ -113,6 +114,27 @@ class Games extends Component {
         const amount = sorted.length;
         this.setState({
             sortOption: "custom (system)",
+            gamesSorted: sorted,
+            amountOfGamesSorted: amount
+        });
+    }
+
+    
+    updateCustomTagSearch = (query) => {
+        if (query === "") {
+            this.setState({
+                sortOption: "system"
+            }, () => {
+                this.sortGames();
+            })
+        }
+        
+        let sorted = this.state.gamesLoaded;
+        sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1)
+
+        const amount = sorted.length;
+        this.setState({
+            sortOption: "custom (tag)",
             gamesSorted: sorted,
             amountOfGamesSorted: amount
         });
@@ -222,6 +244,19 @@ class Games extends Component {
         }
     }
 
+    handlePage1 = i => {
+        this.setState({page:1})
+    }
+    handlePage2 = i => {
+        this.setState({page:2})
+    }
+    handlePage3 = i => {
+        this.setState({page:3})
+    }
+    handlePage4 = i => {
+        this.setState({page:4})
+    }
+
     handlePageLeft = i => {
         if (this.state.page === 2){
             this.setState({page:1})
@@ -304,6 +339,10 @@ class Games extends Component {
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}
                     handleSwitchChange = {()=>this.handleSwitchChange()}
+                    handlePage1 = {()=>this.handlePage1()}
+                    handlePage2 = {()=>this.handlePage2()}
+                    handlePage3 = {()=>this.handlePage3()}
+                    handlePage4 = {()=>this.handlePage4()}
                     />)}
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </div>

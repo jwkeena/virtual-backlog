@@ -14,8 +14,8 @@ const styles = {
         top: "8px",
         marginRight: "10px"
     },
-    blue: {
-        color: "#007bff"
+    golden: {
+        color: "rgb(250,205,0)"
     },
     middle: {
         display: "flex",
@@ -74,23 +74,25 @@ class BarcodeScanController extends Component {
         return (
             <div>               
                 <FontAwesomeIcon 
+                    title="Search by barcode"
                     icon={faBarcode} 
                     inverse size="lg" 
                     onClick={() => this.clickHandler("barcode")} 
                     style={
                         (this.props.searchOption === "barcode" || this.props.searchOption === "barcode-searching") 
-                            ? Object.assign({}, styles.blue, styles.increaseMargins) 
+                            ? Object.assign({}, styles.golden, styles.increaseMargins) 
                             : styles.increaseMargins
                         }/>
 
                 <FontAwesomeIcon 
-                icon={faKeyboard} 
-                inverse size="lg" 
-                style={
-                    (this.props.searchOption === "text") 
-                        ? Object.assign({}, styles.blue, styles.increaseMargins) 
-                        : styles.increaseMargins} onClick={() => this.clickHandler("text")
-                    } />
+                    title="Search by game title"
+                    icon={faKeyboard} 
+                    inverse size="lg" 
+                    style={
+                        (this.props.searchOption === "text") 
+                            ? Object.assign({}, styles.golden, styles.increaseMargins) 
+                            : styles.increaseMargins} onClick={() => this.clickHandler("text")
+                        } />
 
                 {/* Barcode Modal */}
                 <Modal 

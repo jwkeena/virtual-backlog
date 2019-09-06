@@ -124,13 +124,13 @@ render() {
     <div className={classnames("visible", {
       "hidden": !this.state.visible
     })}>
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="secondary" variant="dark">
         
         <Nav className="mr-auto">
-          <Navbar.Brand className="mr-auto">{this.props.username}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
-          <Nav.Link href="/">home</Nav.Link>
-          <Nav.Link onClick={this.toggle}>share</Nav.Link>
-          <Nav.Link onClick={this.logout}>logout</Nav.Link>
+          <Navbar.Brand className="mr-auto text-warning pixel-font">{this.props.username}'s virtual backlog</Navbar.Brand>&nbsp;&nbsp;
+          <Nav.Link className="text-warning" href="/">home</Nav.Link>
+          <Nav.Link className="text-warning" onClick={this.toggle}>share</Nav.Link>
+          <Nav.Link className="text-warning" onClick={this.logout}>logout</Nav.Link>
         </Nav>
 
         <Nav className="ml-auto">

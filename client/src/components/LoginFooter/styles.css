@@ -1,6 +1,5 @@
 .jumbotron {
-  color: beige;
-  background-color: black !important;
+  background-color: rgb(108,117,125) !important;
 }
 
 h4, h5, .jumbotron h2 {
@@ -115,6 +114,7 @@ h5 {
   left: -165px;
   font-family: 'Press Start 2P', cursive;
   font-size: 15px;
+  color: rgb(108,117,125);
 }
 
 .cursor-down {
@@ -129,11 +129,12 @@ h5 {
   left: -165px;
   font-family: 'Press Start 2P', cursive;
   font-size: 15px !important;
+  color: rgb(108,117,125);
 }
 
 .newGame {
   font-family: 'Press Start 2P', cursive;
-  color: darkgoldenrod;
+  color:rgb(108,117,125);
   font-size: 13px !important;
 }
 
@@ -141,14 +142,14 @@ h5 {
   position: fixed;
   height: 225px;
   bottom: 40px;
-  right: 58%;
+  right: 57%;
 }
 
 .dave {
   position: fixed;
   height: 225px;
   bottom: 40px;
-  right: 30%;
+  right: 28%;
 }
 
 .pixel-shelf {
@@ -165,4 +166,8 @@ h5 {
 
 .container {
   position: relative;
+}
+
+label {
+  color: rgb(108,117,125);
 }

@@ -1,13 +1,6 @@
 import React from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Field, Input } from '@zendeskgarden/react-forms';
-
-const styles = {
-  customSearch: {
-    position: "relative",
-    right: "10px"
-  }
-}
 export default class SortingDropdown extends React.Component {
   constructor(props) {
     super(props);
@@ -63,7 +56,7 @@ export default class SortingDropdown extends React.Component {
   render() {
     return (
       <ButtonDropdown direction="up" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle caret>
+        <DropdownToggle className="text-warning" caret>
           sorted by {
             this.props.sortOption === "system_type" ? "system" 
             : this.props.sortOption === "is_beaten" ? "beaten" 

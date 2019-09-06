@@ -134,7 +134,6 @@ class Games extends Component {
         });
     }
 
-
     sortGames = () => {
         let sorted = this.state.gamesLoaded;
         const amountInCollection = sorted.filter(game => !game.wishlist).length;
@@ -207,7 +206,6 @@ class Games extends Component {
             setTimeout(() => {
                 this.setState({gameOpen:2})
             }, 500)
-        // this.setState.currentGame = 0;
         }
 
         // Taking this out of a setTimeout makes the cover open instantly
@@ -218,7 +216,6 @@ class Games extends Component {
     }
 
     handlePageRight = i => {
-        // console.log("clicked!")
         if (this.state.page === 1){
             this.setState({page:2})
         }
@@ -231,7 +228,6 @@ class Games extends Component {
     }
 
     handleClose = i => {
-        // console.log("clicked!")
          if (this.state.gameOpen === 3){
             this.setState({gameOpen:2})
 

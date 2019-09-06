@@ -37,7 +37,7 @@ render() {
     <div className={classnames("visible-bottom", {
       "hidden-bottom": !this.state.visible
     })}>
-      <Navbar bg="dark" variant="dark" style={{ maxWidth: "100%" }}>
+      <Navbar bg="secondary" variant="dark" style={{ maxWidth: "100%" }}>
         <Nav className="mr-auto">
             <SortingDropdown
               updateCustomTitleSearch={this.props.updateCustomTitleSearch}
@@ -46,7 +46,7 @@ render() {
               sortOption={this.props.sortOption}
               updateSortOption={this.props.updateSortOption}/>
         </Nav>
-        <Navbar.Brand className="ml-auto text-white">
+        <Navbar.Brand className="ml-auto text-warning">
             games on display: {this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}
         </Navbar.Brand>
       </Navbar>

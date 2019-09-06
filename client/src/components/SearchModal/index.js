@@ -239,7 +239,7 @@ class SearchModal extends Component {
             <Button 
               type="submit" 
               onClick={this.toggle} 
-              variant="outline-light">search
+              variant="outline-warning">search
             </Button>  
         </Form>
 

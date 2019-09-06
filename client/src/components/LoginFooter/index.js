@@ -12,11 +12,11 @@ class LoginFooter extends Component {
 render() {
 
   return (
-      <Navbar bg="dark" fixed="bottom" variant="dark">
-        <Nav className="mx-auto" style={styles.beige}>
+      <Navbar bg="secondary" fixed="bottom" variant="dark">
+        <Nav className="mx-auto text-warning" style={styles.beige}>
         &copy;&nbsp;
-        <a style={styles.beige} target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/justin-keena">Justin Keena</a>&nbsp;and&nbsp;
-        <a style={styles.beige} target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/david-banville-30713b1b/">David Banville</a>&nbsp; 
+        <a className="text-warning" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/justin-keena">Justin Keena</a>&nbsp;and&nbsp;
+        <a className="text-warning" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/david-banville-30713b1b/">David Banville</a>&nbsp; 
         </Nav>
       </Navbar>
       );
