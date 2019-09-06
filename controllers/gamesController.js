@@ -69,7 +69,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));
   },
-  updateTag: function(req, res) {
+  addNewTag: function(req, res) {
     console.log(req.body)
     console.log(req.params.id)
     db.Game

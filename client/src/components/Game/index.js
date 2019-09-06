@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import Tags from '../Tags';
 import API from '../../utils/API';
 import axios from 'axios';
 // import './styles.css'
@@ -26,7 +27,8 @@ class Game extends Component {
         editingNote: false,
         addingTag: false,
         note: "",
-        tag: ""
+        tag: "",
+        selectedTag: ""
     }
 
     updateGame = (event) => {
@@ -120,6 +122,12 @@ class Game extends Component {
         }
     }
 
+    switchToEditingNote = () => {
+        this.setState({
+            editingNote: true
+        })
+    }
+
     updateNote = () => {
         let usernameToVerify;
         if (this.props.sharingUser) {
@@ -133,26 +141,29 @@ class Game extends Component {
                 const loggedInUser = response.data
                 console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
-                    this.setState(prevState => ({
-                        editingNote: !prevState.editingNote,
-                        addingTag: false
-                    }), () => {
-                        console.log(this.state.note)
-                        if (!this.state.editingNote) {
-                            API.updateNote(this.props.id, {note: this.state.note})
-                                .then(res=> {
-                                    this.props.loadGames();
-                                })
-                                .catch(err => console.log(err));
-                        }
-                    })
+                    console.log(this.state.note)  
+                    API.updateNote(this.props.id, {note: this.state.note})
+                        .then(res=> {
+                            this.setState({
+                                editingNote: false
+                            })
+                            this.props.loadGames();
+                        })
+                        .catch(err => console.log(err));
+                    
                 } else {
                     alert("You are not authorized to make changes to another user's collection.");
                 }
             })
     }
 
-    updateTag = (event) => {
+    switchToAddingTag = () => {
+        this.setState({
+            addingTag: true
+        })
+    }
+
+    addNewTag = (event) => {
         event.preventDefault();
         let usernameToVerify;
         if (this.props.sharingUser) {
@@ -166,23 +177,23 @@ class Game extends Component {
                 const loggedInUser = response.data
                 console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
-                    this.setState(prevState => ({
-                        addingTag: !prevState.addingTag,
-                        editingNote: false
-                    }), () => {
-                        console.log(this.state.tag)
-                        if (!this.state.editingNote) {
-                            API.updateTag(this.props.id, {tag: this.state.tag})
-                                .then(res=> {
-                                    this.props.loadGames();
-                                })
-                                .catch(err => console.log(err));
-                        }
-                    })
+                    API.addNewTag(this.props.id, {tag: this.state.tag})
+                        .then(res => {
+                            console.log(res)
+                            this.props.loadGames();
+                            this.setState({
+                                addingTag: false
+                            })
+                        })
+                        .catch(err => console.log(err));
                 } else {
                     alert("You are not authorized to make changes to another user's collection.");
                 }
             })
+    }
+    
+    chooseTag = () => {
+        console.log("tag chosen")
     }
 
     render () {
@@ -282,7 +293,7 @@ class Game extends Component {
                             <Button 
                                 size="sm"
                                 onClick={this.updateNote} 
-                                variant="primary">Submit
+                                variant="primary">SUBMIT
                             </Button>
                         </div>
                         :
@@ -295,8 +306,8 @@ class Game extends Component {
                                     <br></br>
                                     <Button 
                                         size="sm"
-                                        onClick={this.updateNote} 
-                                        variant="primary">Add note
+                                        onClick={this.switchToEditingNote} 
+                                        variant="primary">ADD
                                     </Button>
                                 </div>
                                 : 
@@ -304,8 +315,8 @@ class Game extends Component {
                                     <br></br>
                                     <Button 
                                         size="sm"
-                                        onClick={this.updateNote} 
-                                        variant="primary">Update
+                                        onClick={this.switchToEditingNote} 
+                                        variant="primary">UPDATE
                                     </Button>
                                 </div>}
                         </div>
@@ -314,44 +325,42 @@ class Game extends Component {
                      <h5>Tags</h5>
                      {(this.state.addingTag) ? 
                          <div>
-                            <Form onSubmit={this.updateTag}>
+                            <Form onSubmit={(e) => e.preventDefault()}>
                                 <Field>
                                     <Input 
                                         value={this.state.tag}
                                         onChange={this.writeTag}>
                                     </Input>                 
                                 </Field>
+                                <br/><br/>
+                                <Button 
+                                    size="sm"
+                                    type="submit"
+                                    onClick={this.addNewTag}
+                                    variant="primary">SUBMIT
+                                </Button>
                             </Form>
-                            <br></br>
-                            <Button 
-                                size="sm"
-                                onClick={this.updateTag} 
-                                variant="primary">Submit
-                            </Button>
                         </div>
                         :
                         <div>
-                            <span style={styles.textarea}>{this.props.tags}</span>
                             
-                            {(this.props.tags.length === 0 || !this.props.tags) 
-                                ?  
-                                <div>
-                                    <br></br>
-                                    <Button 
-                                        size="sm"
-                                        onClick={this.updateTag} 
-                                        variant="primary">Add tag
-                                    </Button>
-                                </div>
-                                : 
-                                <div>
-                                    <br></br>
-                                    <Button 
-                                        size="sm"
-                                        onClick={this.updateTag} 
-                                        variant="primary">Add another tag
-                                    </Button>
-                                </div>}
+                            <span style={styles.textarea}>
+                                <Tags
+                                    selectedTag={this.state.selectedTag}
+                                    chooseTag={this.chooseTag}
+                                    tags={this.props.tags}
+                                    >
+                                </Tags>
+                            </span>
+
+                            <br/>
+                            
+                            <Button 
+                                size="sm"
+                                onClick={this.switchToAddingTag} 
+                                variant="primary">ADD
+                            </Button>
+                          
                         </div>
                     }
 
