@@ -24,7 +24,7 @@ export default {
     return axios.put("/api/games/note/" + id, newNote)
   },
 
-  updateTag: function(id, newTag) {
+  addNewTag: function(id, newTag) {
     return axios.put("/api/games/tag/" + id, newTag)
   },
   

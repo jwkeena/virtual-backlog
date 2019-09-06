@@ -21,6 +21,6 @@ router.route("/note/:id")
 
 // Matches with "api/games/tag/:id"
 router.route("/tag/:id")
-  .put(gamesController.updateTag)
+  .put(gamesController.addNewTag)
 
 module.exports = router;
