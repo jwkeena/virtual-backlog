@@ -5,8 +5,9 @@
 .shelf{
 	background-image: url(../Painting/bookshelf.jpg);
     background-repeat: repeat-y;
-    background-size:  600px 1300px;
-    background-position: 25vw -5px; 
+    background-size:  600px 1400px;
+	background-position: 28vw 0;
+	top: -5px;
 }
 
 
