@@ -183,7 +183,7 @@ body {
 	-webkit-transform: rotate3d(0, 1, 0, 90deg) translateX(-300px);
 	transform: rotate3d(0, 1, 0, 90deg) translateX(-300px);
 }
-.bk-list li .bk-game.bk-outside.bk-viewinside:hover {
+.bk-viewinside:hover {
 	transform: rotate3d(0,1,0,35deg);
 	
 }
