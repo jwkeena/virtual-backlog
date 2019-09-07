@@ -573,14 +573,14 @@ body {
 	border-style: solid;
 	border-width: 2px;
 }
-.\3DS h2 {
+[class =3DS] h2 {
 	background-color: white !important;
 	color: black !important;
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
-.\3DS h2 {
+[class =3DSE] h2 {
 	background-color: white !important;
 	color: black !important;
 	border-color:grey;
