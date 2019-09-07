@@ -425,7 +425,7 @@ body {
 	float: left;
 }
 
-.XONE h2 {
+.GXONE h2 {
 	color: black;
 	background-color: greenyellow !important;
 	border-color: black;
@@ -433,7 +433,7 @@ body {
 	border-width: 2px;
 }
 
-.X360 h2 {
+.GX360 h2 {
 	color: black !important;
 	background-color: greenyellow !important;
 	border-color: black;
@@ -441,7 +441,7 @@ body {
 	border-width: 2px;
 }
 
-.XBOX h2 {
+.GXBOX h2 {
 	color: black !important;
 	background-color: greenyellow !important;
 	border-color: black;
@@ -449,7 +449,7 @@ body {
 	border-width: 2px;
 }
 
-.PS1 h2 {
+.GPS1 h2 {
 	background-color: grey !important;
 	color: black !important;
 	border-color:black;
@@ -457,54 +457,54 @@ body {
 	border-width: 2px;
 }
 
-.PS4 {
+.GPS4 {
 	background-color: blue !important;
 	border-color: black;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.PS3 {
+.GPS3 {
 	background-color: black !important;
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.PS2 {
+.GPS2 {
 	background-color: black !important;
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.Mac{
+.GMac{
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
-.PC {
+.GPC {
 	background-color: slategray !important;
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.NES h2 {
+.GNES h2 {
 	color: red !important;
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.SNES h2 {
+.GSNES h2 {
 	color: red !important;
 	border-color:grey;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.N64 h2 {
+.GN64 h2 {
 	background-color: #ebee2d !important;
 	color: blue;
 	border-color: red;
@@ -513,14 +513,14 @@ body {
 	
 }
 
-.GCN {
+.GGCN {
 	background-color: #8873bc !important;
 	border-color: black;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.Wii h2 {
+.GWii h2 {
 	background-color: white !important;
 	color: black !important;
 	border-color: black;
@@ -528,7 +528,7 @@ body {
 	border-width: 2px;
 }
 
-.WiiU {
+.GWiiU {
 	background-color: #2ba4c8 !important;
 	border-color: black;
 	border-style: solid;
@@ -542,7 +542,7 @@ body {
 	border-width: 2px;
 }
 
-.GGB h2 {
+.GGGB h2 {
 	background-color: darkgray !important;
 	color: #2ba4c8 !important;
 	border-color: black;
@@ -550,7 +550,7 @@ body {
 	border-width: 2px;
 }
 
-.GBC h2 {
+.GGBC h2 {
 	background-color: darkgray !important;
 	color: #2ba4c8 !important;
 	border-color: black;
@@ -558,7 +558,7 @@ body {
 	border-width: 2px;
 }
 
-.GBA h2 {
+.GGBA h2 {
 	color: #8873bc;
 	background-color: darkgray !important;
 	border-color: black;
@@ -566,7 +566,7 @@ body {
 	border-width: 2px;
 }
 
-.DS h2 {
+.GDS h2 {
 	background-color: white !important;
 	color: black !important;
 	border-color:grey;
@@ -588,7 +588,7 @@ body {
 	border-width: 2px;
 }
 
-.GG h2 {
+.GGG h2 {
 	background-color: rgba(230, 115, 230, 0.637) !important;
 	color: yellow !important;
 	border-color: black;
@@ -596,14 +596,14 @@ body {
 	border-width: 2px;
 }
 
-.VBOY h2 {
+.GVBOY h2 {
 	color: red !important;
 	border-color: red;
 	border-style: solid;
 	border-width: 2px;
 }
 
-.z-index0 {
+.Gz-index0 {
 
 	z-index: 0;
 }
