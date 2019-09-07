@@ -188,7 +188,7 @@ body {
 	
 }
 
-.bk-list li .bk-game.bk-outside.bk-viewback {
+.bk-list li .bk-game.bk-outside.bk-viewinside {
 	-webkit-transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
 	transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
 }
