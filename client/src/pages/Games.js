@@ -215,10 +215,7 @@ class Games extends Component {
     handleClick = i => {
         const openBook = this.state.currentGame;
         const clickedBook = i;
-
-        console.log("openbook", openBook + " " + "clickedbook", clickedBook)
         let clickedArray = this.state.clicked.slice(0);
-        console.log(clickedArray)
 
         if (openBook === -1) {
             this.setState({
@@ -241,7 +238,6 @@ class Games extends Component {
             }
             })
         } else if (clickedBook === openBook) {
-            console.log("book clicked is the same as the book already open")
             let clickedArray = this.state.clicked.slice(0);
             
             if (this.state.gameOpen === 0){
@@ -252,15 +248,10 @@ class Games extends Component {
                 setTimeout(() => {
                     this.setState({gameOpen:2})
                 }, 500)
-            }
-    
-            // Taking this out of a setTimeout makes the cover open instantly
-            else if (this.state.gameOpen === 2){
+            } else if (this.state.gameOpen === 2){
                 this.setState({gameOpen:3})
             }
         } else {
-            console.log("opening different book");
-
             // Close currently open game first
             this.setState({gameOpen:2})
             setTimeout(() => {
@@ -304,7 +295,6 @@ class Games extends Component {
     }
 
     handleClose = i => {
-        console.log("closing book index number " + i)
          if (this.state.gameOpen === 3 || this.state.gameOpen === 2){
             this.setState({gameOpen:2})
 
