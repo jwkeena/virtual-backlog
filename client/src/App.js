@@ -66,7 +66,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
 
               {/* Allows users to show off their collections without being logged in as that user */}
-              <Route exact path="/:handle" component={Share} />
+              <Route exact path="/users/:handle" component={Share} />
 
               <Route component={NoMatch} />
               

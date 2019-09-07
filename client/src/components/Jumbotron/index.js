@@ -12,13 +12,10 @@ const styles = {
 
 const JumbotronTop = () => {
   return (
-    <div>
-      <Jumbotron>
-          <h2 className="text-center text-warning">Virtual Backlog</h2>
-          <p className="lead text-center text-warning">powered by the&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://www.giantbomb.com/"><img style={styles.giantbomblogo} alt="Giant Bomb Logo" src={giantbomblogo}/></a>&nbsp;api</p>
-      </Jumbotron>
-
-    </div>
+    <Jumbotron>
+        <h2 className="text-center text-warning">Virtual Backlog</h2>
+        <p className="lead text-center text-warning">powered by the&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://www.giantbomb.com/"><img style={styles.giantbomblogo} alt="Giant Bomb Logo" src={giantbomblogo}/></a>&nbsp;api</p>
+    </Jumbotron>
   );
 };
 

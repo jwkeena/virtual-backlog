@@ -27,7 +27,7 @@ class FixedNavbar extends Component {
       prevScrollpos: window.pageYOffset,
       visible: true,
       shareModal: false,
-      customLink: "https://virtualbacklog.herokuapp.com/" + this.props.username,
+      customLink: "https://virtualbacklog.herokuapp.com/users/" + this.props.username,
       backdrop: true,
       loggedIn: this.props.loggedIn,
       redirectTo: null,
@@ -164,12 +164,13 @@ render() {
           className={this.props.className} 
           backdrop={this.state.backdrop}>
 
-            <ModalHeader toggle={this.toggle}>
+            <ModalHeader toggle={this.toggle}  className="text-warning" style={{backgroundColor: "#7c8d9c"}}>
             </ModalHeader>
 
-            <ModalBody>
+            <ModalBody style={{backgroundColor: "beige"}}>
               <div style={styles.middle}>
-                  <h5>your custom link is: <a href={this.state.customLink}>{this.state.customLink}</a></h5><br/>
+                  <h5>your custom link is:</h5><br/>
+                  <h5><a href={this.state.customLink}>{this.state.customLink}</a></h5><br/>
                 <ShareButtons customLink={this.state.customLink}/>
               </div>
             </ModalBody>
