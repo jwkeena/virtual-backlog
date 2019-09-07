@@ -41,7 +41,7 @@ class Games extends Component {
             switch1: true,
             switch2: false,
             transform: false,
-            vanish: 0
+            vanish: 312
         }
         this.loadGames = this.loadGames.bind(this);
         this.updateSortOption = this.updateSortOption.bind(this);

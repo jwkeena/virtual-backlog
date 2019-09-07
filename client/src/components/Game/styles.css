@@ -18,8 +18,8 @@ body {
 	margin: 0 auto;
 	-webkit-perspective: 1800px;
 	perspective: 1800px;
-	-webkit-perspective-origin: 50% 15%;
-	perspective-origin: 50% 15%;
+	-webkit-perspective-origin: 50% 20%;
+	perspective-origin: 50% 20%;
 	margin-left: 30vw;
 	
 }
@@ -370,6 +370,9 @@ body {
 	font-size: 15px;
 	line-height: 40px;
 	text-align: center;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .bk-back img {
