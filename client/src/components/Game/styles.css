@@ -183,12 +183,12 @@ body {
 	-webkit-transform: rotate3d(0, 1, 0, 90deg) translateX(-300px);
 	transform: rotate3d(0, 1, 0, 90deg) translateX(-300px);
 }
-.bk-list li .bk-game.bk-viewinside:hover {
+.bk-list li .bk-game.bk-outside.bk-viewinside:hover {
 	transform: rotate3d(0,1,0,35deg);
 	
 }
 
-.bk-list li .bk-game.bk-outside.bk-viewinside {
+.bk-list li .bk-game.bk-viewback{
 	-webkit-transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
 	transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
 }
