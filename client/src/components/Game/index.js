@@ -235,7 +235,7 @@ class Game extends Component {
         
             <div className='bk-front'>
                 <div className='bk-cover-back' style={{backgroundImage: 'url('+ this.props.box_art +')'}}></div>
-                <div className={('bk-cover '+ this.props.system_type )} style={{backgroundImage: 'url('+ this.props.box_art +')'}}>
+                <div className={('bk-cover G'+ this.props.system_type )} style={{backgroundImage: 'url('+ this.props.box_art +')'}}>
                     <h2><span>  {this.props.title}  </span> <span> {this.props.system_type} </span></h2>   
                 </div>
             </div>
@@ -451,7 +451,7 @@ class Game extends Component {
 
             <div className='bk-right'></div>
 
-            <div className={('bk-left ' + this.props.system_type)}>
+            <div className={('bk-left G' + this.props.system_type)}>
                 <h2><span>{this.props.title}</span><span>{this.props.system_type}</span></h2>
             </div>
 
