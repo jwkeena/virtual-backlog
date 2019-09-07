@@ -212,24 +212,83 @@ class Games extends Component {
         this.setState({vanish:vanishingPoint})
         }
     
-    handleClick = i =>{
-        let clickedArray = this.state.clicked.slice(0)
-        
-        if (this.state.gameOpen === 0){
-        this.setState({zIndex: 1})
-        clickedArray[i] = !clickedArray[i]
-        this.setState({clicked:clickedArray})
-            this.setState({gameOpen:1})
-            setTimeout(() => {
-                this.setState({gameOpen:2})
-            }, 500)
-        }
+    handleClick = i => {
+        const openBook = this.state.currentGame;
+        const clickedBook = i;
 
-        // Taking this out of a setTimeout makes the cover open instantly
-        else if (this.state.gameOpen === 2){
-            this.setState({gameOpen:3})
-        }
-       
+        console.log("openbook", openBook + " " + "clickedbook", clickedBook)
+        let clickedArray = this.state.clicked.slice(0);
+        console.log(clickedArray)
+
+        if (openBook === -1) {
+            this.setState({
+                currentGame: clickedBook
+            }, () => {
+            
+                if (this.state.gameOpen === 0){
+                this.setState({zIndex: 1})
+                clickedArray[i] = !clickedArray[i]
+                this.setState({clicked:clickedArray})
+                    this.setState({gameOpen:1})
+                    setTimeout(() => {
+                        this.setState({gameOpen:2})
+                    }, 500)
+                }
+
+                 // Taking this out of a setTimeout makes the cover open instantly
+                else if (this.state.gameOpen === 2){
+                this.setState({gameOpen:3})
+            }
+            })
+        } else if (clickedBook === openBook) {
+            console.log("book clicked is the same as the book already open")
+            let clickedArray = this.state.clicked.slice(0);
+            
+            if (this.state.gameOpen === 0){
+            this.setState({zIndex: 1})
+            clickedArray[i] = !clickedArray[i]
+            this.setState({clicked:clickedArray})
+                this.setState({gameOpen:1})
+                setTimeout(() => {
+                    this.setState({gameOpen:2})
+                }, 500)
+            }
+    
+            // Taking this out of a setTimeout makes the cover open instantly
+            else if (this.state.gameOpen === 2){
+                this.setState({gameOpen:3})
+            }
+        } else {
+            console.log("opening different book");
+
+            // Close currently open game first
+            this.setState({gameOpen:2})
+            setTimeout(() => {
+            this.setState({gameOpen:1})
+            }, 300)
+            setTimeout(() => {
+            this.setState({
+                gameOpen:0,
+                clicked:[],
+                zIndex: 0,
+                page:1,
+                currentGame: clickedBook // Sets the new book to be opened
+            })}, 800)
+
+            // Then open new book
+            setTimeout(() => {
+                let clickedArray = this.state.clicked.slice(0);
+        
+                if (this.state.gameOpen === 0){
+                this.setState({zIndex: 1})
+                clickedArray[i] = !clickedArray[i]
+                this.setState({clicked:clickedArray})
+                    this.setState({gameOpen:1})
+                    setTimeout(() => {
+                        this.setState({gameOpen:2})
+                    }, 500)
+                }}, 850)
+        }    
     }
 
     handlePageRight = i => {
@@ -245,7 +304,8 @@ class Games extends Component {
     }
 
     handleClose = i => {
-         if (this.state.gameOpen === 3){
+        console.log("closing book index number " + i)
+         if (this.state.gameOpen === 3 || this.state.gameOpen === 2){
             this.setState({gameOpen:2})
 
             setTimeout(() => {
@@ -357,7 +417,7 @@ class Games extends Component {
                     clicked = {this.state.clicked[i]}
                     zCounter = {negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC -- }
                     negativeC = {negativeC}
-                    handleClick = { () => this.handleClick(i)}
+                    handleClick = {() => this.handleClick(i)}
                     handlePageLeft = {()=>this.handlePageLeft(i)}
                     handleClose = {() => this.handleClose(i)}
                     handlePageRight = {()=>this.handlePageRight(i)}
