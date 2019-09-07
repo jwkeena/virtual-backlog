@@ -18,8 +18,8 @@ body {
 	margin: 0 auto;
 	-webkit-perspective: 1800px;
 	perspective: 1800px;
-	-webkit-perspective-origin: 50% 15%;
-	perspective-origin: 50% 15%;
+	-webkit-perspective-origin: 50% 20%;
+	perspective-origin: 50% 20%;
 	margin-left: 30vw;
 	
 }
