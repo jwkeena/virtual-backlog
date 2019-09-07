@@ -42,7 +42,7 @@ class Games extends Component {
             switch1: true,
             switch2: false,
             transform: false,
-            vanish: 0
+            vanish: 312
         }
         this.loadGames = this.loadGames.bind(this);
         this.updateSortOption = this.updateSortOption.bind(this);
@@ -147,7 +147,6 @@ class Games extends Component {
         for (let i=0; i<this.state.gamesLoaded.length; i++) {
             const gameTags = this.state.gamesLoaded[i].tags
             for (let j=0; j < gameTags.length; j++) {
-                console.log(gameTags[j])
                 if (!list.includes(gameTags[j])) {
                     list.push(gameTags[j])
                 }
@@ -219,23 +218,75 @@ class Games extends Component {
         this.setState({vanish:vanishingPoint})
         }
     
-    handleClick = i =>{
-        let clickedArray = this.state.clicked.slice(0)
-        
-        if (this.state.gameOpen === 0){
-        this.setState({zIndex: 1})
-        clickedArray[i] = !clickedArray[i]
-        this.setState({clicked:clickedArray})
-            this.setState({gameOpen:1})
-            setTimeout(() => {
+        handleClick = i => {
+            const openBook = this.state.currentGame;
+            const clickedBook = i;
+            let clickedArray = this.state.clicked.slice(0);
+    
+            if (openBook === -1) {
+                this.setState({
+                    currentGame: clickedBook
+                }, () => {
+                
+                    if (this.state.gameOpen === 0){
+                    this.setState({zIndex: 1})
+                    clickedArray[i] = !clickedArray[i]
+                    this.setState({clicked:clickedArray})
+                        this.setState({gameOpen:1})
+                        setTimeout(() => {
+                            this.setState({gameOpen:2})
+                        }, 500)
+                    }
+    
+                     // Taking this out of a setTimeout makes the cover open instantly
+                    else if (this.state.gameOpen === 2){
+                    this.setState({gameOpen:3})
+                }
+                })
+            } else if (clickedBook === openBook) {
+                let clickedArray = this.state.clicked.slice(0);
+                
+                if (this.state.gameOpen === 0){
+                this.setState({zIndex: 1})
+                clickedArray[i] = !clickedArray[i]
+                this.setState({clicked:clickedArray})
+                    this.setState({gameOpen:1})
+                    setTimeout(() => {
+                        this.setState({gameOpen:2})
+                    }, 500)
+                } else if (this.state.gameOpen === 2){
+                    this.setState({gameOpen:3})
+                }
+            } else {
+                // Close currently open game first
                 this.setState({gameOpen:2})
-            }, 500)
+                setTimeout(() => {
+                this.setState({gameOpen:1})
+                }, 300)
+                setTimeout(() => {
+                this.setState({
+                    gameOpen:0,
+                    clicked:[],
+                    zIndex: 0,
+                    page:1,
+                    currentGame: clickedBook // Sets the new book to be opened
+                })}, 800)
+    
+                // Then open new book
+                setTimeout(() => {
+                    let clickedArray = this.state.clicked.slice(0);
+            
+                    if (this.state.gameOpen === 0){
+                    this.setState({zIndex: 1})
+                    clickedArray[i] = !clickedArray[i]
+                    this.setState({clicked:clickedArray})
+                        this.setState({gameOpen:1})
+                        setTimeout(() => {
+                            this.setState({gameOpen:2})
+                        }, 500)
+                    }}, 850)
+            }    
         }
-
-        else if (this.state.gameOpen === 2){
-            this.setState({gameOpen:3})
-        }
-    }
 
     handlePageRight = i => {
         if (this.state.page === 1){
