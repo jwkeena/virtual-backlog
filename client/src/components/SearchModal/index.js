@@ -281,7 +281,7 @@ class SearchModal extends Component {
                         </SearchResults>
                       </Table>
                     : 
-                      <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
+                      <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
                   }
             <hr/>
 

@@ -181,7 +181,7 @@ class Game extends Component {
                 const loggedInUser = response.data
                 console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
-                    API.addNewTag(this.props.id, {tag: this.state.tag})
+                    API.addNewTag(this.props.id, {tag: this.state.tag.toLowerCase()})
                         .then(res => {
                             console.log(res)
                             this.props.loadGames();
