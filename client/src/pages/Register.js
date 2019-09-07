@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { MDBRow, MDBCol } from 'mdbreact';
+import { Button } from "react-bootstrap";
 import API from "../utils/API";
 import { Redirect } from 'react-router-dom';
 import Jumbotron from "../components/Jumbotron";
@@ -97,12 +98,11 @@ class Register extends Component {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
             return (
-                <MDBContainer fluid>
+                <div>
                     <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>
                     <MDBRow className="justify-content-center">
                         <MDBCol md="6">
                         <form>
-                            <p className="h4 text-center mb-4">Sign up</p>
                             <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                             Username
                             </label>
@@ -113,6 +113,7 @@ class Register extends Component {
                             type="text"
                             id="defaultFormRegisterNameEx"
                             className="form-control"
+                            autoComplete="off"
                             />
                             <br />
                             <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
@@ -125,6 +126,7 @@ class Register extends Component {
                             type="email"
                             id="defaultFormRegisterEmailEx"
                             className="form-control"
+                            autoComplete="off"
                             />
                             <br />
                             <label
@@ -140,6 +142,7 @@ class Register extends Component {
                             type="email"
                             id="defaultFormRegisterConfirmEx"
                             className="form-control"
+                            autoComplete="off"
                             />
                             <br />
                             <label
@@ -155,6 +158,7 @@ class Register extends Component {
                             type="password"
                             id="defaultFormRegisterPasswordEx"
                             className="form-control"
+                            autoComplete="off"
                             />
                             <br/>
                             <label
@@ -170,20 +174,21 @@ class Register extends Component {
                             type="password"
                             id="defaultFormRegisterPasswordEx2"
                             className="form-control"
+                            autoComplete="off"
                             />
                             <div className="text-center mt-4">
-                            <MDBBtn onClick={this.handleFormSubmit} color="unique" type="submit">
+                            <Button onClick={this.handleFormSubmit} variant="secondary" type="submit" className="pixel-font text-warning">
                                 Register
-                            </MDBBtn>
+                            </Button>
                             </div>
                         </form>
                         <br></br>
-                        <Link className="text-center" to={"/"}>
-                            <p>Back to home</p>
+                        <Link className="text-center text-secondary" to={"/"}>
+                            <p>back</p>
                         </Link>
                         </MDBCol>
                     </MDBRow>
-                </MDBContainer>
+                </div>
             )
         }
     }
