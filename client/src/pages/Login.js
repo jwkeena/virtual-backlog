@@ -11,7 +11,6 @@ import '../components/LoginFooter/styles.css';
 import Pointer from '../components/Painting/Cursor.png';
 import Justin from '../components/Painting/Justin.gif';
 import Dave from '../components/Painting/Dave.gif';
-import { Helmet } from 'react-helmet';
 class Login extends Component {
 
     state = {
@@ -98,12 +97,6 @@ class Login extends Component {
             } else {
               return (
             <div>
-
-                <div className="application">
-                    <Helmet>
-                       <body style="background-color: beige !important"></body>
-                    </Helmet>
-                </div>
 
                 <Jumbotron/>
                 <br/>

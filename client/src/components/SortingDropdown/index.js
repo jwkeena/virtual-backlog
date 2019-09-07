@@ -2,7 +2,6 @@ import React from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Field, Input } from '@zendeskgarden/react-forms';
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
-import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 export default class SortingDropdown extends React.Component {
   constructor(props) {
     super(props);

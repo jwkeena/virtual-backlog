@@ -182,7 +182,7 @@ class SearchModal extends Component {
     }
     let tags = [];
     if (this.state.tags !== "") {
-      tags = this.state.tags.split(" ");
+      tags = this.state.tags.split(" ").toLowerCase();
     }
     const saved = this.state.gameChosenFromSearch;
     const newGame = {
