@@ -317,6 +317,7 @@ class Games extends Component {
         <br/>
         <br/>
         <br/>
+        <br/>
         
             {(this.state.gamesSorted) ? 
             
@@ -369,7 +370,7 @@ class Games extends Component {
                     
                     {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </div>
-            </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>
+            </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
             }   {/* <-- remove this bracket when loading from gameSeed */}
             </MDBContainer> 
             <Statistics

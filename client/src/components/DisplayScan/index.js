@@ -39,7 +39,7 @@ class DisplayScan extends Component {
                 {this.state.scanning 
                     ? 
                         <Scanner onDetected={(result) => this.submitSearch(result.codeResult.code)} /> 
-                    :   <div style={styles.middle} ><Spinner size='lg'color="primary" /></div>}
+                    :   <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>}
             </div>
         )
     }
