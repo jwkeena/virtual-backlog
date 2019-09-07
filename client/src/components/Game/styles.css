@@ -370,9 +370,7 @@ body {
 	font-size: 15px;
 	line-height: 40px;
 	text-align: center;
-	border-color:grey;
-	border-style: solid;
-	border-width: 2px;
+	
 }
 
 .bk-back img {
@@ -450,6 +448,9 @@ body {
 .PS1 h2 {
 	background-color: grey !important;
 	color: black !important;
+	border-color:black;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .PS4 {
@@ -461,22 +462,42 @@ body {
 
 .PS3 {
 	background-color: black !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .PS2 {
 	background-color: black !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
+.Mac{
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
+}
 .PC {
 	background-color: slategray !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .NES h2 {
 	color: red !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .SNES h2 {
 	color: red !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .N64 h2 {
@@ -541,9 +562,26 @@ body {
 	border-width: 2px;
 }
 
-.N3DS h2 {
+.DS h2 {
 	background-color: white !important;
 	color: black !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
+}
+.\3DS h2 {
+	background-color: white !important;
+	color: black !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
+}
+.\3DSE h2 {
+	background-color: white !important;
+	color: black !important;
+	border-color:grey;
+	border-style: solid;
+	border-width: 2px;
 }
 
 .GG h2 {
