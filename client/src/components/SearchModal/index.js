@@ -264,7 +264,6 @@ class SearchModal extends Component {
           autoFocus={true} 
           isOpen={this.state.textSearchModal} 
           toggle={this.toggle} 
-          className={this.props.className} 
           backdrop={this.state.backdrop}>
 
           <ModalHeader toggle={this.toggle} className="text-warning" style={{backgroundColor: "#7c8d9c"}}>

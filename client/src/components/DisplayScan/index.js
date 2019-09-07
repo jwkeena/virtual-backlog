@@ -21,7 +21,6 @@ class DisplayScan extends Component {
     }
 
     toggleScanning = () => {
-        console.log("toggling")
         this.setState(prevState => ({
             scanning: !prevState.scanning
         })

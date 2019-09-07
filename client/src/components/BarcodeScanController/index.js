@@ -101,12 +101,11 @@ class BarcodeScanController extends Component {
                     autoFocus={true} 
                     isOpen={this.state.barcodeScanModal} 
                     toggle={this.toggle} 
-                    className={this.props.className} 
                     backdrop={this.state.backdrop}>
-                <ModalHeader toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle} className="text-warning" style={{backgroundColor: "#7c8d9c"}}>
                     Searching by barcode...
                 </ModalHeader>
-                <ModalBody>
+                <ModalBody style={{backgroundColor: "beige"}}>
                 
                     {(this.props.manualSearch) 
                         ? <ManualSearch 
@@ -118,21 +117,21 @@ class BarcodeScanController extends Component {
                     }
                    
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter style={{backgroundColor: "#7c8d9c"}}>
                     {(this.props.manualSearch) 
                         ? <Button 
-                            variant="secondary" 
-                            size="sm" 
+                            variant="warning" 
+                            size="lg" 
                             onClick={this.props.updateManualSearch}
                             block>
-                            back to scanner
+                            <span style={{color: "#7c8d9c"}}>back to scanner</span>
                           </Button>
                         : <Button 
-                            variant="primary" 
+                            variant="warning" 
                             size="lg"
                             onClick={this.props.updateManualSearch}
                             block>
-                            enter barcode manually
+                            <span style={{color: "#7c8d9c"}}>enter barcode manually</span>
                           </Button>
                     }
                 </ModalFooter>

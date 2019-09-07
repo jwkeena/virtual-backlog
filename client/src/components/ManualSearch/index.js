@@ -47,11 +47,11 @@ class ManualSearch extends Component {
                         />
                     <br></br><br></br>
                     <Button 
-                        variant="primary" 
+                        variant="secondary" 
                         size="lg"
                         type="submit"
                         block>
-                        search
+                        <span className="text-warning">search</span>
                     </Button>
                 </Field>
             </form>
