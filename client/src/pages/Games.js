@@ -104,6 +104,8 @@ class Games extends Component {
         let sorted = this.state.gamesLoaded;
         const amountInCollection = sorted.filter(game => !game.wishlist).length;
         switch (this.state.sortOption) {
+            
+            // Only the custom searches use the query parameter
             case "custom (tag)": 
                 if (query === "" || query === " ") {
                     return;
@@ -122,6 +124,7 @@ class Games extends Component {
                 }
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
+
             case "system_type":
                 sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) 
                     ? 1 
@@ -161,8 +164,6 @@ class Games extends Component {
             case "favorite":
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.favorite).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
-            default: 
-                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Same as first option
         }
         
         const amount = sorted.length;

@@ -452,7 +452,7 @@ class Game extends Component {
             <div className='bk-right'></div>
 
             <div className={('bk-left G' + this.props.system_type)}>
-                <h2><span>{this.props.title}</span><span>{this.props.system_type}</span></h2>
+                <h2><span>{(this.props.title.length < 40) ? this.props.title : this.props.title.slice(0, 40) + "..."}</span><span>{this.props.system_type}</span></h2>
             </div>
 
             <div className='bk-top'></div>
