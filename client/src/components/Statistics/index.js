@@ -6,37 +6,37 @@ import classnames from "classnames";
 import '../FixedNavbar/styles.css';
 class Statistics extends Component {
 
-state = {
-    prevScrollpos: window.pageYOffset,
-    visible: true
-}
+// state = {
+//     prevScrollpos: window.pageYOffset,
+//     visible: true
+// }
 
-componentDidMount() {
-  window.addEventListener("scroll", this.handleScroll);
-}
+// componentDidMount() {
+//   window.addEventListener("scroll", this.handleScroll);
+// }
 
-componentWillUnmount() {
-  window.removeEventListener("scroll", this.handleScroll);
-}
+// componentWillUnmount() {
+//   window.removeEventListener("scroll", this.handleScroll);
+// }
 
-handleScroll = () => {
-  const { prevScrollpos } = this.state;
+// handleScroll = () => {
+//   const { prevScrollpos } = this.state;
 
-  const currentScrollPos = window.pageYOffset;
-  const visible = prevScrollpos > currentScrollPos;
+//   const currentScrollPos = window.pageYOffset;
+//   const visible = prevScrollpos > currentScrollPos;
 
-  this.setState({
-    prevScrollpos: currentScrollPos,
-    visible
-  });
-};
+//   this.setState({
+//     prevScrollpos: currentScrollPos,
+//     visible
+//   });
+// };
 
 render() {
 
   return (
-    <div className={classnames("visible-bottom", {
-      "hidden-bottom": !this.state.visible
-    })}>
+    // <div className={classnames("visible-bottom", {
+    //   "hidden-bottom": !this.state.visible
+    // })}>
       <Navbar bg="secondary" variant="dark" style={{ maxWidth: "100%" }}>
         <Nav className="mr-auto">
             <SortingDropdown
@@ -51,7 +51,7 @@ render() {
             <span style={{color: "rgb(198,192,182)"}}>games on display:</span> <span className="text-warning">{this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}</span>
         </Navbar.Brand>
       </Navbar>
-    </div>
+    // </div>
     );
   }
 }

@@ -24,8 +24,8 @@ class FixedNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prevScrollpos: window.pageYOffset,
-      visible: true,
+      // prevScrollpos: window.pageYOffset,
+      // visible: true,
       shareModal: false,
       customLink: "https://virtualbacklog.herokuapp.com/users/" + this.props.username,
       backdrop: true,
@@ -39,25 +39,25 @@ class FixedNavbar extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
-componentDidMount() {
-  window.addEventListener("scroll", this.handleScroll);
-}
+// componentDidMount() {
+//   window.addEventListener("scroll", this.handleScroll);
+// }
 
-componentWillUnmount() {
-  window.removeEventListener("scroll", this.handleScroll);
-}
+// componentWillUnmount() {
+//   window.removeEventListener("scroll", this.handleScroll);
+// }
 
-handleScroll = () => {
-  const { prevScrollpos } = this.state;
+// handleScroll = () => {
+//   const { prevScrollpos } = this.state;
 
-  const currentScrollPos = window.pageYOffset;
-  const visible = prevScrollpos > currentScrollPos;
+//   const currentScrollPos = window.pageYOffset;
+//   const visible = prevScrollpos > currentScrollPos;
 
-  this.setState({
-    prevScrollpos: currentScrollPos,
-    visible
-  });
-};
+//   this.setState({
+//     prevScrollpos: currentScrollPos,
+//     visible
+//   });
+// };
 
 toggle() {
     this.setState(prevState => ({
@@ -121,9 +121,9 @@ render() {
     )
   } else {
   return (
-    <div className={classnames("visible", {
-      "hidden": !this.state.visible
-    })}>
+    // <div className={classnames("visible", {
+    //   "hidden": !this.state.visible
+    // })}>
       <Navbar bg="secondary" variant="dark">
         
         <Nav className="mr-auto">
@@ -176,7 +176,7 @@ render() {
             </ModalBody>
 
         </Modal>
-    </div>
+    // </div>
       );
     }
   }
