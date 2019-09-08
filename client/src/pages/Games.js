@@ -10,22 +10,21 @@ import Statistics from '../components/Statistics';
 
 const styles = {
   middle: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center"
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
   }
 }
 class Games extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            sortOption: "system_type",
+            sortOption: "favorite",
             customSearch: "",
             gamesSorted: null,
             amountOfGamesSorted: 0,
-            amountOfGamesInCollection: null,
+            amountOfGamesInCollection: 0,
             gameSeed: gameSeed,
             gamesLoaded: null,
             allTags: [],
@@ -125,6 +124,7 @@ class Games extends Component {
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
 
+            // Non-custom searches
             case "system_type":
                 sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) 
                     ? 1 
@@ -338,9 +338,14 @@ class Games extends Component {
         <br/>
         
             {(this.state.gamesSorted) ? 
+
+            (this.state.gamesSorted.length > 0 ) ? 
             
             <MDBRow>
-                <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
+                <div 
+                    className='bk-list' 
+                    style={{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
+                    
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
                     sharing = {false}
@@ -385,11 +390,12 @@ class Games extends Component {
                     handlePage3 = {()=>this.handlePage3()}
                     handlePage4 = {()=>this.handlePage4()}
                     />)}
-                    
-                    {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </div>
-            </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
-            }   {/* <-- remove this bracket when loading from gameSeed */}
+            </MDBRow>
+            : <div style={styles.middle}><span className="pixel-font-large text-secondary">No matching games.</span></div>  
+            : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
+            } 
+             
             <br/>
             <br/>
             <br/>

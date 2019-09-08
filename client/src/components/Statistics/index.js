@@ -16,7 +16,15 @@ render() {
               updateSortOption={this.props.updateSortOption}/>
         </Nav>
         <Navbar.Brand className="ml-auto">
-            <span style={{color: "rgb(198,192,182)"}}>games on display:</span> <span className="text-warning">{this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}</span>
+            <span style={{color: "rgb(198,192,182)"}}>games on display: </span> 
+
+              {(this.props.amountOfGamesSorted === 0) 
+                ? <span className="text-warning">0</span>
+                : <span 
+                  className="text-warning">
+                  {this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}
+                </span>
+              }
         </Navbar.Brand>
       </Navbar>
     );

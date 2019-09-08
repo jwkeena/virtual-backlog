@@ -1,13 +1,5 @@
-
-
-
-
 body {
 	background-image: url(../Painting/wood.jpg);
-    /* background-repeat: repeat-y;
-    background-size:  600px 1400px;
-	background-position: 28vw 0;
-	top: -5px; */
 }
 
 .bk-list {
@@ -688,3 +680,8 @@ body {
 	background: black;
   	padding: 1px 8px;
 }
+
+.pixel-font-large {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 25px !important;
+  }
