@@ -123,6 +123,12 @@ class Games extends Component {
                 }
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
+            case "custom (year)": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => (game.year_released === parseInt(query))).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
+                break;
 
             // Non-custom searches
             case "system_type":
@@ -133,9 +139,6 @@ class Games extends Component {
                     ? 1 
                     : -1) 
                     : -1 ); // Filter non-wishlist, sort by system, then alphabetically
-                break;
-            case "title":
-                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.title > b.title) ? 1 : -1 ) // Sort by title only
                 break;
             case "is_beaten":
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
@@ -154,9 +157,6 @@ class Games extends Component {
                 break;
             case "now_playing":
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.now_playing).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
-                break;
-            case "year_released":
-                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.year_released > b.year_released) ? 1 : -1 ) // Sort by title only
                 break;
             case "cib":
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).filter(game => game.cib).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );

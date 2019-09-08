@@ -12,7 +12,8 @@ export default class SortingDropdown extends React.Component {
       popoverOpen: false,
       customTitleSearch: "",
       customSystemSearch: "",
-      customTagSearch: ""
+      customTagSearch: "",
+      customYearSearch: ""
     };
   }
 
@@ -34,27 +35,38 @@ export default class SortingDropdown extends React.Component {
 
     this.setState({
       [name]: value
-    }, () => {
+    }, () => {  
       value = value.toLowerCase();
       if (name === "customTitleSearch") {
         this.props.updateSortOption("custom (title)", value);
         this.setState({
           customSystemSearch: "",
-          customTagSearch: ""
+          customTagSearch: "",
+          customYearSearch: ""
         })
       } 
       if (name === "customSystemSearch") {
         this.props.updateSortOption("custom (system)", value);
         this.setState({
           customTitleSearch: "",
-          customTagSearch: ""
+          customTagSearch: "",
+          customYearSearch: ""
         })
       }
       if (name === "customTagSearch") {
         this.props.updateSortOption("custom (tag)", value);
         this.setState({
           customTitleSearch: "",
-          customSystemSearch: ""
+          customSystemSearch: "",
+          customYearSearch: ""
+        })
+      }       
+      if (name === "customYearSearch") {
+        this.props.updateSortOption("custom (year)", value);
+        this.setState({
+          customTitleSearch: "",
+          customSystemSearch: "",
+          customTagSearch: ""
         })
       }       
     });
@@ -67,8 +79,8 @@ export default class SortingDropdown extends React.Component {
         <span style={{color: "rgb(198,192,182)"}}>sorted by</span> <span className="text-warning">{
             this.props.sortOption === "system_type" ? "system" 
             : this.props.sortOption === "is_beaten" ? "beaten" 
+            : this.props.sortOption === "favorite" ? "all-time favorite" 
             : this.props.sortOption === "now_playing" ? "now playing" 
-            : this.props.sortOption === "year_released" ? "year released" 
             : this.props.sortOption === "cib" ? "complete in box" 
             : this.props.sortOption }</span>
         </DropdownToggle>
@@ -114,17 +126,24 @@ export default class SortingDropdown extends React.Component {
               placeholder="System abbreviation"/>
           </Field>
         </DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("system_type")}}>system</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("is_beaten")}}>beaten</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("digital")}}>digital</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("physical")}}>physical</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("backlog")}}>backlog</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("title")}}>title (a-z)</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("now_playing")}}>now playing</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("year_released")}}>year released</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("favorite")}}>all-time favorite</DropdownItem>
-        <DropdownItem onClick={() => {this.props.updateSortOption("cib")}}>complete in box</DropdownItem>
+        <DropdownItem toggle={false} >
+          <Field>
+            <Input 
+              name="customYearSearch"
+              value={this.state.customYearSearch}
+              onChange={this.typeCustomSearch} 
+              placeholder="Year"/>
+          </Field>
+        </DropdownItem>
         <DropdownItem onClick={() => {this.props.updateSortOption("wishlist")}}>wishlist (not in collection)</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("cib")}}>complete in box</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("favorite")}}>all-time favorite</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("now_playing")}}>now playing</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("backlog")}}>backlog</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("is_beaten")}}>beaten</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("physical")}}>physical</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("digital")}}>digital</DropdownItem>
+        <DropdownItem onClick={() => {this.props.updateSortOption("system_type")}}>all</DropdownItem>
         </DropdownMenu>
       </ButtonDropdown>
     );

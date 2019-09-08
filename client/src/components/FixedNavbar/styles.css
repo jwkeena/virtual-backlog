@@ -7,22 +7,12 @@
     z-index: 10;
   }
 
-.hidden {
-    top: -90px;
-    z-index: 10;
-  }
-
 .visible-bottom {
     width: 100%;
     position: fixed !important;
     bottom: 0;
     /* transition: bottom 1.25s;
     transition-timing-function: ease-in-out; */
-    z-index: 10;
-  }
-
-.hidden-bottom {
-    bottom: -90px;
     z-index: 10;
   }
 
