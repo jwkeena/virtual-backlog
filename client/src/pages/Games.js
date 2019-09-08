@@ -45,17 +45,9 @@ class Games extends Component {
         }
         this.loadGames = this.loadGames.bind(this);
         this.updateSortOption = this.updateSortOption.bind(this);
-        this.updateCustomTitleSearch = this.updateCustomTitleSearch.bind(this);
-        this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
-        this.updateCustomTagSearch = this.updateCustomTagSearch.bind(this);
     }
 
     componentDidMount () {
-        this.loadGames();
-        window.addEventListener('scroll', this.handleScroll);
-    }
-
-    loadGames () {
         const username = localStorage.getItem("username");
         API.getGames(username)
         .then((res) => {
@@ -67,73 +59,30 @@ class Games extends Component {
             })
             }
         )
+        window.addEventListener('scroll', this.handleScroll);
     }
 
-    updateSortOption = (option) => {
+    loadGames () {
+        const username = localStorage.getItem("username");
+        API.getGames(username)
+        .then((res) => {
+            this.setState({
+                gamesLoaded: res.data,
+            }, () => {
+                this.sortGames(this.state.customSearch);
+                this.collectAllTags();
+            })
+            }
+        )
+    }
+
+    updateSortOption = (option, query) => {
         this.setState({
-            sortOption: option
+            sortOption: option,
+            customSearch: query
         }, () => {
-            this.sortGames();
+            this.sortGames(query);
         })
-    }
-
-    updateCustomTitleSearch = (query) => {
-        if (query === "") {
-            this.setState({
-                sortOption: "system"
-            }, () => {
-                this.sortGames();
-            })
-        }
-        
-        let sorted = this.state.gamesLoaded;
-        sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
-        const amount = sorted.length;
-        this.setState({
-            sortOption: "custom (title)",
-            gamesSorted: sorted,
-            amountOfGamesSorted: amount
-        });
-    }
-
-    updateCustomSystemSearch = (query) => {
-        if (query === "") {
-            this.setState({
-                sortOption: "system"
-            }, () => {
-                this.sortGames();
-            })
-        }
-        
-        let sorted = this.state.gamesLoaded;
-        sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
-
-        const amount = sorted.length;
-        this.setState({
-            sortOption: "custom (system)",
-            gamesSorted: sorted,
-            amountOfGamesSorted: amount
-        });
-    }
-
-    updateCustomTagSearch = (query) => {
-        if (query === "") {
-            this.setState({
-                sortOption: "system"
-            }, () => {
-                this.sortGames();
-            })
-        }
-        
-        let sorted = this.state.gamesLoaded;
-        sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
-
-        const amount = sorted.length;
-        this.setState({
-            sortOption: "custom (tag)",
-            gamesSorted: sorted,
-            amountOfGamesSorted: amount
-        });
     }
 
     collectAllTags = () => {
@@ -151,10 +100,28 @@ class Games extends Component {
         })
     }
 
-    sortGames = () => {
+    sortGames = (query) => {
         let sorted = this.state.gamesLoaded;
         const amountInCollection = sorted.filter(game => !game.wishlist).length;
         switch (this.state.sortOption) {
+            case "custom (tag)": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
+                break;
+            case "custom (title)": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
+                break;
+            case "custom (system)": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
+                break;
             case "system_type":
                 sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) 
                     ? 1 
@@ -422,11 +389,11 @@ class Games extends Component {
                 </div>
             </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
             }   {/* <-- remove this bracket when loading from gameSeed */}
+            <br/>
+            <br/>
+            <br/>
             </MDBContainer> 
             <Statistics
-                updateCustomTitleSearch={this.updateCustomTitleSearch}
-                updateCustomSystemSearch={this.updateCustomSystemSearch}
-                updateCustomTagSearch={this.updateCustomTagSearch}
                 allTags={this.state.allTags}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}

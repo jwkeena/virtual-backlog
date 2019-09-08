@@ -37,21 +37,21 @@ export default class SortingDropdown extends React.Component {
     }, () => {
       value = value.toLowerCase();
       if (name === "customTitleSearch") {
-        this.props.updateCustomTitleSearch(value);
+        this.props.updateSortOption("custom (title)", value);
         this.setState({
           customSystemSearch: "",
           customTagSearch: ""
         })
       } 
       if (name === "customSystemSearch") {
-        this.props.updateCustomSystemSearch(value);
+        this.props.updateSortOption("custom (system)", value);
         this.setState({
           customTitleSearch: "",
           customTagSearch: ""
         })
       }
       if (name === "customTagSearch") {
-        this.props.updateCustomTagSearch(value);
+        this.props.updateSortOption("custom (tag)", value);
         this.setState({
           customTitleSearch: "",
           customSystemSearch: ""
