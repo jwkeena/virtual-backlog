@@ -47,6 +47,7 @@ class Games extends Component {
     }
 
     componentDidMount () {
+        window.addEventListener('scroll', this.handleScroll);
         const username = localStorage.getItem("username");
         API.getGames(username)
         .then((res) => {
@@ -58,7 +59,6 @@ class Games extends Component {
             })
             }
         )
-        window.addEventListener('scroll', this.handleScroll);
     }
 
     loadGames () {
@@ -105,25 +105,25 @@ class Games extends Component {
         switch (this.state.sortOption) {
             
             // Only the custom searches use the query parameter
-            case "custom (tag)": 
+            case "tag": 
                 if (query === "" || query === " ") {
                     return;
                 }
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
-            case "custom (title)": 
+            case "title": 
                 if (query === "" || query === " ") {
                     return;
                 }
-                sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );;
                 break;
-            case "custom (system)": 
+            case "system": 
                 if (query === "" || query === " ") {
                     return;
                 }
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
-            case "custom (year)": 
+            case "year": 
                 if (query === "" || query === " ") {
                     return;
                 }

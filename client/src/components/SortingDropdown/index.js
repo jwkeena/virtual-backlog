@@ -38,7 +38,7 @@ export default class SortingDropdown extends React.Component {
     }, () => {  
       value = value.toLowerCase();
       if (name === "customTitleSearch") {
-        this.props.updateSortOption("custom (title)", value);
+        this.props.updateSortOption("title", value);
         this.setState({
           customSystemSearch: "",
           customTagSearch: "",
@@ -46,7 +46,7 @@ export default class SortingDropdown extends React.Component {
         })
       } 
       if (name === "customSystemSearch") {
-        this.props.updateSortOption("custom (system)", value);
+        this.props.updateSortOption("system", value);
         this.setState({
           customTitleSearch: "",
           customTagSearch: "",
@@ -54,7 +54,7 @@ export default class SortingDropdown extends React.Component {
         })
       }
       if (name === "customTagSearch") {
-        this.props.updateSortOption("custom (tag)", value);
+        this.props.updateSortOption("tag", value);
         this.setState({
           customTitleSearch: "",
           customSystemSearch: "",
@@ -62,7 +62,7 @@ export default class SortingDropdown extends React.Component {
         })
       }       
       if (name === "customYearSearch") {
-        this.props.updateSortOption("custom (year)", value);
+        this.props.updateSortOption("year", value);
         this.setState({
           customTitleSearch: "",
           customSystemSearch: "",

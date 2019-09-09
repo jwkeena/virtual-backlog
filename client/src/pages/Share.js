@@ -9,20 +9,19 @@ import { Spinner } from 'reactstrap';
 import Statistics from '../components/Statistics';
 
 const styles = {
-  middle: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center"
+    middle: {
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)"
+    }
   }
-}
 class Games extends Component {
     constructor(props) {
         super(props);
         this.state = { 
             sharingUser: null,
-            sortOption: "system_type",
+            sortOption: "favorite",
             customSearch: "",
             gamesSorted: null,
             amountOfGamesSorted: 0,
@@ -46,12 +45,9 @@ class Games extends Component {
         }
         this.loadGames = this.loadGames.bind(this);
         this.updateSortOption = this.updateSortOption.bind(this);
-        this.updateCustomTitleSearch = this.updateCustomTitleSearch.bind(this);
-        this.updateCustomSystemSearch = this.updateCustomSystemSearch.bind(this);
-        this.updateCustomTagSearch = this.updateCustomTagSearch.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount () {
         window.addEventListener('scroll', this.handleScroll);
         const { handle } = this.props.match.params;
         this.setState({
@@ -67,79 +63,20 @@ class Games extends Component {
             this.setState({
                 gamesLoaded: res.data,
             }, () => {
-                this.sortGames();
+                this.sortGames(this.state.customSearch);
                 this.collectAllTags();
             })
             }
         )
     }
 
-    updateSortOption = (option) => {
+    updateSortOption = (option, query) => {
         this.setState({
-            sortOption: option
+            sortOption: option,
+            customSearch: query
         }, () => {
-            this.sortGames();
+            this.sortGames(query);
         })
-    }
-
-    updateCustomTitleSearch = (query) => {
-        if (query === "") {
-            this.setState({
-                sortOption: "system"
-            }, () => {
-                this.sortGames();
-            })
-        }
-        
-        let sorted = this.state.gamesLoaded;
-        sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query));
-        const amount = sorted.length;
-        this.setState({
-            sortOption: "custom (title)",
-            gamesSorted: sorted,
-            amountOfGamesSorted: amount
-        });
-    }
-
-    updateCustomSystemSearch = (query) => {
-        if (query === "") {
-            this.setState({
-                sortOption: "system"
-            }, () => {
-                this.sortGames();
-            })
-        }
-        
-        let sorted = this.state.gamesLoaded;
-        sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1)
-
-        const amount = sorted.length;
-        this.setState({
-            sortOption: "custom (system)",
-            gamesSorted: sorted,
-            amountOfGamesSorted: amount
-        });
-    }
-
-    
-    updateCustomTagSearch = (query) => {
-        if (query === "") {
-            this.setState({
-                sortOption: "system"
-            }, () => {
-                this.sortGames();
-            })
-        }
-        
-        let sorted = this.state.gamesLoaded;
-        sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1)
-
-        const amount = sorted.length;
-        this.setState({
-            sortOption: "custom (tag)",
-            gamesSorted: sorted,
-            amountOfGamesSorted: amount
-        });
     }
 
     collectAllTags = () => {
@@ -157,10 +94,38 @@ class Games extends Component {
         })
     }
 
-    sortGames = () => {
+    sortGames = (query) => {
         let sorted = this.state.gamesLoaded;
         const amountInCollection = sorted.filter(game => !game.wishlist).length;
         switch (this.state.sortOption) {
+            
+            // Only the custom searches use the query parameter
+            case "tag": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.tags.includes(query.toLowerCase())).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
+                break;
+            case "title": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.title.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );;
+                break;
+            case "system": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.system_type.toLowerCase().includes(query)).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
+                break;
+            case "year": 
+                if (query === "" || query === " ") {
+                    return;
+                }
+                sorted = sorted.filter(game => !game.wishlist).filter(game => (game.year_released === parseInt(query))).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
+                break;
+
+            // Non-custom searches
             case "system_type":
                 sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) 
                     ? 1 
@@ -170,14 +135,11 @@ class Games extends Component {
                     : -1) 
                     : -1 ); // Filter non-wishlist, sort by system, then alphabetically
                 break;
-            case "title":
-                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.title > b.title) ? 1 : -1 ) // Sort by title only
-                break;
             case "is_beaten":
-                sorted = sorted.filter(game => !game.wishlist).filter(game => game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.is_beaten).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
             case "backlog":
-                sorted = sorted.filter(game => !game.wishlist).filter(game => game.backlog).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.backlog).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
             case "digital":
                 sorted = sorted.filter(game => !game.wishlist).filter(game => !game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
@@ -186,22 +148,17 @@ class Games extends Component {
                 sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
                 break;
             case "wishlist":
-                sorted = sorted.filter(game => game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
             case "now_playing":
-                sorted = sorted.filter(game => !game.wishlist).filter(game => game.now_playing).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
-                break;
-            case "year_released":
-                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.year_released > b.year_released) ? 1 : -1 ) // Sort by title only
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.now_playing).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
             case "cib":
-                sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).filter(game => game.cib).sort((a, b) => (a.system_type > b.system_type) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.physical).filter(game => game.cib).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
             case "favorite":
-                sorted = sorted.filter(game => !game.wishlist).filter(game => game.favorite).sort((a, b) => (a.title > b.title) ? 1 : -1 );
+                sorted = sorted.filter(game => !game.wishlist).filter(game => game.favorite).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 );
                 break;
-            default: 
-                sorted = sorted.filter(game => !game.wishlist).sort((a, b) => (a.system_type > b.system_type) ? 1 : (a.system_type === b.system_type) ? ((a.title > b.title) ? 1 : -1) : -1 ); // Same as first option
         }
         
         const amount = sorted.length;
@@ -364,11 +321,17 @@ class Games extends Component {
         <br/>
         <br/>
         <br/>
+        <br/>
         
             {(this.state.gamesSorted) ? 
+
+            (this.state.gamesSorted.length > 0 ) ? 
             
             <MDBRow>
-                <div className =  'bk-list' style = {{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
+                <div 
+                    className='bk-list' 
+                    style ={{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
+                    
                     {this.state.gamesSorted.map((games,i) => 
                      <Game
                     sharingUser = {this.state.sharingUser}
@@ -413,15 +376,17 @@ class Games extends Component {
                     handlePage3 = {()=>this.handlePage3()}
                     handlePage4 = {()=>this.handlePage4()}
                     />)}
-                    {/* <MDBSwitch checked={this.state.switch1} onChange={this.handleSwitchChange(1)} /> */}
                 </div>
-            </MDBRow>  : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
-                } {/* <-- remove this bracket when loading from gameSeed */}
+            </MDBRow>  
+               : <div style={styles.middle}><span className="pixel-font-large text-secondary">No matching games.</span></div>  
+            : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>    
+            } 
+
+            <br/>
+            <br/>
+            <br/>
             </MDBContainer> 
             <Statistics
-                updateCustomTitleSearch={this.updateCustomTitleSearch}
-                updateCustomSystemSearch={this.updateCustomSystemSearch}
-                updateCustomTagSearch={this.updateCustomTagSearch}
                 allTags={this.state.allTags}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
