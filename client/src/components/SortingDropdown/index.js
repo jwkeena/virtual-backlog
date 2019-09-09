@@ -77,7 +77,7 @@ export default class SortingDropdown extends React.Component {
       <ButtonDropdown direction="up" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
         <span style={{color: "rgb(198,192,182)"}}>sorted by</span> <span className="text-warning">{
-            this.props.sortOption === "system_type" ? "system" 
+            this.props.sortOption === "system_type" ? "all" 
             : this.props.sortOption === "is_beaten" ? "beaten" 
             : this.props.sortOption === "favorite" ? "all-time favorite" 
             : this.props.sortOption === "now_playing" ? "now playing" 
