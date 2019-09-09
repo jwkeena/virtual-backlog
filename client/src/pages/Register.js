@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
-import { MDBRow, MDBCol } from 'mdbreact';
+import { MDBRow, MDBCol, MDBContainer } from 'mdbreact';
 import { Button } from "react-bootstrap";
 import API from "../utils/API";
 import { Redirect } from 'react-router-dom';
 import Jumbotron from "../components/Jumbotron";
+import LoginFooter from '../components/LoginFooter';
 
 class Register extends Component {
-
-    // Setting the component's initial state
     state = {
         username: "",
         email: "",
@@ -19,11 +18,8 @@ class Register extends Component {
     };
 
     handleInputChange = event => {
-        // Getting the value and name of the input which triggered the change
         let value = event.target.value;
         const name = event.target.name;
-
-        // Updating the input's state
         this.setState({
         [name]: value
         });
@@ -68,27 +64,25 @@ class Register extends Component {
 
         API.registerUser(newUser)
         .then( res => {
+            if (res.data.message) {
+                
+                console.log(res.data.message);
+                if (res.data.message.match(/email/g)) {
+                alert("There is already an account associated with that email.");
+                } 
+                
+                if (res.data.message.match(/username/g)) {
+                alert("That username is taken.");
+                }
 
-        // Check for duplicate usernames and emails in database
-        if (res.data.message) {
-            
-            console.log(res.data.message);
-            if (res.data.message.match(/email/g)) {
-            alert("There is already an account associated with that email.");
-            } 
-            
-            if (res.data.message.match(/username/g)) {
-            alert("That username is taken.");
+            } else {
+                alert("Registration successful!");
+                localStorage.removeItem("username"); // So that the following item will be rendered in the form
+                localStorage.setItem("mostRecentUser", this.state.username)
+                this.setState({
+                redirectTo: '/'
+                })
             }
-
-        } else {
-            alert("Registration successful!");
-            localStorage.removeItem("username"); // So that the following item will be rendered in the form
-            localStorage.setItem("mostRecentUser", this.state.username)
-            this.setState({
-            redirectTo: '/'
-            })
-        }
         })
         .catch(err => console.log(err));
     }
@@ -99,7 +93,8 @@ class Register extends Component {
         } else {
             return (
                 <div>
-                    <Jumbotron><h1>Virtual Backlog</h1></Jumbotron>
+                    <Jumbotron/>
+                    <MDBContainer>
                     <MDBRow className="justify-content-center">
                         <MDBCol md="6">
                         <form>
@@ -188,6 +183,10 @@ class Register extends Component {
                         </Link>
                         </MDBCol>
                     </MDBRow>
+                    <br/>
+                    <br/>
+                    </MDBContainer>
+                    <LoginFooter/>
                 </div>
             )
         }

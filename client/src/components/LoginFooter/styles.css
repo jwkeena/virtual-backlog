@@ -103,7 +103,7 @@ h5 {
 }
 
 .cursor-up {
-  left: -25px;
+  left: -35px;
   top: 0px;
   position: absolute;
 }
@@ -111,22 +111,22 @@ h5 {
 .continue-up {
   position: absolute;
   top: 10px;
-  left: -165px;
+  left: -170px;
   font-family: 'Press Start 2P', cursive;
   font-size: 15px;
   color: rgb(108,117,125);
 }
 
 .cursor-down {
-  left: -25px;
-  top: 90px;
+  left: -35px;
+  top: 86px;
   position: absolute;
 }
 
 .continue-down {
   position: absolute;
-  top: 100px;
-  left: -165px;
+  top: 96px;
+  left: -170px;
   font-family: 'Press Start 2P', cursive;
   font-size: 15px !important;
   color: rgb(108,117,125);
@@ -139,32 +139,31 @@ h5 {
 }
 
 .justin {
-  position: fixed;
+  position: absolute;
   height: 225px;
-  bottom: 40px;
-  right: 57%;
+  top: -5px;
+  left: 20%;
 }
 
 .dave {
-  position: fixed;
+  position: absolute;
   height: 225px;
-  bottom: 40px;
-  right: 28%;
+  top: -5px;
+  right: 20%;
 }
 
 .pixel-shelf {
-  position: fixed;
+  position: absolute;
   height: 100px;
   bottom: 40px;
   right: 47%;
 }
 
-
 .float-left {
   float: left;
 }
 
-.container {
+.container, .custom-container {
   position: relative;
 }
 

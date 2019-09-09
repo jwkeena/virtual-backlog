@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBInput } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import { Button } from "react-bootstrap";
 import axios from 'axios';
@@ -9,8 +9,22 @@ import Jumbotron from '../components/Jumbotron';
 import LoginFooter from '../components/LoginFooter';
 import '../components/LoginFooter/styles.css';
 import Pointer from '../components/Painting/Cursor.png';
-import Justin from '../components/Painting/Justin.gif';
-import Dave from '../components/Painting/Dave.gif';
+
+const styles = {
+  middle: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
+  },
+  loginMiddle: {
+    position: "fixed",
+    top: "60%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
+  }
+}
+
 class Login extends Component {
 
     state = {
@@ -91,6 +105,12 @@ class Login extends Component {
       })
     }
 
+    toCollection = () => {
+      this.setState({
+        redirectTo: '/games'
+      })
+    }
+
     render () {
             if (this.state.redirectTo !== null) {
               return <Redirect to={{ pathname: this.state.redirectTo }} />
@@ -99,31 +119,28 @@ class Login extends Component {
             <div>
 
                 <Jumbotron/>
-                <br/>
-                <br/>
 
                 <MDBContainer>
                 
                   {(this.props.loggedIn) && 
-                    <div className="text-center text-secondary">
+                    <div className="text-center text-secondary" >
                       <br/><br/>
-                      <h5>logged in as <b>{this.state.username}</b></h5>
-                      <br/>
-                      <Button type="submit" variant="warning" className="button text-secondary" title="Logout" onClick={this.logout} >Game Over</Button>
-                      <br/><br/>
-                      <Link className="text-center text-secondary" to={"/games"}>
-                        <p>Back to collection</p>
-                      </Link>
-                      <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
-                      <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
+                      <div style={styles.middle}>
+                        <h5>logged in as <b>{this.state.username}</b></h5>
+                        <br/>
+                        <Button type="submit" variant="warning" className="button text-secondary" title="Back to collection" onClick={this.toCollection}>{this.state.username}'s collection</Button>
+                        <br/><br/>
+                        <Link className="text-center text-secondary" onClick={this.logout}>
+                          <p>game over (logout)</p>
+                        </Link>
+                      </div>
                     </div>
                   }
 
                   {!this.props.loggedIn && 
                   <div>
-                    <MDBRow className ="justify-content-center">
-                    
-                        <MDBCol md="6" className="container" >
+                    <div style={styles.loginMiddle}>                   
+                       
                         <div className={(this.state.continueTracker === "up") ? "continue-up" : "continue-down"}>Continue?</div>
                         <img className={(this.state.continueTracker === "up") ? "cursor-up" : "cursor-down"} src = {Pointer} alt="FF Cursor"/>   
                         <form>
@@ -158,19 +175,11 @@ class Login extends Component {
                             <Button className="button text-secondary" title="Login" type="submit" variant="warning" onClick={this.handleFormSubmit}>Press Start</Button>
                           </div>
                         </form>
-
-                      </MDBCol>
-                    </MDBRow>
-                    <br/>
                     <br/>
                     <Link className="text-center" to={"/register/"}>
                     <p className="newGame" title="Register new account">New Game?</p>
-                    <br/>
-                    <br/>
-
                     </Link>
-                    <a href="https://jwkeena.github.io" target="_blank" rel="noopener noreferrer"><img className="justin" src = {Justin} alt="Justin Keena"/></a>
-                    <a href="https://captainefff.github.io" target="_blank" rel="noopener noreferrer"><img className="dave" src = {Dave} alt="David Banviile"/></a>
+                    </div>
                   </div>}
                   <LoginFooter/>
                 </MDBContainer>
