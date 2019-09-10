@@ -144,7 +144,7 @@ export default class SortingDropdown extends React.Component {
           isOpen={this.state.popoverOpenAbbr} 
           target="PopoverFocusAbbr" 
           toggle={this.togglePopoverAbbr}>
-          <PopoverHeader>All tags in use</PopoverHeader>
+          <PopoverHeader>All systems in collection</PopoverHeader>
           <PopoverBody>| &nbsp;
             {this.props.allSystemAbbreviations.map((abbr, index) => (
               <span key={index}><b>{abbr}</b> | </span>
