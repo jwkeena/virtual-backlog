@@ -55,8 +55,6 @@ class Games extends Component {
             sharingUser: handle
         }, () => {
             this.loadGames();
-            this.collectAllTags();
-            this.collectAllSystemAbbreviations();
         })
     }
 
