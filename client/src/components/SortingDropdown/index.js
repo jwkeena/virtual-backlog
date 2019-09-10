@@ -5,11 +5,13 @@ import { Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 export default class SortingDropdown extends React.Component {
   constructor(props) {
     super(props);
-    this.togglePopover = this.togglePopover.bind(this);
+    this.togglePopoverTag = this.togglePopoverTag.bind(this);
+    this.togglePopoverAbbr = this.togglePopoverAbbr.bind(this);
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      popoverOpen: false,
+      popoverOpenTag: false,
+      popoverOpenAbbr: false,
       customTitleSearch: "",
       customSystemSearch: "",
       customTagSearch: "",
@@ -23,9 +25,15 @@ export default class SortingDropdown extends React.Component {
     });
   }
 
-  togglePopover() {
+  togglePopoverTag() {
     this.setState({
-      popoverOpen: !this.state.popoverOpen
+      popoverOpenTag: !this.state.popoverOpenTag
+    });
+  }
+
+  togglePopoverAbbr() {
+    this.setState({
+      popoverOpenAbbr: !this.state.popoverOpenAbbr
     });
   }
 
@@ -85,10 +93,11 @@ export default class SortingDropdown extends React.Component {
             : this.props.sortOption }</span>
         </DropdownToggle>
         <DropdownMenu style={{backgroundColor: '#f1f1f1'}}>
+
         <DropdownItem toggle={false} >
           <Field>
             <Input
-              id="PopoverFocus" 
+              id="PopoverFocusTag" 
               name="customTagSearch"
               value={this.state.customTagSearch}
               onChange={this.typeCustomSearch} 
@@ -98,9 +107,9 @@ export default class SortingDropdown extends React.Component {
         <Popover 
           placement="right" 
           trigger="focus" 
-          isOpen={this.state.popoverOpen} 
-          target="PopoverFocus" 
-          toggle={this.togglePopover}>
+          isOpen={this.state.popoverOpenTag} 
+          target="PopoverFocusTag" 
+          toggle={this.togglePopoverTag}>
           <PopoverHeader>All tags in use</PopoverHeader>
           <PopoverBody>| &nbsp;
             {this.props.allTags.map((tag, index) => (
@@ -108,6 +117,7 @@ export default class SortingDropdown extends React.Component {
             ))}
             </PopoverBody>
         </Popover>
+
         <DropdownItem toggle={false} >
           <Field>
             <Input 
@@ -117,15 +127,31 @@ export default class SortingDropdown extends React.Component {
               placeholder="Title includes..."/>
           </Field>
         </DropdownItem>
+
         <DropdownItem toggle={false} >
           <Field>
             <Input 
+              id="PopoverFocusAbbr" 
               name="customSystemSearch"
               value={this.state.customSystemSearch}
               onChange={this.typeCustomSearch} 
               placeholder="System abbreviation"/>
           </Field>
         </DropdownItem>
+        <Popover 
+          placement="right" 
+          trigger="focus" 
+          isOpen={this.state.popoverOpenAbbr} 
+          target="PopoverFocusAbbr" 
+          toggle={this.togglePopoverAbbr}>
+          <PopoverHeader>All tags in use</PopoverHeader>
+          <PopoverBody>| &nbsp;
+            {this.props.allSystemAbbreviations.map((abbr, index) => (
+              <span key={index}><b>{abbr}</b> | </span>
+            ))}
+            </PopoverBody>
+        </Popover>
+
         <DropdownItem toggle={false} >
           <Field>
             <Input 
@@ -135,6 +161,7 @@ export default class SortingDropdown extends React.Component {
               placeholder="Year"/>
           </Field>
         </DropdownItem>
+
         <DropdownItem onClick={() => {this.props.updateSortOption("wishlist")}}>wishlist (not in collection)</DropdownItem>
         <DropdownItem onClick={() => {this.props.updateSortOption("cib")}}>complete in box</DropdownItem>
         <DropdownItem onClick={() => {this.props.updateSortOption("favorite")}}>all-time favorite</DropdownItem>

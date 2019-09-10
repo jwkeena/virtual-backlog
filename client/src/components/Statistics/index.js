@@ -12,6 +12,7 @@ render() {
         <Nav className="mr-auto">
             <SortingDropdown
               allTags={this.props.allTags}
+              allSystemAbbreviations={this.props.allSystemAbbreviations}
               sortOption={this.props.sortOption}
               updateSortOption={this.props.updateSortOption}/>
         </Nav>

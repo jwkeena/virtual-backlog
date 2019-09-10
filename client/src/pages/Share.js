@@ -29,6 +29,7 @@ class Games extends Component {
             gameSeed: gameSeed,
             gamesLoaded: null,
             allTags: [],
+            allSystemAbbreviations: [],
             gamesCount: 13,
             currentGame: -1,
             counter: 0,
@@ -53,7 +54,9 @@ class Games extends Component {
         this.setState({
             sharingUser: handle
         }, () => {
-            this.loadGames()
+            this.loadGames();
+            this.collectAllTags();
+            this.collectAllSystemAbbreviations();
         })
     }
 
@@ -65,6 +68,7 @@ class Games extends Component {
             }, () => {
                 this.sortGames(this.state.customSearch);
                 this.collectAllTags();
+                this.collectAllSystemAbbreviations();
             })
             }
         )
@@ -91,6 +95,20 @@ class Games extends Component {
         }
         this.setState({
             allTags: list
+        })
+    }
+
+    
+    collectAllSystemAbbreviations = () => {
+        const list = [];
+        for (let i=0; i<this.state.gamesLoaded.length; i++) {
+            const systemAbbr = this.state.gamesLoaded[i].system_type
+            if (!list.includes(systemAbbr)) {
+                list.push(systemAbbr)
+            }
+        }
+        this.setState({
+            allSystemAbbreviations: list
         })
     }
 
@@ -388,6 +406,7 @@ class Games extends Component {
             </MDBContainer> 
             <Statistics
                 allTags={this.state.allTags}
+                allSystemAbbreviations={this.state.allSystemAbbreviations}
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}
