@@ -21,7 +21,8 @@ const styles = {
     position: "fixed",
     top: "60%",
     left: "50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    color: "grey"
   }
 }
 
@@ -141,7 +142,7 @@ class Login extends Component {
                   <div>
                     <div style={styles.loginMiddle}> 
 
-                        <p className="grey-text">Just here to test? Use our guest account! Username: guest, password: abc123</p>   
+                        <div className="grey-text"><p><b>Just here to test? Use our guest account! Username: guest, password: abc123</b></p></div>  
                         <div className={(this.state.continueTracker === "up") ? "continue-up" : "continue-down"}>Continue?</div>
                         <img className={(this.state.continueTracker === "up") ? "cursor-up" : "cursor-down"} src = {Pointer} alt="FF Cursor"/>   
                         <form>

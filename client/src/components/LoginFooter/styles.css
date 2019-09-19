@@ -104,13 +104,13 @@ h5 {
 
 .cursor-up {
   left: -35px;
-  top: 0px;
+  top: 45px;
   position: absolute;
 }
 
 .continue-up {
   position: absolute;
-  top: 10px;
+  top: 50px;
   left: -170px;
   font-family: 'Press Start 2P', cursive;
   font-size: 15px;
@@ -119,13 +119,13 @@ h5 {
 
 .cursor-down {
   left: -35px;
-  top: 86px;
+  top: 131px;
   position: absolute;
 }
 
 .continue-down {
   position: absolute;
-  top: 96px;
+  top: 136px;
   left: -170px;
   font-family: 'Press Start 2P', cursive;
   font-size: 15px !important;
