@@ -139,8 +139,9 @@ class Login extends Component {
 
                   {!this.props.loggedIn && 
                   <div>
-                    <div style={styles.loginMiddle}>                   
-                       
+                    <div style={styles.loginMiddle}> 
+
+                        <p className="grey-text">Just here to test? Use our guest account! Username: guest, password: abc123</p>   
                         <div className={(this.state.continueTracker === "up") ? "continue-up" : "continue-down"}>Continue?</div>
                         <img className={(this.state.continueTracker === "up") ? "cursor-up" : "cursor-down"} src = {Pointer} alt="FF Cursor"/>   
                         <form>
