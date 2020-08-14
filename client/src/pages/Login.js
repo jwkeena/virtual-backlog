@@ -72,9 +72,7 @@ class Login extends Component {
                 password: this.state.password
             })
             .then(response => {
-                console.log('login response: ', response)
                 if (response.status === 200) {
-                console.log("Successful login");
                 // Update localstorage
                 localStorage.setItem("username", this.state.username);
                 localStorage.setItem("mostRecentUser", this.state.username);
@@ -96,7 +94,6 @@ class Login extends Component {
     logout = event => {
       event.preventDefault();
       API.logout({username: this.props.username}).then(response => {
-        console.log(response.data)
         if (response.status === 200) {
           localStorage.removeItem("username")
           this.props.logoutBoolean();

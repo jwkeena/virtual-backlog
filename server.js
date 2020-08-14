@@ -30,7 +30,7 @@ app.use(passport.session()) // calls serializeUser and deserializeUser
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/virtualbacklog",
+mongoose.connect(process.env.ATLAS_URI || "mongodb://localhost/virtualbacklog",
   {
     useCreateIndex: true,
     useNewUrlParser: true

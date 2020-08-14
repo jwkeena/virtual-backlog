@@ -4,7 +4,7 @@ const db = require("../models");
 // This file empties the Games collection and inserts the books below
 
 mongoose.connect(
-    process.env.MONGODB_URI ||
+    process.env.ATLAS_URI ||
     "mongodb://localhost/virtualbacklog",
     { useNewUrlParser: true }
 );

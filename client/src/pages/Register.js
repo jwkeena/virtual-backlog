@@ -65,8 +65,6 @@ class Register extends Component {
         API.registerUser(newUser)
         .then( res => {
             if (res.data.message) {
-                
-                console.log(res.data.message);
                 if (res.data.message.match(/email/g)) {
                 alert("There is already an account associated with that email.");
                 } 
