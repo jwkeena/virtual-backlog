@@ -78,6 +78,19 @@ class Games extends Component {
         )
     }
 
+    // To group PSN vita games together with Vita games
+    convertPSNVtoVITA = () => {
+        let converted = this.state.gamesLoaded.map(i => {
+            if (i.system_type === "PSNV") {
+                i.system_type = "VITA";
+                return i;
+            } else {
+                return i;
+            }
+        });
+        return converted;
+    }
+
     updateSortOption = (option, query) => {
         this.setState({
             sortOption: option,
@@ -116,7 +129,7 @@ class Games extends Component {
     }
 
     sortGames = (query) => {
-        let sorted = this.state.gamesLoaded;
+        let sorted = this.convertPSNVtoVITA();
         const amountInCollection = sorted.filter(game => !game.wishlist).length;
         switch (this.state.sortOption) {
             

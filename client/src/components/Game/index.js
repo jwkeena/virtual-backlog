@@ -49,7 +49,6 @@ class Game extends Component {
             .post('/api/users/me')
             .then(response => {
                 const loggedInUser = response.data
-                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
                     const propertyToUpdate = {
                         property: property,
@@ -89,7 +88,6 @@ class Game extends Component {
             .post('/api/users/me')
             .then(response => {
                 const loggedInUser = response.data
-                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
                     const answer = window.confirm("Are you sure you want to delete this game from your collection?");
                     if (answer) {
@@ -143,7 +141,6 @@ class Game extends Component {
             .post('/api/users/me')
             .then(response => {
                 const loggedInUser = response.data
-                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
                     console.log(this.state.note)  
                     API.updateNote(this.props.id, {note: this.state.note})
@@ -179,7 +176,6 @@ class Game extends Component {
             .post('/api/users/me')
             .then(response => {
                 const loggedInUser = response.data
-                console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                 if (loggedInUser === usernameToVerify) {
                     API.addNewTag(this.props.id, {tag: this.state.tag.toLowerCase()})
                         .then(res => {
@@ -210,7 +206,6 @@ class Game extends Component {
                 .post('/api/users/me')
                 .then(response => {
                     const loggedInUser = response.data
-                    console.log("logged in as " + loggedInUser + " and requesting access as " + usernameToVerify)
                     if (loggedInUser === usernameToVerify) {
                         API.deleteTag(this.props.id, {tag: this.state.selectedTag})
                             .then(res => {
@@ -226,6 +221,7 @@ class Game extends Component {
     }
 
     render () {
+        console.log(this.props.system_type);
         return (
             <li 
                 key={this.props.id} 

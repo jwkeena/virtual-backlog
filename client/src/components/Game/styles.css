@@ -449,7 +449,7 @@ body {
 	border-width: 2px;
 }
 
-.GPS4 {
+.GPS4, .GVITA {
 	background-color: blue !important;
 	border-color: black;
 	border-style: solid;
