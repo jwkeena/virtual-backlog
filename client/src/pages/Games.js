@@ -89,7 +89,15 @@ class Games extends Component {
                 i.system_type = "PS3";
                 return i;
             }
+            else if (i.system_type === "PSPN") {
+                i.system_type = "PSP";
+                return i;
+            }
             else if (i.system_type === "3DSE") {
+                i.system_type = "3DS";
+                return i;
+            }
+            else if (i.system_type === "N3DS") {
                 i.system_type = "3DS";
                 return i;
             }
