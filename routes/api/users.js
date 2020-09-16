@@ -8,7 +8,6 @@ router.route("/")
 
 router.route("/login")
     .post(passport.authenticate("local"), function(req, res) {
-        console.log(req.session)
         res.json(req.user.username)
     });
 
@@ -19,7 +18,6 @@ router.route("/me")
 
 router.route("/logout")
     .post((req, res) => {
-        console.log(req.body.username, " is logging out");
         if (req.body) {
             req.logout();
             res.send({ msg: 'Logout' })

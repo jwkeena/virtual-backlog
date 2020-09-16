@@ -71,22 +71,3 @@ db.Game
         console.error(err);
         process.exit(1);
     });
-
-    
-// Template for more seed data
-// { 
-// title: "",
-// system: "",
-// developer: "",
-// box_art: "",
-// description: "",
-// is_beaten: ,
-// favorite: ,
-// now_playing: ,
-// rating: ,
-// price: ,
-// year_released: ,
-// date: new Date(Date.now()),
-// note: ,
-// user: 
-// },

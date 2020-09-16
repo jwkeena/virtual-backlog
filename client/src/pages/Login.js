@@ -8,7 +8,7 @@ import API from '../utils/API';
 import Jumbotron from '../components/Jumbotron';
 import LoginFooter from '../components/LoginFooter';
 import '../components/LoginFooter/styles.css';
-import Pointer from '../components/Painting/Cursor.png';
+import Pointer from '../Images/Cursor.png';
 
 const styles = {
   middle: {

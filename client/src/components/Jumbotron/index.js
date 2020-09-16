@@ -1,8 +1,8 @@
 import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import giantbomblogo from '../../giantbomblogo.png';
-import Justin from '../Painting/Justin.gif';
-import Dave from '../Painting/Dave.gif';
+import giantbomblogo from '../../Images/giantbomblogo.png';
+import Justin from '../../Images/Justin.gif';
+import Dave from '../../Images/Dave.gif';
 import '../LoginFooter/styles.css';
 
 const styles = {

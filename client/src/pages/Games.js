@@ -78,13 +78,26 @@ class Games extends Component {
         )
     }
 
-    // To group PSN vita games together with Vita games
-    convertPSNVtoVITA = () => {
+    // To group all games on a system together (ignoring digital storefronts)
+    standardizeSystemTypes = () => {
         let converted = this.state.gamesLoaded.map(i => {
             if (i.system_type === "PSNV") {
                 i.system_type = "VITA";
                 return i;
-            } else {
+            } 
+            else if (i.system_type === "PS3N") {
+                i.system_type = "PS3";
+                return i;
+            }
+            else if (i.system_type === "3DSE") {
+                i.system_type = "3DS";
+                return i;
+            }
+            else if (i.system_type === "WSHP") {
+                i.system_type = "Wii";
+                return i;
+            }
+            else {
                 return i;
             }
         });
@@ -129,7 +142,7 @@ class Games extends Component {
     }
 
     sortGames = (query) => {
-        let sorted = this.convertPSNVtoVITA();
+        let sorted = this.standardizeSystemTypes();
         const amountInCollection = sorted.filter(game => !game.wishlist).length;
         switch (this.state.sortOption) {
             
