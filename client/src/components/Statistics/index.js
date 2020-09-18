@@ -23,7 +23,7 @@ render() {
                 ? <span className="text-warning">0</span>
                 : <span 
                   className="text-warning">
-                  {this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + (this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection).toFixed(2) * 100 + "% of collection" + ")"}
+                  {this.props.amountOfGamesSorted} {(this.props.amountOfGamesInCollection && this.props.sortOption !== "wishlist") && " (" + ((this.props.amountOfGamesSorted / this.props.amountOfGamesInCollection) * 100).toFixed(2) + "% of collection" + ")"}
                 </span>
               }
         </Navbar.Brand>

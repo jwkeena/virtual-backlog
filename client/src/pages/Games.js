@@ -20,7 +20,7 @@ class Games extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            sortOption: "favorite",
+            sortOption: "wishlist",
             customSearch: "",
             gamesSorted: null,
             amountOfGamesSorted: 0,

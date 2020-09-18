@@ -142,7 +142,6 @@ class Game extends Component {
             .then(response => {
                 const loggedInUser = response.data
                 if (loggedInUser === usernameToVerify) {
-                    console.log(this.state.note)  
                     API.updateNote(this.props.id, {note: this.state.note})
                         .then(res=> {
                             this.setState({
@@ -221,7 +220,6 @@ class Game extends Component {
     }
 
     render () {
-        console.log(this.props.system_type);
         return (
             <li 
                 key={this.props.id} 
