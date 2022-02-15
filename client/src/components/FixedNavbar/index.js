@@ -45,7 +45,6 @@ toggle() {
 logout = event => {
   event.preventDefault();
   API.logout({username: this.props.username}).then(response => {
-    console.log(response.data)
     if (response.status === 200) {
       localStorage.removeItem("username")
       this.props.logoutBoolean();

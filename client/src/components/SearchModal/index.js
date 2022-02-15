@@ -94,7 +94,6 @@ class SearchModal extends Component {
   };
 
   searchGame = (searchQuery) => {
-    console.log("searchQuery", searchQuery);
     API.search(searchQuery)
       .then(res=> {
         this.setState({
