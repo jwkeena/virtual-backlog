@@ -24,7 +24,7 @@ class FixedNavbar extends Component {
     super(props);
     this.state = {
       shareModal: false,
-      customLink: "https://virtualbacklog.herokuapp.com/users/" + this.props.username,
+      customLink: "https://virtual-backlog.onrender.com/users/" + this.props.username,
       backdrop: true,
       loggedIn: this.props.loggedIn,
       redirectTo: null,
