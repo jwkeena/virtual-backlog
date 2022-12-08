@@ -51,7 +51,7 @@ class BarcodeScanController extends Component {
     }
 
     processBarcodeThenSearchGames = (barcode) => {
-        axios.get("https://cors-anywhere.onrender.com/https://api.upcitemdb.com/prod/trial/lookup?upc=" + barcode)
+        axios.get("https://cors-anywhere.herokuapp.com/https://api.upcitemdb.com/prod/trial/lookup?upc=" + barcode)
             .then(res => {
                 if (res.data.items[0].title) {
                     this.props.updateBarcodeSearchResult(res.data.items[0].title);
