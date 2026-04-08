@@ -116,7 +116,8 @@ class SearchModal extends Component {
         })
     } else {
       this.setState({
-        possiblePlatforms: ["NONE"]
+        possiblePlatforms: ["NONE"],
+        gameChosenFromSearch: this.state.searchResults[gameIndex]
       })
     }
   }
@@ -174,7 +175,9 @@ class SearchModal extends Component {
   }
 
   shelve = () => {
-    if (this.state.platformChosen === null) {
+    if (this.state.gameChosenFromSearch === null) {
+      return alert ("Choose a game before submitting.");
+    } else if (this.state.platformChosen === null) {
       return alert ("Choose a platform before submitting.");
     } else if (this.state.mediaTypeChoices[0].checked === false && this.state.mediaTypeChoices[1].checked === false) {
       return alert ("Select a media type before submitting.")
@@ -190,27 +193,30 @@ class SearchModal extends Component {
       tags = lowercaseTags;
     }
     const saved = this.state.gameChosenFromSearch;
-    const newGame = {
-      username: localStorage.getItem("username"),
-      title: saved.name,
-      system_type: this.state.platformChosen,
-      physical: this.state.mediaTypeChoices[0].checked,
-      box_art: saved.image.medium_url,
-      description: saved.deck,
-      note: this.state.note,
-      tags: tags,
-      guid: saved.guid,
-      gb_url: saved.site_detail_url,
-      year_released: saved.expected_release_year,
-      favorite: this.state.isChecked[0].checked,
-      backlog: this.state.isChecked[1].checked,
-      is_beaten: this.state.isChecked[2].checked,
-      cib: this.state.isChecked[3].checked,
-      now_playing: this.state.isChecked[4].checked, 
-      wishlist: this.state.isChecked[5].checked,
-      points: 0,
-    }
-    API.addGame(newGame)
+    API.getGameDetail(saved.guid)
+      .then((detailRes) => {
+        const newGame = {
+          username: localStorage.getItem("username"),
+          title: saved.name,
+          system_type: this.state.platformChosen,
+          physical: this.state.mediaTypeChoices[0].checked,
+          box_art: saved.image.medium_url,
+          description: detailRes.data.description || saved.deck,
+          note: this.state.note,
+          tags: tags,
+          guid: saved.guid,
+          gb_url: saved.site_detail_url,
+          year_released: saved.expected_release_year,
+          favorite: this.state.isChecked[0].checked,
+          backlog: this.state.isChecked[1].checked,
+          is_beaten: this.state.isChecked[2].checked,
+          cib: this.state.isChecked[3].checked,
+          now_playing: this.state.isChecked[4].checked,
+          wishlist: this.state.isChecked[5].checked,
+          points: 0,
+        }
+        return API.addGame(newGame);
+      })
       .then((res) => {
         this.props.loadGames();
         this.resetSearchState();
@@ -292,7 +298,7 @@ class SearchModal extends Component {
             <div>
                 <h3>Platform</h3>
                 {(this.state.possiblePlatforms.length > 0) && 
-                  <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen}>Choose a platform: </PlatformPills>
+                  <PlatformPills possiblePlatforms={this.state.possiblePlatforms} choosePlatform={this.choosePlatform} platformChosen={this.state.platformChosen} allSystemAbbreviations={this.props.allSystemAbbreviations}>Choose a platform: </PlatformPills>
                 }
             </div>
             <hr/>   

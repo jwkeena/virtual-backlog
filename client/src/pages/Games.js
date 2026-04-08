@@ -376,9 +376,10 @@ class Games extends Component {
             sortOption={this.state.sortOption}
             updateSortOption={this.updateSortOption}
             loggedIn={this.props.loggedIn} 
-            loadGames={this.loadGames} 
-            logoutBoolean={this.props.logoutBoolean} 
-            username={this.props.username}/>
+            loadGames={this.loadGames}
+            logoutBoolean={this.props.logoutBoolean}
+            username={this.props.username}
+            allSystemAbbreviations={this.state.allSystemAbbreviations}/>
         <MDBContainer fluid className= "shelf"> 
         
         <br/>

@@ -1,9 +1,14 @@
 import axios from "axios";
 
 export default {
-  // Finds games in the Giant Bomb database
+  // Searches for games via RAWG API
   search: function(searchQuery) {
     return axios.get("/api/search/" + searchQuery)
+  },
+
+  // Fetches game description from RAWG detail endpoint
+  getGameDetail: function(gameId) {
+    return axios.get("/api/search/detail/" + gameId)
   },
   
   // Gets all games from database

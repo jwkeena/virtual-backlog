@@ -124,7 +124,8 @@ render() {
             updateTextSearch={this.updateTextSearch} 
             gameToSearch={this.state.gameToSearch} 
             barcodeSearchResult={this.state.barcodeSearchResult}
-            updateGameToSearch={this.updateGameToSearch}/>
+            updateGameToSearch={this.updateGameToSearch}
+            allSystemAbbreviations={this.props.allSystemAbbreviations}/>
         </Nav>
       </Navbar>
 
