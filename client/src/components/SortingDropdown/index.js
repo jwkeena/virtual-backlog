@@ -19,6 +19,10 @@ export default class SortingDropdown extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._debounceTimer);
+  }
+
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
@@ -42,42 +46,26 @@ export default class SortingDropdown extends React.Component {
     let name = event.target.name;
 
     this.setState({
-      [name]: value
-    }, () => {  
-      value = value.toLowerCase();
-      if (name === "customTitleSearch") {
-        this.props.updateSortOption("title", value);
-        this.setState({
-          customSystemSearch: "",
-          customTagSearch: "",
-          customYearSearch: ""
-        })
-      } 
-      if (name === "customSystemSearch") {
-        this.props.updateSortOption("system", value);
-        this.setState({
-          customTitleSearch: "",
-          customTagSearch: "",
-          customYearSearch: ""
-        })
-      }
-      if (name === "customTagSearch") {
-        this.props.updateSortOption("tag", value);
-        this.setState({
-          customTitleSearch: "",
-          customSystemSearch: "",
-          customYearSearch: ""
-        })
-      }       
-      if (name === "customYearSearch") {
-        this.props.updateSortOption("year", value);
-        this.setState({
-          customTitleSearch: "",
-          customSystemSearch: "",
-          customTagSearch: ""
-        })
-      }       
+      [name]: value,
+      ...(name === "customTitleSearch" && { customSystemSearch: "", customTagSearch: "", customYearSearch: "" }),
+      ...(name === "customSystemSearch" && { customTitleSearch: "", customTagSearch: "", customYearSearch: "" }),
+      ...(name === "customTagSearch" && { customTitleSearch: "", customSystemSearch: "", customYearSearch: "" }),
+      ...(name === "customYearSearch" && { customTitleSearch: "", customSystemSearch: "", customTagSearch: "" }),
     });
+
+    clearTimeout(this._debounceTimer);
+    this._debounceTimer = setTimeout(() => {
+      const lowerValue = value.toLowerCase();
+      const sortKeys = {
+        customTitleSearch: "title",
+        customSystemSearch: "system",
+        customTagSearch: "tag",
+        customYearSearch: "year",
+      };
+      if (sortKeys[name]) {
+        this.props.updateSortOption(sortKeys[name], lowerValue);
+      }
+    }, 300);
   }
 
   render() {
