@@ -36,6 +36,44 @@ class Game extends Component {
         selectedTag: ""
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state !== nextState) return true;
+        if (this.props.clicked !== nextProps.clicked) return true;
+        if (nextProps.clicked && (
+            this.props.gameOpen !== nextProps.gameOpen ||
+            this.props.page !== nextProps.page ||
+            this.props.zIndex !== nextProps.zIndex
+        )) return true;
+        if (this.props.title !== nextProps.title ||
+            this.props.is_beaten !== nextProps.is_beaten ||
+            this.props.favorite !== nextProps.favorite ||
+            this.props.now_playing !== nextProps.now_playing ||
+            this.props.backlog !== nextProps.backlog ||
+            this.props.cib !== nextProps.cib ||
+            this.props.wishlist !== nextProps.wishlist ||
+            this.props.note !== nextProps.note ||
+            this.props.box_art !== nextProps.box_art ||
+            this.props.tags !== nextProps.tags
+        ) return true;
+        return false;
+    }
+
+    handleClick = () => {
+        this.props.handleClick(this.props.index);
+    }
+
+    handleClose = () => {
+        this.props.handleClose(this.props.index);
+    }
+
+    handlePageLeft = () => {
+        this.props.handlePageLeft(this.props.index);
+    }
+
+    handlePageRight = () => {
+        this.props.handlePageRight(this.props.index);
+    }
+
     updateGame = (event) => {
         let usernameToVerify;
         if (this.props.sharingUser) {
@@ -221,10 +259,10 @@ class Game extends Component {
 
     render () {
         return (
-            <li 
-                key={this.props.id} 
-                className={(this.props.zIndex === 1  && this.props.clicked ? 'z-index'+this.props.zCounter + 1 : 'z-index'+this.props.zCounter)} 
-                onClick = {this.props.handleClick}>
+            <li
+                key={this.props.id}
+                className={(this.props.zIndex === 1  && this.props.clicked ? 'z-index'+this.props.zCounter + 1 : 'z-index'+this.props.zCounter)}
+                onClick = {this.handleClick}>
                     <div className={(this.props.gameOpen === 1 && this.props.clicked ? 'bk-game game' + this.props.id +' bk-outside'  : this.props.gameOpen === 2 && this.props.clicked  ? 'bk-game game'+this.props.id+' bk-outside bk-viewinside' : this.props.gameOpen === 3 && this.props.clicked ? 'bk-game game'+this.props.id+' bk-outside bk-viewinside bk-open' :'bk-game game'+ this.props.id)}> 
         
             <div className='bk-front'>
@@ -425,14 +463,14 @@ class Game extends Component {
                 </div>
             <nav>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span className="bk-page-prev" onClick = {this.props.handlePageLeft}>&lt;</span>
+            <span className="bk-page-prev" onClick = {this.handlePageLeft}>&lt;</span>
             <span className="bk-page-1" onClick = {this.props.handlePage1}>1</span>&nbsp;
             <span className="bk-page-2" onClick = {this.props.handlePage2}>2</span>&nbsp;
             <span className="bk-page-3" onClick = {this.props.handlePage3}>3</span>&nbsp;
             <span className="bk-page-4" onClick = {this.props.handlePage4}>4</span>&nbsp;
-            <span className="bk-page-next" onClick = {this.props.handlePageRight}>&gt;</span>
+            <span className="bk-page-next" onClick = {this.handlePageRight}>&gt;</span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span className="bk-page-close" onClick = {this.props.handleClose}>X</span>
+            <span className="bk-page-close" onClick = {this.handleClose}>X</span>
             </nav>
 
             </div>

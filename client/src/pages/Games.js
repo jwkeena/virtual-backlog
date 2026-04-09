@@ -456,6 +456,7 @@ class Games extends Component {
                     tags = {games.tags}
                     id = {games._id}
                     key = {games._id}
+                    index = {i}
                     page = {this.state.page}
                     switch1 = {this.state.switch1}
                     switch2 = {this.state.switch2}
@@ -463,15 +464,15 @@ class Games extends Component {
                     clicked = {this.state.clicked[i]}
                     zCounter = {zCounterVal}
                     negativeC = {negativeC}
-                    handleClick = {() => this.handleClick(i)}
-                    handlePageLeft = {()=>this.handlePageLeft(i)}
-                    handleClose = {() => this.handleClose(i)}
-                    handlePageRight = {()=>this.handlePageRight(i)}
-                    handleSwitchChange = {()=>this.handleSwitchChange()}
-                    handlePage1 = {()=>this.handlePage1()}
-                    handlePage2 = {()=>this.handlePage2()}
-                    handlePage3 = {()=>this.handlePage3()}
-                    handlePage4 = {()=>this.handlePage4()}
+                    handleClick = {this.handleClick}
+                    handlePageLeft = {this.handlePageLeft}
+                    handleClose = {this.handleClose}
+                    handlePageRight = {this.handlePageRight}
+                    handleSwitchChange = {this.handleSwitchChange}
+                    handlePage1 = {this.handlePage1}
+                    handlePage2 = {this.handlePage2}
+                    handlePage3 = {this.handlePage3}
+                    handlePage4 = {this.handlePage4}
                     />})}
                 </div>
             </MDBRow>
