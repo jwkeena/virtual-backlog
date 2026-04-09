@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
-  owner: { type: Schema.ObjectId, ref: 'User', required: true },
+  owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   title: { type: String, required: true },
   system_type: { type: String, required: true },
   physical: {type: Boolean, required: true },

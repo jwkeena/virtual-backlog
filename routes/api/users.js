@@ -19,11 +19,13 @@ router.route("/me")
 router.route("/logout")
     .post((req, res) => {
         if (req.body) {
-            req.logout();
-            res.send({ msg: 'Logout' })
+            req.logout(function(err) {
+                if (err) { return res.status(500).send({ msg: 'Logout error' }); }
+                res.send({ msg: 'Logout' })
+            });
         } else {
             res.send({ msg: 'No user to log out' })
-        } 
+        }
     });
 
 module.exports = router;

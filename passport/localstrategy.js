@@ -5,12 +5,9 @@ const strategy = new LocalStrategy(
 	{
 		usernameField: 'username', // not necessary, DEFAULT
 	},
-	function(username, password, done) {
-
-		db.User.findOne({ username: username }, (err, user) => {
-			if (err) {
-				return done(err);
-			}
+	async function(username, password, done) {
+		try {
+			const user = await db.User.findOne({ username: username });
 			if (!user) {
 				return done(null, false, { message: 'Incorrect username' });
 			}
@@ -18,7 +15,9 @@ const strategy = new LocalStrategy(
 				return done(null, false, { message: 'Incorrect password' });
 			}
 			return done(null, user);
-		})
+		} catch (err) {
+			return done(err);
+		}
 	}
 )
 

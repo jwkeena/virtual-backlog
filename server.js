@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require('passport');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,7 +14,7 @@ app.use(session({
   secret: 'the-real-transported-man', //pick a random string to make the hash that is generated secure
   resave: false,
   saveUninitialized: false,
-  store: new MongoStore({mongooseConnection: mongoose.connection}) // Saves sessions 
+  store: MongoStore.create({ mongoUrl: process.env.ATLAS_URI || "mongodb://localhost/virtualbacklog" }) // Saves sessions
 })
 )
 // Serve up static assets (usually on heroku)
@@ -30,11 +30,7 @@ app.use(passport.session()) // calls serializeUser and deserializeUser
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.ATLAS_URI || "mongodb://localhost/virtualbacklog",
-  {
-    useNewUrlParser: true
-  }
-);
+mongoose.connect(process.env.ATLAS_URI || "mongodb://localhost/virtualbacklog");
 
 // Start the API server
 app.listen(PORT, function() {
