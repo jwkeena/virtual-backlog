@@ -238,7 +238,7 @@ class Games extends Component {
             this._rafId = null;
             const scrollLocation = window.pageYOffset;
             const vanishingPoint = scrollLocation + window.innerHeight / 2;
-            const gamesPerRow = 15;
+            const gamesPerRow = 23;
             const rowHeight = 450;
             const bufferRows = 2;
             const containerOffset = 200;
@@ -386,7 +386,7 @@ class Games extends Component {
       }
 
     isGameVisible = (index) => {
-        const gamesPerRow = 15;
+        const gamesPerRow = 23;
         const row = Math.floor(index / gamesPerRow);
         return row >= this.state.visibleRowStart && row <= this.state.visibleRowEnd;
     }

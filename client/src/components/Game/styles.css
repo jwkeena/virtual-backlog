@@ -2,26 +2,31 @@ body {
 	background-image: url(../../Images/wood.jpg);
 }
 
+/* Shelf container - holds all book slots in a row */
 .bk-list {
 	list-style: none;
 	position: relative;
-	width: 615px !important;
-	/* 15 games * 40px + 15 games * margin (1px) */
+	width: 943px !important; /* 23 games * 40px spine + 23 * 1px margin */
 	margin: 0 auto;
-	margin-left: 30vw;
-	
+	/* Shared perspective - adds subtle unified shelf depth, but causes edge peeking at lower values */
+	/* -webkit-perspective: 25000px;
+	perspective: 25000px;
+	-webkit-perspective-origin: 50% 50%;
+	perspective-origin: 50% 50%; */
+	margin-left: calc(50vw - 471px); /* Center shelf regardless of viewport width */
+
 }
 
+/* Individual book slot - each gets its own perspective to prevent edge distortion */
 .bk-list li {
 	position: relative;
-	width: 40px;
-	height: 400px;
+	width: 40px; /* Spine width - the visible thickness of each book */
+	height: 400px; /* Book height */
 	float: left;
-	/* z-index: 0; */
-	margin: 0px 0px 50px 1px;
-	-webkit-perspective: 1800px;
+	margin: 0px 0px 50px 1px; /* 50px bottom = gap between shelf rows, 1px left = spacing between spines */
+	-webkit-perspective: 1800px; /* Per-book perspective - eliminates edge distortion from shared perspective */
 	perspective: 1800px;
-	-webkit-transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d; /* Enable 3D rendering for child elements */
 	transform-style: preserve-3d;
 }
 
@@ -29,6 +34,7 @@ body {
 	margin-right: 0;
 }
 
+/* Book container - rotated 90deg so spine faces viewer */
 .bk-list li .bk-game {
 	cursor: pointer;
 	position: absolute;
@@ -36,34 +42,38 @@ body {
 	height: 400px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
-	-webkit-transition: -webkit-transform .4s;
+	-webkit-transition: -webkit-transform .4s; /* Smooth animation for book interactions */
 	transition: transform .4s;
-	-webkit-transform: rotate3d(0, 1, 0, 90deg);
+	-webkit-transform: rotate3d(0, 1, 0, 90deg); /* Default state: spine facing viewer */
 	transform: rotate3d(0, 1, 0, 90deg);
 }
 
+/* Hover: tilt book upward to peek at cover */
 .bk-list li .bk-game:hover {
 	-webkit-transform: rotateY(90deg) rotateZ(-15deg) translate3d(-100px, 0, 0);
 	transform: rotateY(90deg) rotateZ(-15deg) translate3d(-100px, 0, 0);
 }
 
+/* All book surfaces are absolutely positioned within the book container */
 .bk-list li .bk-game>div,
 .bk-list li .bk-front>div {
 	display: block;
 	position: absolute;
 }
 
+/* Front cover assembly - hinges open from the spine edge */
 .bk-list li .bk-front {
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
-	-webkit-transform-origin: 0% 50%;
+	-webkit-transform-origin: 0% 50%; /* Hinge point: left edge (spine side) */
 	transform-origin: 0% 50%;
-	-webkit-transition: -webkit-transform .2s;
+	-webkit-transition: -webkit-transform .2s; /* Cover open/close animation speed */
 	transition: transform .2s;
-	-webkit-transform: translate3d(0, 0, 20px);
-	transform: translate3d(0, 0, 20px);
+	-webkit-transform: translate3d(0, 0, 18px); /* Front cover Z-offset, 2px inside spine to prevent edge bleed */
+	transform: translate3d(0, 0, 18px);
 }
 
+/* Front cover sub-elements - hide back faces to prevent see-through */
 .bk-list li .bk-front>div {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -71,10 +81,11 @@ body {
 	transform-style: preserve-3d;
 }
 
+/* Interior pages - hidden until book is opened */
 .bk-list li .bk-page {
-	-webkit-transform: translate3d(0, 0, 19px);
+	-webkit-transform: translate3d(0, 0, 19px); /* Sits 1px in front of cover when open */
 	transform: translate3d(0, 0, 19px);
-	display: none;
+	display: none; /* Only shown when book is in open state */
 	width: 295px;
 	height: 390px;
 	top: 5px;
@@ -82,59 +93,66 @@ body {
 	backface-visibility: hidden;
 }
 
+/* Cover and back dimensions - the full face of the book when opened */
 .bk-list li .bk-front,
 .bk-list li .bk-back,
 .bk-list li .bk-front>div {
-	width: 300px;
+	width: 300px; /* Cover width when opened */
 	height: 400px;
 	z-index: 0;
 }
 
+/* Spine (left) and page edge (right) - book thickness surfaces */
 .bk-list li .bk-left,
 .bk-list li .bk-right {
-	width: 40px;
-	left: -20px;
+	width: 40px; /* Must match spine/slot width */
+	left: -20px; /* Centered: half of spine width */
 }
 
+/* Top and bottom edges of the book */
 .bk-list li .bk-top,
 .bk-list li .bk-bottom {
-	width: 295px;
-	height: 40px;
+	width: 295px; /* Matches cover depth */
+	height: 40px; /* Matches spine width (book thickness) */
 	top: -15px;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 
+/* Back cover - flipped 180deg and pushed forward to form the back face */
 .bk-list li .bk-back {
 	-webkit-transform: rotate3d(0, 1, 0, -180deg) translate3d(0, 0, 20px);
 	transform: rotate3d(0, 1, 0, -180deg) translate3d(0, 0, 20px);
 	border-radius: 3px 0 0 3px;
+	overflow: hidden; /* Prevent description text from spilling out */
 }
 
+/* Inside of the front cover (visible when cover swings open) */
 .bk-list li .bk-cover-back {
 	-webkit-text-stroke-width: .5px;
 	-webkit-text-stroke-color: black;
 	font-weight: bold;
-	/* font-family:'Press Start 2P', cursive;; */
 	background-color: #000;
-	-webkit-transform: rotate3d(0, 1, 0, -179deg);
+	-webkit-transform: rotate3d(0, 1, 0, -179deg); /* Nearly flipped - shows when cover opens */
 	transform: rotate3d(0, 1, 0, -179deg);
 }
 
+/* Right edge (page edges) - positioned at far end of cover width */
 .bk-list li .bk-right {
 	height: 390px;
 	top: 5px;
-	-webkit-transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 295px);
+	-webkit-transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 295px); /* 295px = cover width minus offset */
 	transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 295px);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 
+/* Left edge (spine face) - the main visible surface at rest */
 .bk-list li .bk-left {
 	height: 400px;
-	-webkit-transform: rotate3d(0, 1, 0, -90deg);
+	-webkit-transform: rotate3d(0, 1, 0, -90deg); /* Rotated to face viewer when book is at 90deg */
 	transform: rotate3d(0, 1, 0, -90deg);
-	box-shadow:
+	box-shadow: /* Subtle depth shading on spine */
 		inset 4px 0 5px rgba(255, 255, 255, 0.1),
 		inset 5px 0 5px rgba(0, 0, 0, 0.05),
 		inset -5px 0 5px rgba(0, 0, 0, 0.04);
@@ -142,42 +160,51 @@ body {
 
 }
 
+/* Top edge */
 .bk-list li .bk-top {
-	-webkit-transform: rotate3d(1, 0, 0, 90deg);
+	-webkit-transform: rotate3d(1, 0, 0, 90deg); /* Rotated flat on top */
 	transform: rotate3d(1, 0, 0, 90deg);
 }
 
+/* Bottom edge */
 .bk-list li .bk-bottom {
-	-webkit-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 390px);
+	-webkit-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 390px); /* Positioned at base of book */
 	transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 390px);
 }
 
-/* Transform classes */
+/* ========== Book opening animation states ========== */
 
+/* Step 2: Cover faces viewer (book pulled out, cover visible) */
 .bk-list li .bk-viewinside .bk-front {
 	-webkit-transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, 0deg);
 	transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, 0deg);
 }
 
+/* Step 3: Cover swung open to reveal pages */
 .bk-list li .bk-open .bk-front {
-	-webkit-transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, -160deg);
+	-webkit-transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, -160deg); /* Cover swings 160deg open */
 	transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, -160deg);
 }
 
+/* Book pulled out of shelf and facing viewer */
 .bk-list li .bk-game.bk-viewinside {
-	-webkit-transform: rotate3d(0, 1, 0, 0deg) translateX(0px) translateZ(100px) !important;
+	-webkit-transform: rotate3d(0, 1, 0, 0deg) translateX(0px) translateZ(100px) !important; /* Pop forward 100px */
 	transform: rotate3d(0, 1, 0, 0deg) translateX(0px) translateZ(100px) !important;
 }
 
+/* Step 1: Book slides out of row (still spine-facing, shifted left by cover width) */
 .bk-list li .bk-game.bk-outside {
-	-webkit-transform: rotate3d(0, 1, 0, 90deg) translateX(-300px);
+	-webkit-transform: rotate3d(0, 1, 0, 90deg) translateX(-300px); /* Slide out by cover width */
 	transform: rotate3d(0, 1, 0, 90deg) translateX(-300px);
 }
+
+/* Hover while book is open - slight rotation for depth feel */
 .bk-viewinside:hover {
 	transform: rotate3d(0,1,0,35deg);
-	
+
 }
 
+/* Back view of book (unused in current UI) */
 .bk-list li .bk-game.bk-viewback{
 	-webkit-transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
 	transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
@@ -380,6 +407,11 @@ body {
 	padding: 40px;
 	text-align: center;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+	display: -webkit-box;
+	-webkit-line-clamp: 6;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .bk-list li:nth-child(1n+1) .bk-game .bk-front>div,
