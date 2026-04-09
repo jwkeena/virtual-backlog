@@ -5,52 +5,52 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+// Unique colors per system for chart readability.
+// Same color families as the game boxes (PlayStation=blue, Xbox=green, Nintendo=red/warm)
+// but each system gets its own distinct shade.
 const SYSTEM_COLORS = {
-  // PlayStation
-  PS1:  '#b0b0b0',
-  PS2:  '#1c1c1c',
-  PS3:  '#0070d1',
-  PS4:  '#003087',
-  PS5:  '#00439c',
-  PSP:  '#6a0dad',
-  VITA: '#1a5276',
-  // Xbox
-  XBOX: '#2d7d2d',
-  X360: '#5dc21e',
-  XB1:  '#107c10',
-  XSX:  '#0e7a0d',
-  XSS:  '#1db954',
-  // Nintendo
-  NES:  '#d62828',
-  SNES: '#6b6b6b',
-  N64:  '#c8102e',
-  GCN:  '#663399',
-  Wii:  '#b8b8b8',
-  WiiU: '#009ac7',
+  // PlayStation — blue family
+  PS1:  '#8ca8c8',
+  PS2:  '#1a237e',
+  PS3:  '#283593',
+  PS4:  '#1565c0',
+  PS5:  '#42a5f5',
+  PSP:  '#5c6bc0',
+  VITA: '#0d47a1',
+  // Xbox — green family
+  XBOX: '#2e7d32',
+  X360: '#66bb6a',
+  XONE: '#adff2f',
+  XSX:  '#00c853',
+  XSS:  '#76ff03',
+  // Nintendo home — red/warm family
+  NES:  '#b71c1c',
+  SNES: '#9e9e9e',
+  N64:  '#ebee2d',
+  GCN:  '#8873bc',
+  Wii:  '#bdbdbd',
+  WiiU: '#2ba4c8',
   NSW:  '#e60012',
-  GB:   '#8fbc8f',
-  GBC:  '#6a5acd',
-  GBA:  '#4b0082',
-  DS:   '#a0a0a0',
-  '3DS': '#ce1141',
+  // Nintendo handheld — distinct per generation
+  GB:   '#7cb342',
+  GBC:  '#ab47bc',
+  GBA:  '#5e35b1',
+  DS:   '#a1887f',
+  '3DS':'#e91e63',
   // PC / Other
-  PC:   '#ff6600',
-  MAC:  '#555555',
-  LNX:  '#f5a623',
-  DC:   '#ff8c00',
-  SAT:  '#444444',
-  GEN:  '#1a1a2e',
-  SMS:  '#cc0000',
-  GG:   '#333333',
+  PC:   '#ff8f00',
+  MAC:  '#78909c',
+  DC:   '#ff6d00',
+  SAT:  '#546e7a',
+  GEN:  '#3949ab',
+  SMS:  '#ef5350',
+  GG:   '#e88de8',
   TGFX: '#ff4500',
-  NEO:  '#ffd700',
-  LYNX: '#8b0000',
-  JAG:  '#006400',
-  '2600':'#b5651d',
-  // Mobile / Streaming
-  ANDR: '#a4c639',
-  iOS:  '#999999',
-  WEB:  '#4285f4',
+  NEO:  '#ffd600',
+  LYNX: '#c62828',
+  JAG:  '#388e3c',
+  '2600':'#bf8040',
+  VBOY: '#d50000',
 };
 
 const FALLBACK_COLORS = [
@@ -113,6 +113,19 @@ class PieChartModal extends Component {
             font: { size: 12, weight: 'bold' },
             padding: 10,
           },
+          onHover: (event, legendItem, legend) => {
+            const chart = legend.chart;
+            const index = legendItem.index;
+            const dataset = chart.data.datasets[0];
+            const total = dataset.data.reduce((a, b) => a + b, 0);
+            const value = dataset.data[index];
+            const pct = ((value / total) * 100).toFixed(1);
+            const label = chart.data.labels[index];
+            chart.canvas.title = `${label}: ${value} (${pct}%)`;
+          },
+          onLeave: (event, legendItem, legend) => {
+            legend.chart.canvas.title = '';
+          },
         },
         tooltip: {
           callbacks: {
@@ -130,7 +143,7 @@ class PieChartModal extends Component {
 
     return (
       <Modal isOpen={isOpen} toggle={toggle} centered size="lg" className="pie-modal">
-        <style>{`.pie-modal-header .close { color: #333; text-shadow: none; opacity: 1; } .pie-modal .modal-content { border-radius: 12px; overflow: hidden; }`}</style>
+        <style>{`.pie-modal-header .close { color: #333; text-shadow: none; opacity: 1; } .pie-modal .modal-content { border-radius: 12px; overflow: hidden; } .pie-modal-header .modal-title { width: 100%; text-align: center; }`}</style>
         <ModalHeader toggle={toggle} className="pie-modal-header" style={{ backgroundColor: '#dbd8d3', color: '#333', borderBottom: '1px solid #bbb' }}>
           Games by System — {total} total
         </ModalHeader>
