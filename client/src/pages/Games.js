@@ -489,7 +489,8 @@ class Games extends Component {
                 sortOption={this.state.sortOption}
                 updateSortOption={this.updateSortOption}
                 amountOfGamesInCollection={this.state.amountOfGamesInCollection}
-                amountOfGamesSorted={this.state.amountOfGamesSorted}/>
+                amountOfGamesSorted={this.state.amountOfGamesSorted}
+                gamesSorted={this.state.gamesSorted}/>
             </div>
         )
     } 
