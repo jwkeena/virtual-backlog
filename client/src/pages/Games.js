@@ -19,7 +19,7 @@ const styles = {
 class Games extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             sortOption: "wishlist",
             customSearch: "",
             gamesSorted: null,
@@ -41,10 +41,13 @@ class Games extends Component {
             switch1: true,
             switch2: false,
             transform: false,
-            vanish: 312
+            vanish: 312,
+            visibleRowStart: 0,
+            visibleRowEnd: 2
         }
         this.loadGames = this.loadGames.bind(this);
         this.updateSortOption = this.updateSortOption.bind(this);
+        this._rafId = null;
     }
 
     componentDidMount () {
@@ -61,6 +64,11 @@ class Games extends Component {
             })
             }
         )
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+        if (this._rafId) cancelAnimationFrame(this._rafId);
     }
 
     loadGames () {
@@ -224,11 +232,27 @@ class Games extends Component {
         })
     }
    
-    handleScroll = () =>{
-        var scrollLocation = window.pageYOffset;   
-        var vanishingPoint = scrollLocation + window.innerHeight / 2;
-        this.setState({vanish:vanishingPoint})
-        }
+    handleScroll = () => {
+        if (this._rafId) return;
+        this._rafId = requestAnimationFrame(() => {
+            this._rafId = null;
+            const scrollLocation = window.pageYOffset;
+            const vanishingPoint = scrollLocation + window.innerHeight / 2;
+            const gamesPerRow = 13;
+            const rowHeight = 450;
+            const bufferRows = 2;
+            const containerOffset = 200;
+            const viewTop = scrollLocation - containerOffset;
+            const viewBottom = scrollLocation + window.innerHeight - containerOffset;
+            const firstVisibleRow = Math.max(0, Math.floor(viewTop / rowHeight) - bufferRows);
+            const lastVisibleRow = Math.ceil(viewBottom / rowHeight) + bufferRows;
+            this.setState({
+                vanish: vanishingPoint,
+                visibleRowStart: firstVisibleRow,
+                visibleRowEnd: lastVisibleRow
+            });
+        });
+    }
     
     handleClick = i => {
         const openBook = this.state.currentGame;
@@ -361,49 +385,57 @@ class Games extends Component {
         });
       }
 
+    isGameVisible = (index) => {
+        const gamesPerRow = 13;
+        const row = Math.floor(index / gamesPerRow);
+        return row >= this.state.visibleRowStart && row <= this.state.visibleRowEnd;
+    }
+
     render () {
       let gamesCount = 12
       let zCounter = 0
-    //   if (zCounter >= 13){
-    //     zCounter = 0
-    //   }
       let negativeC = 7
 
-  
       return (
         <div>
-        <FixedNavbar 
+        <FixedNavbar
             sortOption={this.state.sortOption}
             updateSortOption={this.updateSortOption}
-            loggedIn={this.props.loggedIn} 
+            loggedIn={this.props.loggedIn}
             loadGames={this.loadGames}
             logoutBoolean={this.props.logoutBoolean}
             username={this.props.username}
             allSystemAbbreviations={this.state.allSystemAbbreviations}/>
-        <MDBContainer fluid className= "shelf"> 
-        
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        
-            {(this.state.gamesSorted) ? 
+        <MDBContainer fluid className= "shelf">
 
-            (this.state.gamesSorted.length > 0 ) ? 
-            
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+            {(this.state.gamesSorted) ?
+
+            (this.state.gamesSorted.length > 0 ) ?
+
             <MDBRow>
-                <div 
-                    className='bk-list' 
+                <div
+                    className='bk-list'
                     style={{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
-                    
-                    {this.state.gamesSorted.map((games,i) => 
-                     <Game
+
+                    {this.state.gamesSorted.map((games,i) => {
+                     const zCounterVal = negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --;
+
+                     if (!this.isGameVisible(i) && !this.state.clicked[i]) {
+                         return <li key={games._id} className={'z-index' + zCounterVal} style={{width: 40, height: 400, float: 'left', margin: '0px 0px 50px 1px', position: 'relative'}} />;
+                     }
+
+                     return <Game
                     sharing = {false}
                     username = {this.props.username}
                     loadGames = {this.loadGames}
                     sortOption = {this.state.sortOption}
-                    gameOpen = {this.state.gameOpen} 
+                    gameOpen = {this.state.gameOpen}
                     title = {games.title}
                     system_type = {games.system_type}
                     physical = {games.physical}
@@ -429,7 +461,7 @@ class Games extends Component {
                     switch2 = {this.state.switch2}
                     zIndex = {this.state.zIndex}
                     clicked = {this.state.clicked[i]}
-                    zCounter = {negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC -- }
+                    zCounter = {zCounterVal}
                     negativeC = {negativeC}
                     handleClick = {() => this.handleClick(i)}
                     handlePageLeft = {()=>this.handlePageLeft(i)}
@@ -440,17 +472,17 @@ class Games extends Component {
                     handlePage2 = {()=>this.handlePage2()}
                     handlePage3 = {()=>this.handlePage3()}
                     handlePage4 = {()=>this.handlePage4()}
-                    />)}
+                    />})}
                 </div>
             </MDBRow>
-            : <div style={styles.middle}><span className="pixel-font-large text-secondary">No matching games.</span></div>  
+            : <div style={styles.middle}><span className="pixel-font-large text-secondary">No matching games.</span></div>
             : <div style={styles.middle} ><Spinner size='lg'color="secondary" /></div>
-            } 
-             
+            }
+
             <br/>
             <br/>
             <br/>
-            </MDBContainer> 
+            </MDBContainer>
             <Statistics
                 allTags={this.state.allTags}
                 allSystemAbbreviations={this.state.allSystemAbbreviations}
