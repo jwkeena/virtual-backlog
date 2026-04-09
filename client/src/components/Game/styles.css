@@ -5,13 +5,9 @@ body {
 .bk-list {
 	list-style: none;
 	position: relative;
-	width: 533px !important;
-	/* 13 games * 40px + 13 games * margin (1px) */
+	width: 615px !important;
+	/* 15 games * 40px + 15 games * margin (1px) */
 	margin: 0 auto;
-	-webkit-perspective: 1800px;
-	perspective: 1800px;
-	-webkit-perspective-origin: 50% 20%;
-	perspective-origin: 50% 20%;
 	margin-left: 30vw;
 	
 }
@@ -23,6 +19,8 @@ body {
 	float: left;
 	/* z-index: 0; */
 	margin: 0px 0px 50px 1px;
+	-webkit-perspective: 1800px;
+	perspective: 1800px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }

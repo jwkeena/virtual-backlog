@@ -238,7 +238,7 @@ class Games extends Component {
             this._rafId = null;
             const scrollLocation = window.pageYOffset;
             const vanishingPoint = scrollLocation + window.innerHeight / 2;
-            const gamesPerRow = 13;
+            const gamesPerRow = 15;
             const rowHeight = 450;
             const bufferRows = 2;
             const containerOffset = 200;
@@ -386,7 +386,7 @@ class Games extends Component {
       }
 
     isGameVisible = (index) => {
-        const gamesPerRow = 13;
+        const gamesPerRow = 15;
         const row = Math.floor(index / gamesPerRow);
         return row >= this.state.visibleRowStart && row <= this.state.visibleRowEnd;
     }
@@ -421,7 +421,7 @@ class Games extends Component {
             <MDBRow>
                 <div
                     className='bk-list'
-                    style={{WebkitPerspectiveOriginY:this.state.vanish, Width:533}}>
+                    style={{Width:615}}>
 
                     {this.state.gamesSorted.map((games,i) => {
                      const zCounterVal = negativeC === 0 ? (negativeC = 7) & (zCounter = 1) : zCounter < gamesCount/2 ? (zCounter += 1): gamesCount - zCounter && negativeC --;
